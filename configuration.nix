@@ -56,10 +56,8 @@
     tmux
     debootstrap
     libu2f-host
-    firejail
+    # firejail
   ];
-
-  security.setuidPrograms = [ "firejail" ];
 
   fonts.fontconfig.ultimate.enable = true;
 

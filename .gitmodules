@@ -1,7 +1,7 @@
 [submodule "nixpkgs-channels"]
 	path = nixpkgs
-	url = https://github.com/nixos/nixpkgs-channels
-	branch = nixos-unstable
+	url = https://github.com/NixOS/nixpkgs.git
+	branch = master
 [submodule "nixpkgs-mozilla"]
 	path = nixpkgs-mozilla
 	url = https://github.com/mozilla/nixpkgs-mozilla.git
