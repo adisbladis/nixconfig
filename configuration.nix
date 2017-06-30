@@ -67,7 +67,7 @@
   fonts.fontconfig.ultimate.enable = true;
 
   services = {
-    # tlp.enable = true;
+    tlp.enable = true;
     avahi.enable = true;
     printing.enable = true;
 
@@ -104,6 +104,9 @@
   # Open ports in the firewall.
   networking = {
     firewall.enable = true;
+    # 1714-1764 is KDE connect, 8000 is file serving
+    firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
+    firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
     firewall.allowedTCPPorts = [8000];
     networkmanager.enable = true;
     hostName = "gari-nixos";
