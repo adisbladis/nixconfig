@@ -7,8 +7,8 @@
     pkgs.kdeconnect
     pkgs.youtube-dl
     pkgs.pavucontrol
-    pkgs.browserpass
     pkgs.pass
+    pkgs.browserpass
     pkgs.graphviz
     pkgs.jq
     pkgs.yakuake
@@ -22,6 +22,7 @@
     pkgs.skypeforlinux
     pkgs.spotify
     pkgs.okular
+    (import "/etc/nixos/nixpkgs-mozilla/" {}).firefox-nightly-bin
   ];
 
   services.gpg-agent = {
@@ -76,8 +77,6 @@
     signing.key = "FA75289B489AE1A51BCA18ABED58F95069B004F5";
     signing.signByDefault = true;
   };
-
-  programs.firefox.enable = true;
 
   manual.manpages.enable = false;
 }
