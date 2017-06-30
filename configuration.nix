@@ -15,10 +15,15 @@
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
   fileSystems."/".options = ["noatime" "nodiratime" "discard" "compress=lzo"];
+  fileSystems."/tmp" = {
+    mountPoint = "/tmp";
+    device = "tmpfs";
+    fsType = "tmpfs";
+    options = ["nosuid" "nodev" "relatime"];
+  };
 
   # Wait for this package to mature a bit
-  # boot.kernelPackages = (import "/etc/nixos/nixpkgs" {}).linuxPackages_hardened_copperhead;
-  boot.kernelPackages = (import "/etc/nixos/nixpkgs" {}).linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_hardened_copperhead;
 
   # Use local nixpkgs checkout
   nix.nixPath = [ "/etc/nixos" "nixos-config=/etc/nixos/configuration.nix" ];
@@ -97,11 +102,9 @@
   };
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
   networking = {
-    firewall.enable = false;
+    firewall.enable = true;
+    firewall.allowedTCPPorts = [8000];
     networkmanager.enable = true;
     hostName = "gari-nixos";
   };

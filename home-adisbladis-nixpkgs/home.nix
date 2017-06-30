@@ -1,11 +1,13 @@
 { pkgs, ... }:
 
 {
+
   home.packages = [
     pkgs.gimp
     pkgs.kdeconnect
     pkgs.youtube-dl
     pkgs.pavucontrol
+    pkgs.browserpass
     pkgs.pass
     pkgs.graphviz
     pkgs.jq
@@ -13,7 +15,6 @@
     pkgs.mpv
     pkgs.android-studio
     pkgs.wireshark
-    pkgs.chromium
     pkgs.redshift
     pkgs.acpi
     pkgs.inconsolata
@@ -34,6 +35,9 @@
     extraPackages = epkgs: [
       epkgs.nix-mode
       epkgs.magit
+      pkgs.python36
+      pkgs.python36Packages.jedi
+      pkgs.python36Packages.epc
     ];
   };
 
@@ -46,4 +50,6 @@
   };
 
   programs.firefox.enable = true;
+
+  manual.manpages.enable = false;
 }
