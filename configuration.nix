@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./nixpkgs/nixos/modules/profiles/hardened.nix
     ];
 
   # Use the GRUB 2 boot loader.
@@ -22,8 +23,9 @@
     options = ["nosuid" "nodev" "relatime"];
   };
 
-  # Wait for this package to mature a bit
+  # KSPP kernel
   boot.kernelPackages = pkgs.linuxPackages_hardened_copperhead;
+  security.lockKernelModules = false;  # No wifi with this one enabled
 
   # Use local nixpkgs checkout
   nix.nixPath = [ "/etc/nixos" "nixos-config=/etc/nixos/configuration.nix" ];
@@ -48,7 +50,6 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    # System packages
     gparted
     fish
     gnupg
@@ -61,8 +62,13 @@
     tmux
     debootstrap
     libu2f-host
-    # firejail
+    firejail
   ];
+
+  # Setuid wrappers
+  security.wrappers = {
+    firejail.source = "${pkgs.firejail.out}/bin/firejail";
+  };
 
   fonts.fontconfig.ultimate.enable = true;
 

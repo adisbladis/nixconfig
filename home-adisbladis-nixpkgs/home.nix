@@ -8,7 +8,6 @@
     pkgs.youtube-dl
     pkgs.pavucontrol
     pkgs.pass
-    pkgs.browserpass
     pkgs.graphviz
     pkgs.jq
     pkgs.yakuake
@@ -18,10 +17,13 @@
     pkgs.redshift
     pkgs.acpi
     pkgs.inconsolata
+    pkgs.liberation_ttf
     pkgs.dnsutils
     pkgs.skypeforlinux
     pkgs.spotify
     pkgs.okular
+    pkgs.redshift-plasma-applet
+    pkgs.rustChannels.nightly.rust
     (import "/etc/nixos/nixpkgs-mozilla/" {}).firefox-nightly-bin
   ];
 
@@ -30,6 +32,8 @@
     defaultCacheTtl = 1800;
     enableSshSupport = true;
   };
+
+  programs.browserpass.enable = true;
 
   programs.emacs = {
     enable = true;
@@ -40,6 +44,7 @@
       pkgs.python36
       pkgs.python36Packages.jedi
       pkgs.python36Packages.epc
+      pkgs.python36Packages.virtualenv
       epkgs.jedi
       epkgs.fish-mode
       epkgs.jinja2-mode
@@ -67,6 +72,7 @@
       epkgs.flycheck-mypy
       epkgs.flycheck-rust
       epkgs.smartparens
+      pkgs.emacs-all-the-icons-fonts
     ];
   };
 
