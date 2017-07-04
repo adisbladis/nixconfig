@@ -2,6 +2,18 @@
 
 {
 
+  # Emacs config
+  home.file.".emacs".source = ./dotfiles/emacs/emacs;
+  home.file.".config/emacs/config.org".source = ./dotfiles/emacs/config.org;
+
+  # Fish config
+  home.file.".config/fish/config.fish".source = ./dotfiles/fish/config.fish;
+  home.file.".config/fish/functions/fish_prompt.fish".source = ./dotfiles/fish/functions/fish_prompt.fish;
+  home.file.".config/fish/functions/fish_right_prompt.fish".source = ./dotfiles/fish/functions/fish_right_prompt.fish;
+  home.file.".config/fish/functions/ipython.fish".source = ./dotfiles/fish/functions/ipython.fish;
+  home.file.".config/fish/functions/pcat.fish".source = ./dotfiles/fish/functions/pcat.fish;
+  home.file.".config/fish/functions/pless.fish".source = ./dotfiles/fish/functions/pless.fish;
+
   home.packages = [
     pkgs.gimp
     pkgs.kdeconnect

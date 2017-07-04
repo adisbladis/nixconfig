@@ -1,0 +1,40 @@
+;; Define XDG directories
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
+(setq-default user-emacs-config-directory
+              (concat (getenv "HOME") "/.config/emacs"))
+(setq-default user-emacs-data-directory
+              (concat (getenv "HOME") "/.local/share/emacs"))
+(setq-default user-emacs-cache-directory
+              (concat (getenv "HOME") "/.cache/emacs"))
+
+;; Load config
+(org-babel-load-file (concat user-emacs-config-directory "/config.org"))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#333333" "#ff5f5f" "#87af5f" "#d7875f" "#5fafff" "#d787d7" "#005f87" "#afafaf"])
+ '(custom-safe-themes
+   (quote
+    ("638514eaff3ae9b8d0d137c2ffe7469bda29a91e29380f624fa0dd557b64f17d" "0820d191ae80dcadc1802b3499f84c07a09803f2cb90b343678bdb03d225b26b" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
+ '(notmuch-search-oldest-first nil)
+ '(notmuch-show-logo nil)
+ '(package-selected-packages
+   (quote
+    (handlebars-mode webpaste pkgbuild-mode typescript-mode nix-mode swift-mode notmuch dockerfile-mode android-mode systemd zerodark-theme smartparens flycheck-rust flycheck-mypy flycheck-irony company-irony irony-mode smart-mode-line-powerline-theme spacemacs-theme molokai-theme magit flycheck elpy smart-mode-line nyan-mode jedi color-theme-solarized helm-fuzzier helm-flx helm-projectile helm yaml-mode markdown-mode smooth-scrolling ag company-go company-php company-restclient company-statistics company-flx company web-mode go-mode fish-mode use-package)))
+ '(send-mail-function (quote smtpmail-send-it)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+(put 'downcase-region 'disabled nil)

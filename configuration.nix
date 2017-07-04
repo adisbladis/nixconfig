@@ -125,6 +125,9 @@
     extraGroups = [ "wheel" "networkmanager" ];
     shell = pkgs.fish;
   };
+  users.extraUsers.root = {
+    shell = pkgs.fish;
+  };
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.09";

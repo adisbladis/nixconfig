@@ -1,0 +1,225 @@
+#+TITLE: Adisbladis emacs configuration
+
+* Bootstrap this configuration
+This configuration is designed to follow the [[https://ploum.net/207-modify-your-application-to-use-xdg-folders/][XDG]] guidelines. This means that
+I configure locations for files of quite a lot of things.
+
+To use this configuration of Emacs, save this file in
+=~/.config/emacs/config.org=.
+
+This is a minimal bootstrap which should live in =~/.emacs=:
+#+begin_src emacs-lisp :tangle no
+  ;; Define XDG directories
+  (setq-default user-emacs-config-directory
+                (concat (getenv "HOME") "/.config/emacs"))
+  (setq-default user-emacs-data-directory
+                (concat (getenv "HOME") "/.local/share/emacs"))
+  (setq-default user-emacs-cache-directory
+                (concat (getenv "HOME") "/.cache/emacs"))
+
+  ;; Load config
+  (org-babel-load-file (concat user-emacs-config-directory "/config.org"))
+#+end_src
+
+* General configuration
+** Backup Files
+Unless the =$XGD_DATA_DIR/emacs/backup= directory exists, create it. Then set
+as backup directory.
+
+#+begin_src emacs-lisp :tangle yes
+  (let ((backup-dir (concat user-emacs-data-directory "/backup")))
+    (unless (file-directory-p backup-dir)
+      (mkdir backup-dir t))
+
+    (setq-default backup-directory-alist (cons (cons "." backup-dir) nil)))
+#+end_src
+
+** Ido
+#+begin_src emacs-lisp :tangle yes
+(ido-mode)
+#+end_src
+
+** Lock-files
+Disable creation of lock-files named =.#<filename>=.
+#+begin_src emacs-lisp :tangle yes
+  (setq-default create-lockfiles nil)
+#+end_src
+
+** Theme
+#+begin_src emacs-lisp :tangle yes
+  (load-theme 'zerodark t)
+  (zerodark-setup-modeline-format)
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+#+end_src
+
+** [[https://stackoverflow.com/questions/3984730/emacs-gui-with-emacs-daemon-not-loading-fonts-correctly][Set font]]
+#+begin_src emacs-lisp :tangle yes
+  (add-to-list 'default-frame-alist '(font . "Inconsolata 12"))
+#+end_src
+
+** Basic code style
+#+begin_src emacs-lisp :tangle yes
+  (setq c-basic-indent 4)
+  (setq indent-line-function 'insert-tab)
+  (setq indent-tabs-mode nil)
+  (setq tab-stop-list '(4 8 12 16 20 24 28 32))
+  (setq-default indent-tabs-mode nil)
+  (setq-default tab-width 4)
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+#+end_src
+* Major modes
+** Python jedi completions                                           :python:
+#+begin_src emacs-lisp :tangle yes
+  (add-hook 'python-mode-hook 'jedi:setup)
+  (setq-default jedi:setup-keys t)
+  (setq-default jedi:complete-on-dot t)
+#+end_src
+
+** C/cpp
+#+begin_src emacs-lisp :tangle yes
+;;  (add-hook 'c++-mode-hook 'irony-mode)
+;;  (add-hook 'c-mode-hook 'irony-mode)
+;;  (add-hook 'objc-mode-hook 'irony-mode)
+;;  (eval-after-load 'company
+;;    '(add-to-list 'company-backends 'company-irony))
+#+end_src
+
+** Go mode                                                               :go:
+#+begin_src emacs-lisp :tangle yes
+  (progn
+    (add-hook 'before-save-hook 'gofmt-before-save))
+#+end_src
+
+** Web Mode                                                             :web:
+Install web-mode, set rules for filetypes and indent.
+
+#+begin_src emacs-lisp :tangle yes
+  (progn
+    (setq-default web-mode-markup-indent-offset 4) ; HTML
+    (setq-default web-mode-css-indent-offset 4)    ; CSS
+    (setq-default web-mode-code-indent-offset 4)) ; JS/PHP/etc
+#+end_src
+
+* Utilities                                                           :utils:
+** Git frontend                                                       :magit:
+Install magit, bind =C-x g= to display the main magit popup and bind
+=C-x M-g= to display a magit popup with keybinds used in magit.
+
+#+begin_src emacs-lisp :tangle yes
+  (global-set-key (kbd "C-x g") 'magit-status) ; Display the main magit popup
+  (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup) ; Display keybinds for magit
+#+end_src
+
+** Autocomplete                                                     :company:
+#+begin_src emacs-lisp :tangle yes
+  (progn
+    (setq-default company-tooltip-minimum-width 15)
+      (setq-default company-idle-delay 0.1)
+      (global-company-mode))
+#+end_src
+
+*** Fuzzy Matching                                                      :flx:
+#+begin_src emacs-lisp :tangle yes
+  (progn
+    (with-eval-after-load 'company
+      (company-flx-mode +1)))
+#+end_src
+
+*** Statistics for completions
+#+begin_src emacs-lisp :tangle yes
+  (progn
+    (setq-default company-statistics-file
+                    (concat user-emacs-data-directory
+                            "/company-statistics.dat"))
+      (company-statistics-mode))
+#+end_src
+
+*** go                                                                   :go:
+Utilizes the program =gocode= as backend. Available in AUR as =gocode-git=.
+
+#+begin_src emacs-lisp :tangle yes
+  (add-hook 'go-mode-hook
+    (lambda ()
+      (unless (executable-find "gocode")
+        (error "Program: gocode is missing"))
+                  (set (make-local-variable 'company-backends) '(company-go))
+                  (company-mode t)))
+#+end_src
+
+** Flexible ido matching                                            :flx:ido:
+Load ido-mode with flx for flexible matching. Also move the history file to
+=$XGD_DATA_DIR/emacs/ido.dat=.
+
+#+begin_src emacs-lisp :tangle no
+  (progn
+    ;; Flexible matching
+    (setq-default ido-enable-flex-matching t)
+
+    ;; Load ido-mode
+    (ido-mode 1)
+    (ido-everywhere 1)
+    (flx-ido-mode 1)
+
+    ;; History file
+    (setq-default ido-save-directory-list-file
+                  (concat user-emacs-data-directory "/ido.dat"))
+
+    ;; Always open files in current frame
+    (setq-default ido-default-file-method 'selected-window)
+
+    ;; Always switch to buffers in current frame
+    (setq-default ido-default-buffer-method 'selected-window)
+    (ido-mode))
+#+end_src
+
+** Smooth scrolling                                        :smooth:scrolling:
+This package makes Emacs scroll before cursor reach top or bottom which makes
+scrolling smoother.
+
+#+begin_src emacs-lisp :tangle yes
+  (progn
+    (setq-default smooth-scroll-margin 2))
+#+end_src
+
+** Fancy search                                                      :swiper:
+TODO
+#+begin_src emacs-lisp :tangle yes
+  (global-set-key (kbd "C-s") 'swiper)
+  (global-set-key (kbd "C-r") 'swiper)
+  (progn
+    (setq-default ivy-use-virtual-buffers t))
+#+end_src
+
+** webpaste                                                           :paste:
+Paste whole buffers or parts of buffers to the internet.
+
+#+begin_src emacs-lisp :tangle yes
+  (global-set-key (kbd "C-c C-p C-b") 'webpaste-paste-buffer)
+  (global-set-key (kbd "C-c C-p C-r") 'webpaste-paste-region)
+#+end_src
+
+** Smart-mode-line
+#+begin_src emacs-lisp :tangle yes
+  (progn
+    (setq sml/theme 'powerline)
+    (setq sml/no-confirm-load-theme t)
+    (sml/setup))
+#+end_src
+
+** Syntax checking and linting                                     :flycheck:...
+#+begin_src emacs-lisp :tangle yes
+  (global-flycheck-mode)
+#+end_src
+** Nicer handling of parens                                      :smartparen:...
+#+begin_src emacs-lisp :tangle yes
+  (progn
+    (add-hook 'js-mode-hook #'smartparens-mode)
+    (add-hook 'html-mode-hook #'smartparens-mode)
+    (add-hook 'python-mode-hook #'smartparens-mode)
+    (add-hook 'lua-mode-hook #'smartparens-mode)
+    (add-hook 'ruby-mode-hook #'smartparens-mode)
+    (add-hook 'rust-mode-hook #'smartparens-mode))
+
+#+end_src
