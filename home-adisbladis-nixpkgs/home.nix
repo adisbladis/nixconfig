@@ -14,6 +14,9 @@
   home.file.".config/fish/functions/pcat.fish".source = ./dotfiles/fish/functions/pcat.fish;
   home.file.".config/fish/functions/pless.fish".source = ./dotfiles/fish/functions/pless.fish;
 
+  home.file.".config/pulse/daemon.conf".source = ./dotfiles/pulse/daemon.conf;
+  home.file.".config/mpv/mpv.conf".source = ./dotfiles/mpv/mpv.conf;
+
   home.packages = [
     pkgs.gimp
     pkgs.kdeconnect
