@@ -27,6 +27,9 @@
   boot.kernelPackages = pkgs.linuxPackages_hardened_copperhead;
   security.lockKernelModules = false;  # No wifi with this one enabled
 
+  # The hardened profile is too strict with user namespaces, these are needed for firejail
+  boot.kernel.sysctl."user.max_user_namespaces" = 46806;
+
   # Use local nixpkgs checkout
   nix.nixPath = [ "/etc/nixos" "nixos-config=/etc/nixos/configuration.nix" ];
 
@@ -73,7 +76,14 @@
   fonts.fontconfig.ultimate.enable = true;
 
   services = {
-    tlp.enable = true;
+    tlp = {
+      enable = true;
+      extraConfig = ''
+        DISK_DEVICES="sda"
+        DISK_IOSCHED="noop"
+      '';
+    };
+
     avahi.enable = true;
     printing.enable = true;
 
