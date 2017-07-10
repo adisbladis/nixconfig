@@ -31,6 +31,7 @@
     pkgs.wireshark
     pkgs.redshift
     pkgs.acpi
+    pkgs.sshfs-fuse
     pkgs.inconsolata
     pkgs.liberation_ttf
     pkgs.dnsutils
