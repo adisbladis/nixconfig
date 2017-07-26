@@ -1,9 +1,9 @@
 [submodule "nixpkgs-channels"]
 	path = nixpkgs
-	url = https://github.com/NixOS/nixpkgs.git
+	url = https://github.com/adisbladis/nixpkgs.git
 	branch = master
 [submodule "nixpkgs-mozilla"]
-	path = nixpkgs-mozilla
+	path = overlays/nixpkgs-mozilla
 	url = https://github.com/mozilla/nixpkgs-mozilla.git
 [submodule "home-adisbladis-nixpkgs/home-manager"]
 	path = home-adisbladis-nixpkgs/home-manager

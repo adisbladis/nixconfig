@@ -1,7 +1,6 @@
 { pkgs, ... }:
 
 {
-
   # Emacs config
   home.file.".emacs".source = ./dotfiles/emacs/emacs;
   home.file.".config/emacs/config.org".source = ./dotfiles/emacs/config.org;
@@ -17,39 +16,11 @@
   home.file.".config/pulse/daemon.conf".source = ./dotfiles/pulse/daemon.conf;
   home.file.".config/mpv/mpv.conf".source = ./dotfiles/mpv/mpv.conf;
 
-  home.packages = [
-    pkgs.gimp
-    pkgs.kdeconnect
-    pkgs.youtube-dl
-    pkgs.pavucontrol
-    pkgs.pass
-    pkgs.graphviz
-    pkgs.jq
-    pkgs.yakuake
-    pkgs.mpv
-    pkgs.android-studio
-    pkgs.wireshark
-    pkgs.redshift
-    pkgs.acpi
-    pkgs.sshfs-fuse
-    pkgs.inconsolata
-    pkgs.liberation_ttf
-    pkgs.dnsutils
-    pkgs.skypeforlinux
-    pkgs.spotify
-    pkgs.okular
-    pkgs.redshift-plasma-applet
-    pkgs.rustChannels.nightly.rust
-    (import "/etc/nixos/nixpkgs-mozilla/" {}).firefox-nightly-bin
-  ];
-
   services.gpg-agent = {
     enable = true;
     defaultCacheTtl = 1800;
     enableSshSupport = true;
   };
-
-  programs.browserpass.enable = true;
 
   programs.emacs = {
     enable = true;
@@ -69,13 +40,13 @@
       epkgs.rust-mode
       epkgs.android-mode
       epkgs.markdown-mode
-      epkgs.go-mode
+      # epkgs.go-mode
       epkgs.yaml-mode
       epkgs.web-mode
       epkgs.company
       epkgs.company-flx
       epkgs.company-statistics
-      epkgs.company-go
+      # epkgs.company-go
       epkgs.ag
       epkgs.flx-ido
       epkgs.smooth-scrolling
@@ -88,7 +59,6 @@
       epkgs.flycheck-mypy
       epkgs.flycheck-rust
       epkgs.smartparens
-      pkgs.emacs-all-the-icons-fonts
     ];
   };
 

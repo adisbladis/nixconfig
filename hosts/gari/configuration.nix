@@ -1,0 +1,55 @@
+# Edit this configuration file to define what should be installed on
+# your system.  Help is available in the configuration.nix(5) man page
+# and in the NixOS manual (accessible by running ‘nixos-help’).
+
+{ config, pkgs, ... }:
+
+{
+  imports =
+    [ # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+      ../../profiles/common.nix
+      ../../profiles/graphical-desktop.nix
+    ];
+
+  networking.hostName = "gari-nixos";
+    
+  environment.systemPackages = with pkgs; [
+    acpi
+  ];
+
+  services.tlp.enable = true;
+  services.tlp.extraConfig = ''
+    DISK_DEVICES="sda"
+    DISK_IOSCHED="noop"
+  '';
+
+  services.xserver.synaptics.enable = true;
+  services.xserver.synaptics.additionalOptions = ''
+    Option "SoftButtonAreas" "50% 0 82% 0 0 0 0 0"
+	Option "SecondarySoftButtonAreas" "58% 0 0 15% 42% 58% 0 15%"
+	Option "LeftEdge"		      "1"
+	Option "RightEdge"			"2"
+	Option "VertEdgeScroll"				"1"
+	Option "AreaTopEdge"					"2500"
+  '';
+  services.xserver.videoDrivers = ["intel" "modesetting"];
+
+  hardware = {
+    cpu.intel.updateMicrocode = true;
+    pulseaudio.enable = true;
+    trackpoint.enable = true;
+  };
+    
+  # Use the GRUB 2 boot loader.
+  boot.loader.grub.enable = true;
+  boot.loader.grub.version = 2;
+  boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
+  fileSystems."/".options = ["noatime" "nodiratime" "discard" "compress=lzo"];
+  fileSystems."/tmp" = {
+    mountPoint = "/tmp";
+    device = "tmpfs";
+    fsType = "tmpfs";
+    options = ["nosuid" "nodev" "relatime"];
+  };
+}
