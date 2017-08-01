@@ -10,21 +10,10 @@
       ./hardware-configuration.nix
       ../../profiles/common.nix
       ../../profiles/graphical-desktop.nix
+      ../../profiles/laptop.nix
     ];
 
   networking.hostName = "gari-nixos";
-    
-  environment.systemPackages = with pkgs; [
-    acpi
-  ];
-
-  services.tlp.enable = true;
-  services.tlp.extraConfig = ''
-    DISK_DEVICES="sda"
-    DISK_IOSCHED="noop"
-  '';
-
-  services.xserver.synaptics.enable = true;
   services.xserver.synaptics.additionalOptions = ''
     Option "SoftButtonAreas" "50% 0 82% 0 0 0 0 0"
 	Option "SecondarySoftButtonAreas" "58% 0 0 15% 42% 58% 0 15%"
@@ -34,17 +23,12 @@
 	Option "AreaTopEdge"					"2500"
   '';
   services.xserver.videoDrivers = ["intel" "modesetting"];
-
-  hardware = {
-    cpu.intel.updateMicrocode = true;
-    pulseaudio.enable = true;
-    trackpoint.enable = true;
-  };
+  hardware.cpu.intel.updateMicrocode = true;
     
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
-  boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
+  boot.loader.grub.device = "/dev/disk/by-id/ata-INTEL_SSDSC2BW480A3L_CVCV316405HA480DGN"; # or "nodev" for efi only
   fileSystems."/".options = ["noatime" "nodiratime" "discard" "compress=lzo"];
   fileSystems."/tmp" = {
     mountPoint = "/tmp";

@@ -3,7 +3,8 @@
 with lib;
 
 {
-  imports = [ ../nixpkgs/nixos/modules/profiles/hardened.nix ];
+  # imports = [ ./hardening.nix ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.09";
@@ -13,15 +14,7 @@ with lib;
     "/etc/nixos"
     "nixos-config=/etc/nixos/configuration.nix"
   ];
-
   nix.useSandbox = true;
-
-  # KSPP kernel
-  boot.kernelPackages = pkgs.linuxPackages_hardened_copperhead;
-  security.lockKernelModules = false;  # No wifi with this one enabled
-  # The hardened profile is too strict with user namespaces
-  # These are needed for firejail and other containment tools
-  boot.kernel.sysctl."user.max_user_namespaces" = 46806;
 
   time.timeZone = "Asia/Hong_Kong";
 
@@ -30,6 +23,8 @@ with lib;
     consoleKeyMap = "dvorak-sv-a1";
     defaultLocale = "en_US.UTF-8";
   };
+
+  programs.fish.enable = true;
 
   environment.systemPackages = with pkgs; [
     fish
@@ -54,5 +49,9 @@ with lib;
     uid = 1000;
     extraGroups = [ "wheel" "networkmanager" ];
     shell = pkgs.fish;
+
+    openssh.authorizedKeys.keys = [
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCTrw8gZoBYkh4Ud8/QCXAaJk020XMbRlcu61QPTnpjvLLxAwSr3d+K7ccDal9FaSQg0GBx58aVRcdVoFBFmHbX6iqR6OT2hoenbxRfVa69DaY6w/eIY5seQ0Xzio8PsX2Cc4IPdM3XqlpTLhQ2+/kNnDC9/NYs2UX6r318uHrHPW5hs6rFPxvekcel56Vy1LKrMb5EgLwOFuhqegKpuZl6Dw39HHAIi0+cVCqc+eP8SmgdcYCm7CjLXU4mV8BwIMx/8TSDravJhnRLYX+S+BFUA3sXTeg1xzUKhFTE3lF4MJTNB613bcygX4HLXcG0YJ/6CDLBVey0xCfyKSbc18nlhRzuePzU8yYL8TRVoMJrEEurq8ZrkxX+lFs83CnFq4epH3vdz+Y6Q8foTVEF0XECgJ08MElXZRFRA5iWvO4S2PQLqn8LKRVxbF6NV34IrchCQavirZCv01FKRYfbpiNSzGLxKn2qvHDiYeqLV8gqj6wgO+DF8w6DsJcEUO3qiUDpbfXMCU8S5HgwVB7oOh+0g0Gq81HmjX0/a2WhuhbwC1Glt+gyLCLd/2RTRIetMymT8kZ61izVVNh0PeAoy4d2DpcKdmaK8CNjZ1/8c9a4Pxzg1HIHlPEyKf9NZ+TlGlUjmTEVOefxAWBVpQuwqEsOF1BkG9tDZsPQdcMhZbtvYQ== cardno:000605255225"
+    ];
   };
 }

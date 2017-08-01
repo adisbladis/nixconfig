@@ -14,6 +14,8 @@
     inconsolata    
   ];
 
+  hardware.pulseaudio.enable = true;
+
   environment.systemPackages = with pkgs; [
     libu2f-host
     okular
@@ -30,7 +32,7 @@
     firejail
     graphviz
     emacs-all-the-icons-fonts
-    firefox
+    firefox-beta-bin
     # Requires unfree
     spotify
     android-studio
@@ -38,7 +40,6 @@
 
   security.wrappers = {
     firejail.source = "${pkgs.firejail.out}/bin/firejail";
-    android-studio.source = "${pkgs.android-studio.out}/bin/android-studio";
   };
 
   services.avahi.enable = true;
