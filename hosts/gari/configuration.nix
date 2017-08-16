@@ -13,7 +13,12 @@
       ../../profiles/laptop.nix
     ];
 
+  boot.initrd.supportedFilesystems = ["zfs"];
+  boot.supportedFilesystems = ["ext4" "btrfs" "zfs"];
+
   networking.hostName = "gari-nixos";
+  networking.hostId = "a8c06608";
+  
   services.xserver.synaptics.additionalOptions = ''
     Option "SoftButtonAreas" "50% 0 82% 0 0 0 0 0"
 	Option "SecondarySoftButtonAreas" "58% 0 0 15% 42% 58% 0 15%"

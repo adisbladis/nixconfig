@@ -1,3 +1,3 @@
 function pless
-	pygmentize $argv  | less
+	pcat $argv | less
 end

@@ -11,7 +11,7 @@
 
   fonts.fonts = with pkgs; [
     liberation_ttf
-    inconsolata    
+    inconsolata
   ];
 
   hardware.pulseaudio.enable = true;
@@ -38,12 +38,22 @@
     android-studio
   ];
 
+  programs.adb.enable = true;
+
   security.wrappers = {
     firejail.source = "${pkgs.firejail.out}/bin/firejail";
   };
 
+  services.udev.extraRules = ''
+    # Meizu Pro 5
+    SUBSYSTEM=="usb", ATTR{idVendor}=="2a45", MODE="0666", GROUP="adbusers"
+  '';
+
   services.avahi.enable = true;
+
   services.printing.enable = true;
+  services.printing.drivers = [ pkgs.gutenprint ];
+
   services.pcscd.enable = true;
   services.udev.packages = [ pkgs.libu2f-host ];
   services.xserver.enable = true;
@@ -63,6 +73,7 @@
   networking.firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
   networking.firewall.allowedTCPPorts = [8000];
   networking.networkmanager.enable = true;
+  services.unbound.enable = true;
 
-  users.extraUsers.adisbladis.extraGroups = [ "wheel" "networkmanager" ];
+  users.extraUsers.adisbladis.extraGroups = [ "wheel" "networkmanager" "adbusers" ];
 }
