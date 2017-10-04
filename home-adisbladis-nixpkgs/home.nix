@@ -11,6 +11,8 @@
   home.file.".config/fish/functions/ipython.fish".source = ./dotfiles/fish/functions/ipython.fish;
   home.file.".config/fish/functions/pcat.fish".source = ./dotfiles/fish/functions/pcat.fish;
   home.file.".config/fish/functions/pless.fish".source = ./dotfiles/fish/functions/pless.fish;
+  home.file.".config/fish/functions/wgetpaste.fish".source = ./dotfiles/fish/functions/wgetpaste.fish;
+  home.file.".config/fish/config.fish".source = ./dotfiles/fish/config.fish;
 
   home.file.".config/pulse/daemon.conf".source = ./dotfiles/pulse/daemon.conf;
   home.file.".config/mpv/mpv.conf".source = ./dotfiles/mpv/mpv.conf;
@@ -23,9 +25,6 @@
 
   home.sessionVariables.EDITOR = "emacs";
   home.sessionVariables.LESS = "-R";
-  home.sessionVariables.BLAH = "a";
-  programs.fish.enable = true;
-  programs.fish.enableGreeting = false;
 
   programs.emacs = {
     enable = true;

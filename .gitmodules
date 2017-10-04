@@ -5,3 +5,6 @@
 [submodule "home-adisbladis-nixpkgs/home-manager"]
 	path = home-adisbladis-nixpkgs/home-manager
 	url = https://github.com/rycee/home-manager
+[submodule "overlays/nixpkgs-mozilla"]
+	path = overlays/nixpkgs-mozilla
+	url = https://github.com/mozilla/nixpkgs-mozilla.git

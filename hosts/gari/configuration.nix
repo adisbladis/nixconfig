@@ -14,22 +14,23 @@
     ];
 
   boot.initrd.supportedFilesystems = ["zfs"];
+  boot.zfs.enableUnstable = true;
   boot.supportedFilesystems = ["ext4" "btrfs" "zfs"];
 
   networking.hostName = "gari-nixos";
   networking.hostId = "a8c06608";
-  
+
   services.xserver.synaptics.additionalOptions = ''
-    Option "SoftButtonAreas" "50% 0 82% 0 0 0 0 0"
+   Option "SoftButtonAreas" "50% 0 82% 0 0 0 0 0"
 	Option "SecondarySoftButtonAreas" "58% 0 0 15% 42% 58% 0 15%"
 	Option "LeftEdge"		      "1"
 	Option "RightEdge"			"2"
 	Option "VertEdgeScroll"				"1"
 	Option "AreaTopEdge"					"2500"
-  '';
+ '';
   services.xserver.videoDrivers = ["intel" "modesetting"];
   hardware.cpu.intel.updateMicrocode = true;
-    
+
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;

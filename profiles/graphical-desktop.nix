@@ -19,11 +19,14 @@
   environment.systemPackages = with pkgs; [
     libu2f-host
     okular
-    redshift-plasma-applet
+    # redshift-plasma-applet
     pavucontrol
     kdeconnect
+    gwenview
     gimp
     youtube-dl
+    zip
+    unrar
     pass
     mpv
     yakuake
@@ -33,8 +36,8 @@
     graphviz
     emacs-all-the-icons-fonts
     firefox-beta-bin
+    transmission_gtk
     # Requires unfree
-    spotify
     android-studio
   ];
 
@@ -65,6 +68,7 @@
   services.xserver.displayManager.sddm.autoLogin.enable = true;
   services.xserver.displayManager.sddm.autoLogin.user = "adisbladis";
 
+  environment.variables.QT_PLUGIN_PATH = [ "${pkgs.plasma-desktop}/lib/qt-5.9/plugins/kcms" ];
   services.xserver.desktopManager.plasma5.enable = true;
   services.xserver.desktopManager.xterm.enable = false;
 

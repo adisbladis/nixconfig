@@ -39,6 +39,7 @@ with lib;
     jq
     sshfs-fuse
     dnsutils
+    file
   ];
 
   networking.firewall.enable = true;
