@@ -1,6 +1,8 @@
 { stdenv, pkgs, ... }:
 
 {
+  imports = [ ./tkssh.nix ];
+
   nixpkgs.config.allowUnfree = true;
 
   # Sane font defaults
@@ -8,10 +10,6 @@
   fonts.enableGhostscriptFonts = true;
   fonts.fontconfig.ultimate.enable = true;
   fonts.fontconfig.ultimate.preset = "osx";
-
-  nixpkgs.overlays = [
-    (import ../overlays/nixpkgs-trustedkey/default.nix)
-  ];
 
   fonts.fonts = with pkgs; [
     liberation_ttf
@@ -43,9 +41,9 @@
     transmission_gtk
     # Requires unfree
     android-studio
-    tk-ssh-agent
-    tk-ssh-authkeys
   ];
+
+  # services.tk-ssh-agent.enable = true;
 
   programs.adb.enable = true;
 
