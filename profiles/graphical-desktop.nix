@@ -9,6 +9,10 @@
   fonts.fontconfig.ultimate.enable = true;
   fonts.fontconfig.ultimate.preset = "osx";
 
+  nixpkgs.overlays = [
+    (import ../overlays/nixpkgs-trustedkey/default.nix)
+  ];
+
   fonts.fonts = with pkgs; [
     liberation_ttf
     inconsolata
@@ -39,6 +43,8 @@
     transmission_gtk
     # Requires unfree
     android-studio
+    tk-ssh-agent
+    tk-ssh-authkeys
   ];
 
   programs.adb.enable = true;

@@ -8,3 +8,6 @@
 [submodule "overlays/nixpkgs-mozilla"]
 	path = overlays/nixpkgs-mozilla
 	url = https://github.com/mozilla/nixpkgs-mozilla.git
+[submodule "overlays/nixpkgs-trustedkey"]
+	path = overlays/nixpkgs-trustedkey
+	url = https://github.com/trustedkey/nixpkgs-trustedkey.git
