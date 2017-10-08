@@ -36,6 +36,7 @@
     redshift
     firejail
     graphviz
+    kate
     emacs-all-the-icons-fonts
     firefox-beta-bin
     transmission_gtk

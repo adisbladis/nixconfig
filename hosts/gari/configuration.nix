@@ -28,7 +28,7 @@
 	Option "VertEdgeScroll"				"1"
 	Option "AreaTopEdge"					"2500"
  '';
-  services.xserver.videoDrivers = ["intel" "modesetting"];
+  services.xserver.videoDrivers = ["modesetting"];
   hardware.cpu.intel.updateMicrocode = true;
 
   # Use the GRUB 2 boot loader.
