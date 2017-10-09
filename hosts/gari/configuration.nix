@@ -35,7 +35,7 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/disk/by-id/ata-INTEL_SSDSC2BW480A3L_CVCV316405HA480DGN"; # or "nodev" for efi only
-  fileSystems."/".options = ["noatime" "nodiratime" "discard" "compress=lzo"];
+  fileSystems."/".options = ["noatime" "nodiratime"];
   fileSystems."/tmp" = {
     mountPoint = "/tmp";
     device = "tmpfs";
