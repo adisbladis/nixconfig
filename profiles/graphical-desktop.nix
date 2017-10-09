@@ -28,6 +28,7 @@
     gimp
     youtube-dl
     zip
+    filelight
     unrar
     pass
     mpv
@@ -44,8 +45,6 @@
     android-studio
   ];
 
-  # services.tk-ssh-agent.enable = true;
-
   programs.adb.enable = true;
 
   security.wrappers = {
@@ -55,6 +54,10 @@
   services.udev.extraRules = ''
     # Meizu Pro 5
     SUBSYSTEM=="usb", ATTR{idVendor}=="2a45", MODE="0666", GROUP="adbusers"
+
+    # Ledger nano S
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2c97", ATTRS{idProduct}=="0001", MODE="0660", TAG+="uaccess", TAG+="udev-acl"
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="adbusers", ATTRS{idVendor}=="2c97"
   '';
 
   services.avahi.enable = true;
