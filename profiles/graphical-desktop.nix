@@ -18,6 +18,8 @@
 
   hardware.pulseaudio.enable = true;
 
+  programs.simpleserver.enable = true;
+
   environment.systemPackages = with pkgs; [
     libu2f-host
     okular

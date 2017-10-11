@@ -16,6 +16,14 @@ with lib;
   ];
   nix.useSandbox = true;
 
+  # Local overlays
+  nixpkgs.overlays = [
+    (import ../overlays/local/pkgs/default.nix)
+  ];
+  imports = [
+    ../overlays/local/modules/default.nix
+  ];
+
   time.timeZone = "Asia/Hong_Kong";
 
   i18n = {
