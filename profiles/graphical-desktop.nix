@@ -1,6 +1,12 @@
-{ stdenv, pkgs, ... }:
+{ stdenv, pkgs, lib, ... }:
 
-{
+let
+  jailWrap = program: pkgs.writeScript "jailed" ''
+    #!/usr/bin/env sh
+    exec firejail --quiet "${program}" $@
+  '';
+
+in {
   imports = [ ./tkssh.nix ];
 
   nixpkgs.config.allowUnfree = true;
@@ -22,35 +28,48 @@
 
   environment.systemPackages = with pkgs; [
     libu2f-host
-    okular
-    # redshift-plasma-applet
     pavucontrol
     kdeconnect
     gwenview
-    gimp
-    youtube-dl
     zip
     filelight
-    unrar
     pass
-    mpv
     yakuake
-    wireshark
     redshift
-    firejail
     graphviz
-    kate
     emacs-all-the-icons-fonts
-    firefox-beta-bin
-    transmission_gtk
-    # Requires unfree
     android-studio
+
+    # KDE crypto
+    plasma5.plasma-vault
+
+    # Needs to be present both in security.wrappers and systemPackages for desktop files
+    transmission_gtk
+    firefox-beta-bin
+    wireshark
+    spotify
+    okular
+    gimp
+    kate
   ];
 
   programs.adb.enable = true;
 
-  security.wrappers = {
-    firejail.source = "${pkgs.firejail.out}/bin/firejail";
+  security.wrappers = with pkgs; {
+    firejail.source = "${firejail.out}/bin/firejail";
+    firefox.source = jailWrap "${firefox-beta-bin.out}/bin/firefox";
+    transmission-gtk.source = jailWrap "${transmission_gtk.out}/bin/transmission-gtk";
+    youtube-dl.source = jailWrap "${youtube-dl.out}/bin/youtube-dl";
+    spotify.source = jailWrap "${spotify.out}/bin/spotify";
+    gimp.source = jailWrap "${gimp.out}/bin/gimp";
+    unrar.source = jailWrap "${unrar.out}/bin/unrar";
+    wireshark.source = jailWrap "${wireshark.out}/bin/wireshark";
+    kate.source = jailWrap "${kate.out}/bin/kate";
+    mpv.source = jailWrap "${mpv.out}/bin/mpv";
+    okular.source = jailWrap "${okular.out}/bin/okular";
+    arduino.source = jailWrap "${arduino.out}/bin/arduino";
+    darktable.source = jailWrap "${darktable.out}/bin/darktable";
+    gwenview.source = jailWrap "${gwenview.out}/bin/gwenview";
   };
 
   services.udev.extraRules = ''
