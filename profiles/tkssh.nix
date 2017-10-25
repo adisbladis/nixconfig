@@ -1,3 +1,5 @@
+{ pkgs, ...}:
+
 {
   # To install packages in systemPackages
   nixpkgs.overlays = [
@@ -10,4 +12,8 @@
   ];
 
   services.tk-ssh-agent.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    tk-ssh-authkeys
+  ];
 }

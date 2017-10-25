@@ -22,9 +22,9 @@ in {
     inconsolata
   ];
 
-  hardware.pulseaudio.enable = true;
+  virtualisation.virtualbox.host.enable = true;
 
-  programs.simpleserver.enable = true;
+  hardware.pulseaudio.enable = true;
 
   environment.systemPackages = with pkgs; [
     libu2f-host
@@ -40,9 +40,6 @@ in {
     emacs-all-the-icons-fonts
     android-studio
 
-    # KDE crypto
-    plasma5.plasma-vault
-
     # Needs to be present both in security.wrappers and systemPackages for desktop files
     transmission_gtk
     firefox-beta-bin
@@ -53,6 +50,7 @@ in {
     kate
   ];
 
+  programs.simpleserver.enable = true;
   programs.adb.enable = true;
 
   security.wrappers = with pkgs; {

@@ -70,6 +70,13 @@ Disable creation of lock-files named =.#<filename>=.
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+end_src
 * Major modes
+** Plantuml
+#+begin_src emacs-lisp :tangle yes
+(add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+(add-to-list 'auto-mode-alist '("\\.puml\\'" . plantuml-mode))
+(setq plantuml-jar-path (getenv "PLANTUML_JAR"))
+#+end_src
+
 ** Python jedi completions                                           :python:
 #+begin_src emacs-lisp :tangle yes
   (add-hook 'python-mode-hook 'jedi:setup)

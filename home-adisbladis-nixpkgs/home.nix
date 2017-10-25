@@ -19,7 +19,6 @@
 
   services.gpg-agent = {
     enable = true;
-    defaultCacheTtl = 1800;
     enableSshSupport = true;
   };
 
@@ -47,12 +46,17 @@
         pkgs.nodePackages.eslint
 
         # Golang
+        pkgs.go  # gofmt
         pkgs.gocode
         pkgs.golint
+
+        pkgs.openjdk
+        pkgs.graphviz
+        pkgs.plantuml
       ] ++ pythonEmacsPackages);
 
       postFixup = ''
-        wrapProgram $out/bin/emacs --set PYTHONPATH $PYTHONPATH --prefix PATH : "${wrapperPath}"
+        wrapProgram $out/bin/emacs --set PLANTUML_JAR ${pkgs.plantuml}/lib/plantuml.jar --set PYTHONPATH $PYTHONPATH --prefix PATH : "${wrapperPath}"
       '';
 
     });
@@ -62,6 +66,7 @@
       epkgs.magit
       epkgs.zerodark-theme
       epkgs.jedi
+      epkgs.plantuml-mode
       epkgs.fish-mode
       epkgs.jinja2-mode
       epkgs.lua-mode
