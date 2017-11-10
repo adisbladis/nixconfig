@@ -3,7 +3,7 @@
 let
   jailWrap = program: pkgs.writeScript "jailed" ''
     #!/usr/bin/env sh
-    exec firejail --quiet "${program}" $@
+    exec firejail --quiet "${program}" "$@"
   '';
 
 in {
@@ -38,11 +38,11 @@ in {
     redshift
     graphviz
     emacs-all-the-icons-fonts
-    android-studio
+    unzip
 
     # Needs to be present both in security.wrappers and systemPackages for desktop files
     transmission_gtk
-    firefox-beta-bin
+    firefox-devedition-bin
     wireshark
     spotify
     okular
@@ -55,15 +55,14 @@ in {
 
   security.wrappers = with pkgs; {
     firejail.source = "${firejail.out}/bin/firejail";
-    firefox.source = jailWrap "${firefox-beta-bin.out}/bin/firefox";
+    # firefox.source = jailWrap "${firefox-devedition-bin.out}/bin/firefox";
     transmission-gtk.source = jailWrap "${transmission_gtk.out}/bin/transmission-gtk";
     youtube-dl.source = jailWrap "${youtube-dl.out}/bin/youtube-dl";
-    spotify.source = jailWrap "${spotify.out}/bin/spotify";
+    mpv.source = jailWrap "${mpv.out}/bin/mpv";
     gimp.source = jailWrap "${gimp.out}/bin/gimp";
     unrar.source = jailWrap "${unrar.out}/bin/unrar";
     wireshark.source = jailWrap "${wireshark.out}/bin/wireshark";
     kate.source = jailWrap "${kate.out}/bin/kate";
-    mpv.source = jailWrap "${mpv.out}/bin/mpv";
     okular.source = jailWrap "${okular.out}/bin/okular";
     arduino.source = jailWrap "${arduino.out}/bin/arduino";
     darktable.source = jailWrap "${darktable.out}/bin/darktable";

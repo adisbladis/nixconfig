@@ -45,6 +45,8 @@
         # Javascript
         pkgs.nodePackages.eslint
 
+        # Password management
+
         # Golang
         pkgs.go  # gofmt
         pkgs.gocode
@@ -62,6 +64,8 @@
     });
 
     extraPackages = epkgs: [
+      epkgs.pass
+      epkgs.exwm
       epkgs.nix-mode
       epkgs.magit
       epkgs.zerodark-theme

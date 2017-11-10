@@ -52,6 +52,8 @@ with lib;
 
   networking.firewall.enable = true;
 
+  services.haveged.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.adisbladis = {
     isNormalUser = true;
