@@ -13,12 +13,17 @@
       ../../profiles/laptop.nix
     ];
 
+  boot.kernelPackages = pkgs.linuxPackages_4_13;
+
   boot.initrd.supportedFilesystems = ["zfs"];
   boot.zfs.enableUnstable = true;
   boot.supportedFilesystems = ["ext4" "btrfs" "zfs"];
 
   networking.hostName = "gari-nixos";
   networking.hostId = "a8c06608";
+
+  virtualisation.docker.enable = true;
+  nixpkgs.config.allowBroken = true;
 
   services.xserver.synaptics.additionalOptions = ''
    Option "SoftButtonAreas" "50% 0 82% 0 0 0 0 0"
