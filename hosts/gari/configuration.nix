@@ -4,7 +4,10 @@
 
 { config, pkgs, ... }:
 
-{
+let
+  nvidiaDriver = "nvidia";
+
+in {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -13,33 +16,37 @@
       ../../profiles/laptop.nix
     ];
 
+  # Use the systemd-boot EFI boot loader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
   boot.kernelPackages = pkgs.linuxPackages_4_13;
 
-  boot.initrd.supportedFilesystems = ["zfs"];
-  boot.zfs.enableUnstable = true;
-  boot.supportedFilesystems = ["ext4" "btrfs" "zfs"];
-
-  networking.hostName = "gari-nixos";
-  networking.hostId = "a8c06608";
-
-  virtualisation.docker.enable = true;
-  nixpkgs.config.allowBroken = true;
-
+  services.xserver.synaptics.enable = true;
   services.xserver.synaptics.additionalOptions = ''
-   Option "SoftButtonAreas" "50% 0 82% 0 0 0 0 0"
-	Option "SecondarySoftButtonAreas" "58% 0 0 15% 42% 58% 0 15%"
-	Option "LeftEdge"		      "1"
-	Option "RightEdge"			"2"
-	Option "VertEdgeScroll"				"1"
-	Option "AreaTopEdge"					"2500"
- '';
-  services.xserver.videoDrivers = ["modesetting"];
-  hardware.cpu.intel.updateMicrocode = true;
+    Option "LeftEdge"  "1"
+    Option "RightEdge"  "2"
+    Option "VertEdgeScroll"  "1"
+    Option "AreaTopEdge"  "2500"
+  '';
 
-  # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  boot.loader.grub.device = "/dev/disk/by-id/ata-INTEL_SSDSC2BW480A3L_CVCV316405HA480DGN"; # or "nodev" for efi only
+  #  Bumblebee has issues with tearing and crashes
+  #  Power use is good enough without it anyway
+  hardware.opengl.enable = true;
+  hardware.opengl.extraPackages = [ pkgs.libvdpau-va-gl pkgs.vaapiVdpau pkgs.vaapiIntel];
+  hardware.bumblebee.enable = true;
+  hardware.bumblebee.connectDisplay = true;
+  hardware.bumblebee.driver = nvidiaDriver;
+  services.xserver.videoDrivers = ["modesetting"];
+
+  # Touch screen in firefox
+  environment.variables.MOZ_USE_XINPUT2 = "1";
+
+  networking.hostName = "gari";
+  boot.zfs.enableUnstable = true;
+  networking.hostId = "a8c06607";
+  networking.networkmanager.enable = true;
+
   fileSystems."/".options = ["noatime" "nodiratime"];
   fileSystems."/tmp" = {
     mountPoint = "/tmp";
@@ -47,4 +54,9 @@
     fsType = "tmpfs";
     options = ["nosuid" "nodev" "relatime"];
   };
+
+  hardware.cpu.intel.updateMicrocode = true;
+
+  system.stateVersion = "18.03"; # Did you read the comment?
+
 }

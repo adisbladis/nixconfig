@@ -14,6 +14,7 @@ with lib;
     "/etc/nixos"
     "nixos-config=/etc/nixos/configuration.nix"
   ];
+  nix.extraOptions = "auto-optimise-store = true";
   nix.useSandbox = true;
 
   # Local overlays
@@ -58,7 +59,7 @@ with lib;
   users.extraUsers.adisbladis = {
     isNormalUser = true;
     uid = 1000;
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "video" ];
     shell = pkgs.fish;
 
     openssh.authorizedKeys.keys = [

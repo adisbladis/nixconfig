@@ -39,6 +39,7 @@ in {
     graphviz
     emacs-all-the-icons-fonts
     unzip
+    mpv
 
     # Needs to be present both in security.wrappers and systemPackages for desktop files
     transmission_gtk
@@ -58,7 +59,6 @@ in {
     # firefox.source = jailWrap "${firefox-devedition-bin.out}/bin/firefox";
     transmission-gtk.source = jailWrap "${transmission_gtk.out}/bin/transmission-gtk";
     youtube-dl.source = jailWrap "${youtube-dl.out}/bin/youtube-dl";
-    mpv.source = jailWrap "${mpv.out}/bin/mpv";
     gimp.source = jailWrap "${gimp.out}/bin/gimp";
     unrar.source = jailWrap "${unrar.out}/bin/unrar";
     wireshark.source = jailWrap "${wireshark.out}/bin/wireshark";
