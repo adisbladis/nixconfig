@@ -22,8 +22,6 @@ in {
     inconsolata
   ];
 
-  virtualisation.virtualbox.host.enable = true;
-
   hardware.pulseaudio.enable = true;
 
   environment.systemPackages = with pkgs; [
@@ -40,13 +38,16 @@ in {
     emacs-all-the-icons-fonts
     unzip
     mpv
-
-    # Needs to be present both in security.wrappers and systemPackages for desktop files
-    transmission_gtk
     firefox-devedition-bin
     wireshark
-    spotify
+    transmission_gtk
+    darktable
     okular
+    redshift-plasma-applet
+    direnv
+
+    # Needs to be present both in security.wrappers and systemPackages for desktop files
+    spotify
     gimp
     kate
   ];
@@ -56,17 +57,10 @@ in {
 
   security.wrappers = with pkgs; {
     firejail.source = "${firejail.out}/bin/firejail";
-    # firefox.source = jailWrap "${firefox-devedition-bin.out}/bin/firefox";
-    transmission-gtk.source = jailWrap "${transmission_gtk.out}/bin/transmission-gtk";
     youtube-dl.source = jailWrap "${youtube-dl.out}/bin/youtube-dl";
     gimp.source = jailWrap "${gimp.out}/bin/gimp";
     unrar.source = jailWrap "${unrar.out}/bin/unrar";
-    wireshark.source = jailWrap "${wireshark.out}/bin/wireshark";
     kate.source = jailWrap "${kate.out}/bin/kate";
-    okular.source = jailWrap "${okular.out}/bin/okular";
-    arduino.source = jailWrap "${arduino.out}/bin/arduino";
-    darktable.source = jailWrap "${darktable.out}/bin/darktable";
-    gwenview.source = jailWrap "${gwenview.out}/bin/gwenview";
   };
 
   services.udev.extraRules = ''
@@ -105,5 +99,5 @@ in {
   networking.networkmanager.enable = true;
   services.unbound.enable = true;
 
-  users.extraUsers.adisbladis.extraGroups = [ "wheel" "networkmanager" "adbusers" ];
+  users.extraUsers.adisbladis.extraGroups = [ "wheel" "networkmanager" "adbusers" "wireshark" ];
 }

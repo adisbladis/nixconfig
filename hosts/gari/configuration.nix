@@ -5,7 +5,7 @@
 { config, pkgs, ... }:
 
 let
-  nvidiaDriver = "nvidia";
+  nvidiaDriver = "nouveau";
 
 in {
   imports =
@@ -20,9 +20,10 @@ in {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_4_13;
+  boot.kernelPackages = pkgs.linuxPackages_4_14;
 
   services.xserver.synaptics.enable = true;
+  # Make trackpad act as scroll wheel
   services.xserver.synaptics.additionalOptions = ''
     Option "LeftEdge"  "1"
     Option "RightEdge"  "2"
@@ -56,6 +57,8 @@ in {
   };
 
   hardware.cpu.intel.updateMicrocode = true;
+
+  networking.firewall.allowedTCPPorts = [ 51418 ];
 
   system.stateVersion = "18.03"; # Did you read the comment?
 

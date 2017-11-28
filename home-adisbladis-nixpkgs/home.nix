@@ -98,6 +98,7 @@
       epkgs.flycheck-mypy
       epkgs.flycheck-rust
       epkgs.smartparens
+      epkgs.direnv
     ];
   };
 
