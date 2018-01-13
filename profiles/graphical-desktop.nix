@@ -22,9 +22,15 @@ in {
     inconsolata
   ];
 
+  boot.supportedFilesystems = [
+    "exfat"
+  ];
+
   hardware.pulseaudio.enable = true;
 
   environment.systemPackages = with pkgs; [
+
+
     libu2f-host
     pavucontrol
     kdeconnect
@@ -95,7 +101,7 @@ in {
   # 1714-1764 is KDE connect, 8000 is file serving
   networking.firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
   networking.firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
-  networking.firewall.allowedTCPPorts = [8000];
+  networking.firewall.allowedTCPPorts = [ 17 865 1234 8000 ];
   networking.networkmanager.enable = true;
   services.unbound.enable = true;
 

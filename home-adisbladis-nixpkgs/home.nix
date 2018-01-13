@@ -28,40 +28,32 @@
   programs.emacs = {
     enable = true;
 
-    package = pkgs.emacs.overrideAttrs (old: rec {
+    # package = pkgs.emacs.overrideAttrs (old: rec {
 
-      pythonEmacsPackages = [
-        pkgs.python3
-        pkgs.python3Packages.jedi
-        pkgs.python3Packages.epc
-        pkgs.python3Packages.virtualenv
-        pkgs.python3Packages.flake8
-      ];
+    #   pythonEmacsPackages = [
+    #     pkgs.python3
+    #     pkgs.python3Packages.jedi
+    #     pkgs.python3Packages.epc
+    #     pkgs.python3Packages.virtualenv
+    #     pkgs.python3Packages.flake8
+    #   ];
 
-      # Python needs to go in buildInputs so we can get a $PYTHONPATH
-      buildInputs = (old.buildInputs ++ pythonEmacsPackages);
+    #   # Python needs to go in buildInputs so we can get a $PYTHONPATH
+    #   buildInputs = (old.buildInputs ++ pythonEmacsPackages);
 
-      wrapperPath = with pkgs.stdenv.lib; makeBinPath ([
-        # Javascript
-        pkgs.nodePackages.eslint
+    #   wrapperPath = with pkgs.stdenv.lib; makeBinPath ([
+    #     # Golang
+    #     pkgs.go  # gofmt
+    #     pkgs.gocode
+    #     pkgs.golint
 
-        # Password management
+    #   ] ++ pythonEmacsPackages);
 
-        # Golang
-        pkgs.go  # gofmt
-        pkgs.gocode
-        pkgs.golint
+    #   postFixup = ''
+    #     wrapProgram $out/bin/emacs --set PYTHONPATH $PYTHONPATH --prefix PATH : "${wrapperPath}"
+    #   '';
 
-        pkgs.openjdk
-        pkgs.graphviz
-        pkgs.plantuml
-      ] ++ pythonEmacsPackages);
-
-      postFixup = ''
-        wrapProgram $out/bin/emacs --set PLANTUML_JAR ${pkgs.plantuml}/lib/plantuml.jar --set PYTHONPATH $PYTHONPATH --prefix PATH : "${wrapperPath}"
-      '';
-
-    });
+    # });
 
     extraPackages = epkgs: [
       epkgs.pass
@@ -70,7 +62,6 @@
       epkgs.magit
       epkgs.zerodark-theme
       epkgs.jedi
-      epkgs.plantuml-mode
       epkgs.fish-mode
       epkgs.jinja2-mode
       epkgs.lua-mode
@@ -99,6 +90,10 @@
       epkgs.flycheck-rust
       epkgs.smartparens
       epkgs.direnv
+      epkgs.js2-mode
+      epkgs.ac-js2
+      epkgs.ox-gfm
+      epkgs.org
     ];
   };
 

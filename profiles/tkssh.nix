@@ -6,14 +6,14 @@
     (import ../overlays/nixpkgs-trustedkey/default.nix)
   ];
 
-  # To use the provided services (tk-ssh-agent)
-  imports = [
-    ../overlays/nixpkgs-trustedkey/modules/default.nix
-  ];
+  # # To use the provided services (tk-ssh-agent)
+  # imports = [
+  #   ../overlays/nixpkgs-trustedkey/modules/default.nix
+  # ];
 
-  services.tk-ssh-agent.enable = true;
+  # services.tk-ssh-agent.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    tk-ssh-authkeys
-  ];
+  # environment.systemPackages = with pkgs; [
+  #   tk-ssh-authkeys
+  # ];
 }

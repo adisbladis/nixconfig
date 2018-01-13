@@ -22,6 +22,8 @@ in {
 
   boot.kernelPackages = pkgs.linuxPackages_4_14;
 
+  hardware.bluetooth.enable = true;
+
   services.xserver.synaptics.enable = true;
   # Make trackpad act as scroll wheel
   services.xserver.synaptics.additionalOptions = ''
@@ -34,26 +36,28 @@ in {
   #  Bumblebee has issues with tearing and crashes
   #  Power use is good enough without it anyway
   hardware.opengl.enable = true;
-  hardware.opengl.extraPackages = [ pkgs.libvdpau-va-gl pkgs.vaapiVdpau pkgs.vaapiIntel];
+  hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau vaapiIntel ];
   hardware.bumblebee.enable = true;
   hardware.bumblebee.connectDisplay = true;
   hardware.bumblebee.driver = nvidiaDriver;
-  services.xserver.videoDrivers = ["modesetting"];
+  services.xserver.videoDrivers = [ "modesetting" ];
 
   # Touch screen in firefox
   environment.variables.MOZ_USE_XINPUT2 = "1";
 
   networking.hostName = "gari";
   boot.zfs.enableUnstable = true;
+  services.zfs.autoScrub.enable = true;
+
   networking.hostId = "a8c06607";
   networking.networkmanager.enable = true;
 
-  fileSystems."/".options = ["noatime" "nodiratime"];
+  fileSystems."/".options = [ "noatime" "nodiratime" ];
   fileSystems."/tmp" = {
     mountPoint = "/tmp";
     device = "tmpfs";
     fsType = "tmpfs";
-    options = ["nosuid" "nodev" "relatime"];
+    options = [ "nosuid" "nodev" "relatime" ];
   };
 
   hardware.cpu.intel.updateMicrocode = true;

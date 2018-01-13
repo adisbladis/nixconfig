@@ -47,8 +47,8 @@ Disable creation of lock-files named =.#<filename>=.
 
 ** Theme
 #+begin_src emacs-lisp :tangle yes
-  (load-theme 'zerodark t)
-  (zerodark-setup-modeline-format)
+;;  (load-theme 'zerodark t)
+;;  (zerodark-setup-modeline-format)
   (menu-bar-mode -1)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
@@ -107,6 +107,15 @@ Install web-mode, set rules for filetypes and indent.
     (setq-default web-mode-markup-indent-offset 4) ; HTML
     (setq-default web-mode-css-indent-offset 4)    ; CSS
     (setq-default web-mode-code-indent-offset 4)) ; JS/PHP/etc
+#+end_src
+
+** Better JS editing
+#+begin_src emacs-lisp :tangle yes
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  (add-hook 'js2-mode-hook 'ac-js2-mode)
+  (setq js2-strict-missing-semi-warning nil)
+  (setq js2-strict-trailing-comma-warning nil)
+  (add-hook 'js2-mode-hook 'ac-js2-setup-auto-complete-mode)
 #+end_src
 
 * Utilities                                                           :utils:
@@ -229,4 +238,9 @@ Paste whole buffers or parts of buffers to the internet.
     (add-hook 'ruby-mode-hook #'smartparens-mode)
     (add-hook 'rust-mode-hook #'smartparens-mode))
 
+#+end_src
+** Org exports
+#+begin_src emacs-lisp :tangle yes
+(eval-after-load "org"
+  '(require 'ox-gfm nil t))
 #+end_src
