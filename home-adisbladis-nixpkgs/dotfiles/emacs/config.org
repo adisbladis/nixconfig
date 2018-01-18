@@ -47,11 +47,16 @@ Disable creation of lock-files named =.#<filename>=.
 
 ** Theme
 #+begin_src emacs-lisp :tangle yes
-;;  (load-theme 'zerodark t)
-;;  (zerodark-setup-modeline-format)
+  (load-theme 'zerodark t)
+  (zerodark-setup-modeline-format)
   (menu-bar-mode -1)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
+#+end_src
+
+** Direnv
+#+begin_src emacs-lisp :tangle yes
+(direnv-mode)
 #+end_src
 
 ** [[https://stackoverflow.com/questions/3984730/emacs-gui-with-emacs-daemon-not-loading-fonts-correctly][Set font]]

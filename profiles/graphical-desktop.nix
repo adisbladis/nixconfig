@@ -51,6 +51,7 @@ in {
     okular
     redshift-plasma-applet
     direnv
+    android-studio
 
     # Needs to be present both in security.wrappers and systemPackages for desktop files
     spotify

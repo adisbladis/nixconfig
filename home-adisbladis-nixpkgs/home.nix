@@ -74,6 +74,7 @@
       epkgs.web-mode
       epkgs.nodejs-repl
       epkgs.company
+      epkgs.elixir-mode
       epkgs.company-flx
       epkgs.company-statistics
       epkgs.company-go
@@ -88,6 +89,7 @@
       epkgs.flycheck-irony
       epkgs.flycheck-mypy
       epkgs.flycheck-rust
+      epkgs.flycheck-elixir
       epkgs.smartparens
       epkgs.direnv
       epkgs.js2-mode

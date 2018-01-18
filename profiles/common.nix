@@ -16,6 +16,7 @@ with lib;
   ];
   nix.extraOptions = "auto-optimise-store = true";
   nix.useSandbox = true;
+  nix.package = pkgs.nixUnstable;
 
   # Local overlays
   nixpkgs.overlays = [
