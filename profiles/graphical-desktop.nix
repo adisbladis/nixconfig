@@ -20,6 +20,7 @@ in {
   fonts.fonts = with pkgs; [
     liberation_ttf
     inconsolata
+    dejavu_fonts
   ];
 
   boot.supportedFilesystems = [
@@ -29,8 +30,6 @@ in {
   hardware.pulseaudio.enable = true;
 
   environment.systemPackages = with pkgs; [
-
-
     libu2f-host
     pavucontrol
     kdeconnect

@@ -41,6 +41,7 @@ in {
   hardware.bumblebee.connectDisplay = true;
   hardware.bumblebee.driver = nvidiaDriver;
   services.xserver.videoDrivers = [ "modesetting" ];
+  boot.kernelParams = [ "i915.enable_psr=1" ];
 
   # Touch screen in firefox
   environment.variables.MOZ_USE_XINPUT2 = "1";
