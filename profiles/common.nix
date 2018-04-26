@@ -6,17 +6,13 @@ with lib;
   # imports = [ ./hardening.nix ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # The NixOS release to be compatible with for stateful data such as databases.
-  system.stateVersion = "18.03";
-
   # Use local nixpkgs checkout
   nix.nixPath = [
     "/etc/nixos"
     "nixos-config=/etc/nixos/configuration.nix"
   ];
-  nix.extraOptions = "auto-optimise-store = true";
+  nix.autoOptimiseStore = true;
   nix.useSandbox = true;
-  # nix.package = pkgs.nixUnstable;
 
   # Local overlays
   nixpkgs.overlays = [
@@ -37,6 +33,7 @@ with lib;
   programs.fish.enable = true;
 
   environment.systemPackages = with pkgs; [
+    nox
     fish
     gnupg
     emacs
@@ -50,6 +47,8 @@ with lib;
     sshfs-fuse
     dnsutils
     file
+    ag
+    ripgrep
   ];
 
   networking.firewall.enable = true;

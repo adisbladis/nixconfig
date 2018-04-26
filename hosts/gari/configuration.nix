@@ -20,7 +20,12 @@ in {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_4_14;
+  # boot.extraModulePackages = [ pkgs.linuxPackages.sysdig ];
+  boot.kernelPackages = pkgs.linuxPackages_4_15;
+
+  environment.systemPackages = with pkgs; [
+    # libreoffice
+  ];
 
   hardware.bluetooth.enable = true;
 
@@ -43,11 +48,15 @@ in {
   services.xserver.videoDrivers = [ "modesetting" ];
   boot.kernelParams = [ "i915.enable_psr=1" ];
 
+  # BPF compiler
+  # programs.bcc.enable = true;
+
   # Touch screen in firefox
   environment.variables.MOZ_USE_XINPUT2 = "1";
 
   networking.hostName = "gari";
   boot.zfs.enableUnstable = true;
+  boot.zfs.enableLegacyCrypto = true;
   services.zfs.autoScrub.enable = true;
 
   networking.hostId = "a8c06607";

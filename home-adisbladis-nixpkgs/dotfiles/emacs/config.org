@@ -116,11 +116,17 @@ Install web-mode, set rules for filetypes and indent.
 
 ** Better JS editing
 #+begin_src emacs-lisp :tangle yes
+  (require 'js2-mode)
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
   (add-hook 'js2-mode-hook 'ac-js2-mode)
   (setq js2-strict-missing-semi-warning nil)
   (setq js2-strict-trailing-comma-warning nil)
   (add-hook 'js2-mode-hook 'ac-js2-setup-auto-complete-mode)
+  (define-key js2-mode-map (kbd "M-.") nil)
+  (add-hook 'js2-mode-hook (lambda ()
+    (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+  (require 'indium)
+  (add-hook 'js-mode-hook #'indium-interaction-mode)
 #+end_src
 
 * Utilities                                                           :utils:
@@ -248,4 +254,20 @@ Paste whole buffers or parts of buffers to the internet.
 #+begin_src emacs-lisp :tangle yes
 (eval-after-load "org"
   '(require 'ox-gfm nil t))
+#+end_src
+
+* EXWM
+#+begin_src emacs-lisp :tangle yes
+(require 'exwm)
+(require 'exwm-randr)
+(require 'exwm-config)
+  (add-hook 'exwm-randr-screen-change-hook
+  (lambda ()
+    (start-process-shell-command
+      "xrandr" nil "xrandr --output DP-2-2 --right-of eDP-1 --auto")))
+
+(defun x11-wm-init () (progn
+  (setq exwm-randr-workspace-output-plist '(1 "DP-2-2"))
+  (exwm-randr-lenable)
+  (exwm-enable)))
 #+end_src

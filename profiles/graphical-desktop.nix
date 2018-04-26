@@ -21,15 +21,20 @@ in {
     liberation_ttf
     inconsolata
     dejavu_fonts
+    emacs-all-the-icons-fonts
+    powerline-fonts
+    source-code-pro
   ];
 
   boot.supportedFilesystems = [
     "exfat"
   ];
 
-  hardware.pulseaudio.enable = true;
+  environment.systemPackages = let
+    ytdl = (pkgs.youtube-dl.override { phantomjsSupport = false; });
 
-  environment.systemPackages = with pkgs; [
+  in with pkgs; [
+    krunner-pass
     libu2f-host
     pavucontrol
     kdeconnect
@@ -42,8 +47,8 @@ in {
     graphviz
     emacs-all-the-icons-fonts
     unzip
-    mpv
-    firefox-devedition-bin
+    (mpv.override { youtube-dl = ytdl; })
+    firefox
     wireshark
     transmission_gtk
     darktable
@@ -51,6 +56,7 @@ in {
     redshift-plasma-applet
     direnv
     android-studio
+    ytdl
 
     # Needs to be present both in security.wrappers and systemPackages for desktop files
     spotify
@@ -58,12 +64,19 @@ in {
     kate
   ];
 
+  # Enable pulse with all the modules
+  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.package = pkgs.pulseaudioFull;
+
+  # Enable the fw update manager
+  services.fwupd.enable = true;
+
+  programs.browserpass.enable = true;
   programs.simpleserver.enable = true;
   programs.adb.enable = true;
 
   security.wrappers = with pkgs; {
     firejail.source = "${firejail.out}/bin/firejail";
-    youtube-dl.source = jailWrap "${youtube-dl.out}/bin/youtube-dl";
     gimp.source = jailWrap "${gimp.out}/bin/gimp";
     unrar.source = jailWrap "${unrar.out}/bin/unrar";
     kate.source = jailWrap "${kate.out}/bin/kate";
@@ -94,14 +107,23 @@ in {
   services.xserver.displayManager.sddm.autoLogin.enable = true;
   services.xserver.displayManager.sddm.autoLogin.user = "adisbladis";
 
-  environment.variables.QT_PLUGIN_PATH = [ "${pkgs.plasma-desktop}/lib/qt-5.9/plugins/kcms" ];
+  services.xserver.desktopManager.plasma5.enableQt4Support = false;
   services.xserver.desktopManager.plasma5.enable = true;
   services.xserver.desktopManager.xterm.enable = false;
 
-  # 1714-1764 is KDE connect, 8000 is file serving
-  networking.firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
-  networking.firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
-  networking.firewall.allowedTCPPorts = [ 17 865 1234 8000 ];
+  # 1714-1764 is KDE connect, 8000 is file serving, 24800 is synergy
+  networking.firewall.allowedTCPPortRanges = [
+    # KDE connect
+    { from = 1714; to = 1764; }
+  ];
+  networking.firewall.allowedUDPPortRanges = [
+    # KDE connect
+    { from = 1714; to = 1764; }
+  ];
+  networking.firewall.allowedTCPPorts = [
+    8000  # http server
+    24800  # synergy
+  ];
   networking.networkmanager.enable = true;
   services.unbound.enable = true;
 

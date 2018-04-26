@@ -1,0 +1,20 @@
+diff --git a/mocha.el b/mocha.el
+index 90bb8b3..ac477ee 100644
+--- a/mocha.el
++++ b/mocha.el
+@@ -160,14 +160,13 @@ MOCHA-PROJECT-TEST-DIRECTORY.
+ IF TEST is specified run mocha with a grep for just that test."
+   (let* ((path (or mocha-file mocha-project-test-directory))
+          (target (if test (concat "--fgrep '" test "' ") ""))
+-         (node-command (concat mocha-which-node (if debug (concat " --debug=" mocha-debug-port) "")))
+          (options (concat mocha-options (if debug " -t 21600000")))
++         (options (concat "" (if debug (concat " --inspect=" mocha-debug-port))))
+          (options (concat options (concat " --reporter " mocha-reporter)))
+          (opts-file (mocha-opts-file path)))
+     (when opts-file
+       (setq options (concat options (if opts-file (concat " --opts " opts-file)))))
+     (concat mocha-environment-variables " "
+-            node-command " "
+             mocha-command " "
+             options " "
+             target

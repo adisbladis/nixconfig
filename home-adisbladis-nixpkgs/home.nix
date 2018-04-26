@@ -5,6 +5,8 @@
   home.file.".emacs".source = ./dotfiles/emacs/emacs;
   home.file.".config/emacs/config.org".source = ./dotfiles/emacs/config.org;
 
+  home.packages = with pkgs; [ ag ripgrep ];
+
   # Fish config
   home.file.".config/fish/functions/fish_prompt.fish".source = ./dotfiles/fish/functions/fish_prompt.fish;
   home.file.".config/fish/functions/fish_right_prompt.fish".source = ./dotfiles/fish/functions/fish_right_prompt.fish;
@@ -25,35 +27,10 @@
   home.sessionVariables.EDITOR = "emacs";
   home.sessionVariables.LESS = "-R";
 
+  programs.browserpass.enable = true;
+
   programs.emacs = {
     enable = true;
-
-    # package = pkgs.emacs.overrideAttrs (old: rec {
-
-    #   pythonEmacsPackages = [
-    #     pkgs.python3
-    #     pkgs.python3Packages.jedi
-    #     pkgs.python3Packages.epc
-    #     pkgs.python3Packages.virtualenv
-    #     pkgs.python3Packages.flake8
-    #   ];
-
-    #   # Python needs to go in buildInputs so we can get a $PYTHONPATH
-    #   buildInputs = (old.buildInputs ++ pythonEmacsPackages);
-
-    #   wrapperPath = with pkgs.stdenv.lib; makeBinPath ([
-    #     # Golang
-    #     pkgs.go  # gofmt
-    #     pkgs.gocode
-    #     pkgs.golint
-
-    #   ] ++ pythonEmacsPackages);
-
-    #   postFixup = ''
-    #     wrapProgram $out/bin/emacs --set PYTHONPATH $PYTHONPATH --prefix PATH : "${wrapperPath}"
-    #   '';
-
-    # });
 
     extraPackages = epkgs: [
       epkgs.pass
@@ -96,6 +73,14 @@
       epkgs.ac-js2
       epkgs.ox-gfm
       epkgs.org
+      epkgs.swift-mode
+      epkgs.xref-js2
+      (epkgs.melpaPackages.mocha.overrideAttrs(oldAttrs: {
+        patches = [ ./mocha-inspect.patch ];
+      }))
+      epkgs.indium
+      epkgs.protobuf-mode
+      epkgs.blacken
     ];
   };
 
