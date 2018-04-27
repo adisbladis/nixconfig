@@ -127,6 +127,7 @@ Install web-mode, set rules for filetypes and indent.
     (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
   (require 'indium)
   (add-hook 'js-mode-hook #'indium-interaction-mode)
+  (setq mocha-debugger 'indium)
 #+end_src
 
 * Utilities                                                           :utils:
