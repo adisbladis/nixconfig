@@ -30,25 +30,23 @@ in {
     "exfat"
   ];
 
-  environment.systemPackages = let
-    ytdl = (pkgs.youtube-dl.override { phantomjsSupport = false; });
+  # programs.firefox.enable = true;
 
-  in with pkgs; [
+  environment.systemPackages = with pkgs; [
+    firefox-devedition-bin
     krunner-pass
-    libu2f-host
     pavucontrol
     kdeconnect
     gwenview
     zip
     filelight
-    pass
+    (pass.withExtensions (ext: with ext; [ pass-otp pass-update ]))
     yakuake
     redshift
     graphviz
     emacs-all-the-icons-fonts
     unzip
-    (mpv.override { youtube-dl = ytdl; })
-    firefox
+    mpv
     wireshark
     transmission_gtk
     darktable
@@ -56,7 +54,8 @@ in {
     redshift-plasma-applet
     direnv
     android-studio
-    ytdl
+    youtube-dl
+    qsyncthingtray
 
     # Needs to be present both in security.wrappers and systemPackages for desktop files
     spotify
@@ -97,7 +96,7 @@ in {
   services.printing.drivers = [ pkgs.gutenprint ];
 
   services.pcscd.enable = true;
-  services.udev.packages = [ pkgs.libu2f-host ];
+  hardware.u2f.enable = true;
   services.xserver.enable = true;
   services.xserver.layout = "se";
   services.xserver.xkbOptions = "eurosign:e";
@@ -111,7 +110,6 @@ in {
   services.xserver.desktopManager.plasma5.enable = true;
   services.xserver.desktopManager.xterm.enable = false;
 
-  # 1714-1764 is KDE connect, 8000 is file serving, 24800 is synergy
   networking.firewall.allowedTCPPortRanges = [
     # KDE connect
     { from = 1714; to = 1764; }
@@ -123,6 +121,10 @@ in {
   networking.firewall.allowedTCPPorts = [
     8000  # http server
     24800  # synergy
+    22000  # Syncthing
+  ];
+  networking.firewall.allowedUDPPorts = [
+    21027  # Syncthing discovery
   ];
   networking.networkmanager.enable = true;
   services.unbound.enable = true;

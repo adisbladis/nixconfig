@@ -19,6 +19,10 @@
   home.file.".config/pulse/daemon.conf".source = ./dotfiles/pulse/daemon.conf;
   home.file.".config/mpv/mpv.conf".source = ./dotfiles/mpv/mpv.conf;
 
+  services.syncthing = {
+    enable = true;
+  };
+
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
@@ -81,6 +85,7 @@
       epkgs.indium
       epkgs.protobuf-mode
       epkgs.blacken
+      epkgs.emacs-libvterm
     ];
   };
 

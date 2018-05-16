@@ -42,9 +42,9 @@ in {
   #  Power use is good enough without it anyway
   hardware.opengl.enable = true;
   hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau vaapiIntel ];
-  hardware.bumblebee.enable = true;
-  hardware.bumblebee.connectDisplay = true;
-  hardware.bumblebee.driver = nvidiaDriver;
+  # hardware.bumblebee.enable = true;
+  # hardware.bumblebee.connectDisplay = true;
+  # hardware.bumblebee.driver = nvidiaDriver;
   services.xserver.videoDrivers = [ "modesetting" ];
   boot.kernelParams = [ "i915.enable_psr=1" ];
 
