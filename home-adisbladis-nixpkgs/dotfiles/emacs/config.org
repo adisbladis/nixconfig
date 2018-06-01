@@ -22,6 +22,11 @@ This is a minimal bootstrap which should live in =~/.emacs=:
 #+end_src
 
 * General configuration
+** Window resizing
+More convenient window resizing
+#+begin_src emacs-lisp :tangle yes
+#+end_src
+
 ** Backup Files
 Unless the =$XGD_DATA_DIR/emacs/backup= directory exists, create it. Then set
 as backup directory.
@@ -259,16 +264,148 @@ Paste whole buffers or parts of buffers to the internet.
 
 * EXWM
 #+begin_src emacs-lisp :tangle yes
-(require 'exwm)
-(require 'exwm-randr)
-(require 'exwm-config)
-  (add-hook 'exwm-randr-screen-change-hook
-  (lambda ()
-    (start-process-shell-command
-      "xrandr" nil "xrandr --output DP-2-2 --right-of eDP-1 --auto")))
+  (require 'exwm)
+  (require 'exwm-randr)
+  (require 'exwm-config)
+    (add-hook 'exwm-randr-screen-change-hook
+    (lambda ()
+      (start-process-shell-command
+        "xrandr" nil "xrandr --output DP-2-2 --right-of eDP-1 --auto")))
 
-(defun x11-wm-init () (progn
-  (setq exwm-randr-workspace-output-plist '(1 "DP-2-2"))
-  (exwm-randr-lenable)
-  (exwm-enable)))
+    (add-hook 'exwm-manage-finish-hook
+            (lambda ()
+              (when (and exwm-class-name
+                         (string= exwm-class-name "Yakuake"))
+                (exwm-floating-toggle-floating))))
+
+  (defun pnh-run (command)
+    (interactive (list (read-shell-command "$ ")))
+    (start-process-shell-command command nil command))
+    (define-key exwm-mode-map (kbd "s-!") 'pnh-run)
+    (global-set-key (kbd "s-!") 'pnh-run)
+
+  (add-hook 'exwm-update-class-hook
+            (lambda ()
+              (exwm-workspace-rename-buffer exwm-class-name)))
+
+  ;; Note: This approach does not work with Emacs 25 due to a bug of Emacs.
+  (add-hook 'exwm-manage-finish-hook
+            (lambda ()
+              (when (and exwm-class-name
+                         (string= exwm-class-name "URxvt"))
+                (exwm-input-set-local-simulation-keys '(([?\C-c ?\C-c] . ?\C-c))))))
+
+  (add-hook 'exwm-update-title-hook
+            (lambda ()
+            (let ((tilde-exwm-title
+              (replace-regexp-in-string (getenv "HOME") "~" exwm-title)))
+              (exwm-workspace-rename-buffer (format "%s: %s" exwm-class-name tilde-exwm-title)))))
+
+  (require 'desktop-environment)
+  (desktop-environment-mode)
+  (setq desktop-environment-brightness-set-command "light %s")
+  (setq desktop-environment-brightness-normal-decrement "-U 10")
+  (setq desktop-environment-brightness-small-decrement "-U 5")
+  (setq desktop-environment-brightness-normal-increment "-A 10")
+  (setq desktop-environment-brightness-small-increment "-A 5")
+  (setq desktop-environment-brightness-get-command "light")
+  (setq desktop-environment-brightness-get-regexp "\\([0-9]+\\)\\.[0-9]+")
+  (setq desktop-environment-screenlock-command "loginctl lock-session")
+
+  (require 'exwm-systemtray)
+  (exwm-systemtray-enable)
+  (setq exwm-systemtray-height 16)
+
+  (setq exwm-manage-configurations
+        '(((equal exwm-class-name "Firefox Developer Edition")
+           simulation-keys (([?\C-q] . [?\C-w])  ; close tab instead of quitting Firefox
+                            ([?\C-b] . [left])
+                            ([?\C-f] . [right])
+                            ([?\C-p] . [up])
+                            ([?\C-n] . [down])
+                            ([?\C-t] . [?\C-n])
+                            ([?\C-s] . [?\C-f])
+                            ([?\C-a] . [home])
+                            ([?\C-e] . [end])
+                            ([?\M-v] . [prior])
+                            ([?\C-v] . [next])
+                            ([?\C-d] . [delete])))
+                            ))
+
+  (exwm-input-set-simulation-keys
+   (mapcar (lambda (c) (cons (kbd (car c)) (cdr c)))
+           `(("C-b" . left)
+             ("C-f" . right)
+             ("C-p" . up)
+             ("C-n" . down)
+             ("C-a" . home)
+             ("C-e" . end)
+             ("M-v" . prior)
+             ("C-v" . next)
+             ("C-d" . delete)
+             ("C-m" . return)
+             ("C-i" . tab)
+             ("C-g" . escape)
+             ("C-s" . ?\C-f)
+             ("C-y" . ?\C-v)
+             ("M-w" . ?\C-c)
+             ("M-<" . C-home)
+             ("M->" . C-end)
+             ("C-M-h" . C-backspace))))
+
+  ;; Using ido to change "tabs" in Firefox!
+  ;;
+  ;; For this to work properly you need to stop opening new tabs and open
+  ;; everything in new windows. It sounds crazy, but then you can use ido
+  ;; to switch between "tabs" and everything is wonderful.
+  ;;
+  ;; Step 1: about:config -> browser.tabs.opentabfor.middleclick -> false
+  ;; Step 2: change whatever "open link in new tab" binding in Saka Key or
+  ;;         whatever you use to open the link in a new window
+  ;; Step 3: rebind ctrl-t to open a new window as well
+  ;; Step 4: place the following in chrome/userChrome.css in your FF profile:
+  ;;         #tabbrowser-tabs { visibility: collapse !important; }
+  ;; Step 5: add this code to your exwm config:
+  ;; Step 6: restart your browser and enjoy your new C-x b fanciness!
+  (defun pnh-trim-non-ff ()
+    (cl-delete-if-not (apply-partially 'string-match "- Mozilla Firefox$")
+                   ido-temp-list))
+
+  (add-hook 'exwm-manage-finish-hook
+            (defun pnh-exwm-manage-hook ()
+              (when (string-match "Firefox" exwm-class-name)
+                (setq ido-make-buffer-list-hook 'pnh-trim-non-ff))))
+
+
+  (exwm-input-set-key (kbd "s-g")
+    (defun pnh-ff-gsearch ()
+      (interactive)
+       (browse-url
+       (format "https://google.com/search?q=%s"
+       (read-string "Terms: ")))))
+
+  (exwm-input-set-key (kbd "s-s")
+    (defun pnh-ff-url ()
+      (interactive)
+       (browse-url
+       (read-string "URL: "))))
+
+  (exwm-input-set-key (kbd "s-t")
+    (defun pnh-terminal ()
+      (interactive)
+      (start-process-shell-command "urxvtc" nil "urxvtc")))
+
+  (setq browse-url-firefox-arguments '("-new-window"))
+
+  (defun x11-wm-init () (progn
+    (setq exwm-randr-workspace-output-plist '(1 "DP-2-2"))
+    (require 'exwm-config)
+    (exwm-config-default)
+    (exwm-randr-enable))
+    (server-start))
+#+end_src
+
+* Terminal emulation
+#+begin_src emacs-lisp :tangle yes
+(require 'vterm)
 #+end_src

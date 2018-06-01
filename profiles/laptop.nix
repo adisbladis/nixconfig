@@ -8,6 +8,8 @@ with lib;
   ];
 
   services.tlp.enable = true;
+  powerManagement.cpuFreqGovernor =
+    lib.mkIf config.services.tlp.enable (lib.mkForce null);
 
   services.udev.extraRules = ''
     # set deadline scheduler for non-rotating disks

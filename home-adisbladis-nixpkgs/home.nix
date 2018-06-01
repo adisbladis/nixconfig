@@ -1,11 +1,82 @@
 { pkgs, ... }:
 
-{
+let
+  desktopEnvironment = pkgs.stdenv.mkDerivation rec {
+    name = "desktop-environment-${version}";
+    version = "2018-04-23";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "DamienCassou";
+      repo = "desktop-environment";
+      rev = "62fbceded526b8e35c90803bcf80e33ebfe8473a";
+      sha256 = "1j2kvdj3k9amj93w8cbh49rbf3vhnkbisw67hjhif62ajc19ip4k";
+    };
+
+    buildInputs = [ pkgs.emacs ];
+
+    buildPhase = ''
+      emacs --batch -f batch-byte-compile desktop-environment.el
+    '';
+
+    installPhase = ''
+      mkdir -p $out/share/emacs/site-lisp
+      cp desktop-environment.el desktop-environment.elc $out/share/emacs/site-lisp/
+    '';
+
+  };
+
+in {
   # Emacs config
   home.file.".emacs".source = ./dotfiles/emacs/emacs;
   home.file.".config/emacs/config.org".source = ./dotfiles/emacs/config.org;
 
-  home.packages = with pkgs; [ ag ripgrep ];
+  home.packages = with pkgs; [
+    ag
+    ripgrep
+    compton
+    unclutter
+    alacritty
+    albert
+    scrot
+    breeze-qt5
+    breeze-gtk
+    rxvt_unicode-with-plugins
+  ];
+
+  # services.xscreensaver.enable = true;
+  services.screen-locker = {
+    enable = true;
+    lockCmd = "${pkgs.i3lock}/bin/i3lock -n -c 000000";
+  };
+
+
+  services.unclutter = {
+    enable = true;
+    timeout = 5;
+  };
+
+  home.keyboard = {
+    variant = "dvorak";
+    layout = "us";
+    options = [
+      "ctrl:nocaps"
+    ];
+  };
+
+  # Fix stupid java applications like android studio
+  home.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
+
+  services.compton = {
+    enable = true;
+  };
+
+  xsession.enable = true;
+  xsession.windowManager.command = ''
+    rm ~/.config/emacs/config.el
+    ${pkgs.networkmanagerapplet}/bin/nm-applet &
+    ${pkgs.rxvt_unicode-with-plugins}/bin/urxvtd -q -o -f &
+    env SHELL=$(which bash) emacs -f x11-wm-init
+  '';
 
   # Fish config
   home.file.".config/fish/functions/fish_prompt.fish".source = ./dotfiles/fish/functions/fish_prompt.fish;
@@ -28,7 +99,7 @@
     enableSshSupport = true;
   };
 
-  home.sessionVariables.EDITOR = "emacs";
+  home.sessionVariables.EDITOR = "emacsclient";
   home.sessionVariables.LESS = "-R";
 
   programs.browserpass.enable = true;
@@ -86,6 +157,16 @@
       epkgs.protobuf-mode
       epkgs.blacken
       epkgs.emacs-libvterm
+      epkgs.melpaPackages.emms
+      (epkgs.melpaPackages.bongo.overrideAttrs(oldAttrs: {
+        patches = pkgs.fetchpatch {
+          url = "https://patch-diff.githubusercontent.com/raw/dbrock/bongo/pull/45.patch";
+          sha256 = "08cvbvlplx42nks569si8wv0gp2d386ijvnrn360wpkcbf8zfwmf";
+        };
+      }))
+      epkgs.melpaPackages.transmission
+      epkgs.melpaPackages.terraform-mode
+      desktopEnvironment
     ];
   };
 

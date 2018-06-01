@@ -30,6 +30,7 @@ in {
     "exfat"
   ];
 
+  programs.light.enable = true;
   # programs.firefox.enable = true;
 
   environment.systemPackages = with pkgs; [
@@ -68,7 +69,6 @@ in {
   hardware.pulseaudio.package = pkgs.pulseaudioFull;
 
   # Enable the fw update manager
-  services.fwupd.enable = true;
 
   programs.browserpass.enable = true;
   programs.simpleserver.enable = true;
@@ -106,9 +106,9 @@ in {
   services.xserver.displayManager.sddm.autoLogin.enable = true;
   services.xserver.displayManager.sddm.autoLogin.user = "adisbladis";
 
-  services.xserver.desktopManager.plasma5.enableQt4Support = false;
-  services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.desktopManager.xterm.enable = false;
+  # services.xserver.desktopManager.plasma5.enableQt4Support = false;
+  # services.xserver.desktopManager.plasma5.enable = true;
+  # services.xserver.desktopManager.xterm.enable = false;
 
   networking.firewall.allowedTCPPortRanges = [
     # KDE connect
