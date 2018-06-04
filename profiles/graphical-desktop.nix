@@ -1,12 +1,6 @@
 { stdenv, pkgs, lib, ... }:
 
-let
-  jailWrap = program: pkgs.writeScript "jailed" ''
-    #!/usr/bin/env sh
-    exec firejail --quiet "${program}" "$@"
-  '';
-
-in {
+{
   imports = [ ./tkssh.nix ];
 
   nixpkgs.config.allowUnfree = true;
@@ -30,56 +24,54 @@ in {
     "exfat"
   ];
 
+  # setuid wrapper for backlight
   programs.light.enable = true;
-  # programs.firefox.enable = true;
 
   environment.systemPackages = with pkgs; [
-    firefox-devedition-bin
-    krunner-pass
-    pavucontrol
-    kdeconnect
-    gwenview
-    zip
-    filelight
-    (pass.withExtensions (ext: with ext; [ pass-otp pass-update ]))
-    yakuake
-    redshift
-    graphviz
     emacs-all-the-icons-fonts
-    unzip
-    mpv
-    wireshark
-    transmission_gtk
-    darktable
-    okular
-    redshift-plasma-applet
     direnv
-    android-studio
-    youtube-dl
-    qsyncthingtray
-
-    # Needs to be present both in security.wrappers and systemPackages for desktop files
-    spotify
-    gimp
-    kate
   ];
 
   # Enable pulse with all the modules
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.package = pkgs.pulseaudioFull;
+  hardware.pulseaudio = {
+    enable = true;
+    package = pkgs.pulseaudioFull;
+    tcp = {
+      enable = true;
+      anonymousClients.allowedIpRanges = ["127.0.0.1"];
+    };
+  };
+  services.mopidy = let
+    spotifyConfig = lib.importJSON ./spotify.json;
 
-  # Enable the fw update manager
+  in {
+    enable = true;
+    extensionPackages = with pkgs; [
+      mopidy-spotify
+      mopidy-local-sqlite
+    ];
+    configuration = ''
+      [spotify]
+      enabled = true
+      username = ${spotifyConfig.username}
+      password = ${spotifyConfig.password}
+
+      client_id = ${spotifyConfig.client_id}
+      client_secret = ${spotifyConfig.client_secret}
+
+      bitrate = 320
+
+      [audio]
+      output = pulsesink server=127.0.0.1
+    '';
+  };
+
 
   programs.browserpass.enable = true;
   programs.simpleserver.enable = true;
   programs.adb.enable = true;
 
-  security.wrappers = with pkgs; {
-    firejail.source = "${firejail.out}/bin/firejail";
-    gimp.source = jailWrap "${gimp.out}/bin/gimp";
-    unrar.source = jailWrap "${unrar.out}/bin/unrar";
-    kate.source = jailWrap "${kate.out}/bin/kate";
-  };
+  services.dbus.packages = [ pkgs.blueman ];
 
   services.udev.extraRules = ''
     # Meizu Pro 5
@@ -105,10 +97,6 @@ in {
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.displayManager.sddm.autoLogin.enable = true;
   services.xserver.displayManager.sddm.autoLogin.user = "adisbladis";
-
-  # services.xserver.desktopManager.plasma5.enableQt4Support = false;
-  # services.xserver.desktopManager.plasma5.enable = true;
-  # services.xserver.desktopManager.xterm.enable = false;
 
   networking.firewall.allowedTCPPortRanges = [
     # KDE connect

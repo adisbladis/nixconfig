@@ -23,22 +23,13 @@ in {
   # boot.extraModulePackages = [ pkgs.linuxPackages.sysdig ];
   boot.kernelPackages = pkgs.linuxPackages_4_15;
 
-  users.extraUsers.adisbladis.extraGroups = [ "libvirtd" "docker" ];
-  virtualisation.libvirtd.enable = true;
+  users.extraUsers.adisbladis.extraGroups = [ "docker" ];
   virtualisation.docker.enable = true;
 
   environment.systemPackages = with pkgs; [
     # libreoffice
   ];
 
-  # services.zerotierone = {
-  #   enable = true;
-  #   joinNetworks = [
-  #     "9f77fc393e0bea9a"
-  #   ];
-  # };
-
-  # services.thinkfan.enable = true;
   services.acpid.enable = true;
 
   hardware.bluetooth.enable = true;

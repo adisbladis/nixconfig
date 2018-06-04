@@ -301,6 +301,14 @@ Paste whole buffers or parts of buffers to the internet.
               (replace-regexp-in-string (getenv "HOME") "~" exwm-title)))
               (exwm-workspace-rename-buffer (format "%s: %s" exwm-class-name tilde-exwm-title)))))
 
+  ;; Display time in modeline
+  (progn
+    (setq display-time-24hr-format t)
+    (display-time-mode 1))
+
+  ;; Battery is useful too
+  (display-battery-mode)
+
   (require 'desktop-environment)
   (desktop-environment-mode)
   (setq desktop-environment-brightness-set-command "light %s")
@@ -408,4 +416,66 @@ Paste whole buffers or parts of buffers to the internet.
 * Terminal emulation
 #+begin_src emacs-lisp :tangle yes
 (require 'vterm)
+#+end_src
+* Email
+#+begin_src emacs-lisp :tangle yes
+
+  ;; (add-hook 'message-setup-hook
+  ;;           (lambda ()
+  ;;             (gnus-alias-determine-identity)
+  ;;             (define-key message-mode-map (kbd "C-c f")
+  ;;               (lambda ()
+  ;;                 (interactive)
+  ;;                 (message-remove-header "Fcc")
+  ;;                 (message-remove-header "Organization")
+  ;;                 (gnus-alias-select-identity)
+  ;;                 (notmuch-fcc-header-setup)))
+  ;;             (flyspell-mode)))
+
+  ;; ; gnus-alias
+  (autoload 'gnus-alias-determine-identity "gnus-alias" "" t)
+  (setq gnus-alias-identity-alist
+        '(("adisbladis-gmail"
+           nil ;; Does not refer to any other identity
+           "Adam Hose <adisbladis@gmail.com>"
+           nil ;; No organization header
+           nil ;; No extra headers
+           nil ;; No extra body text
+           nil ;; No signature
+           )
+          ("enuma"
+           nil
+           "Adam Hose <adam.hose@enuma.io>"
+           "Enuma Technologies"
+           nil
+           nil
+           nil
+           )
+          ("trustedkey"
+           nil
+           "Adam Hose <adam.hose@trustedkey.com>"
+           "Trusted Key"
+           nil
+           nil
+           nil
+           )
+          ))
+
+  (setq gnus-alias-default-identity "adisbladis-gmail")
+  (setq gnus-alias-identity-rules
+        '(("@enuma.io" ("any" "@enuma\\.io" both) "enuma")
+          ("@trustedkey.com" ("any" "@trustedkey\\.com" both) "trustedkey")))
+
+  (setq mail-user-agent 'message-user-agent)
+  (setq message-send-mail-function 'message-send-mail-with-sendmail)
+  (setq message-kill-buffer-on-exit t)
+  (setq mail-specify-envelope-from t)
+
+  (setq sendmail-program "msmtp"
+        mail-specify-envelope-from t
+        mail-envelope-from 'header
+        message-sendmail-envelope-from 'header)
+  ;; Sign messages by default.
+  (add-hook 'message-setup-hook 'mml-secure-message-sign-pgpmime)
+
 #+end_src
