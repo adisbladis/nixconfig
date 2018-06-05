@@ -319,6 +319,7 @@ Paste whole buffers or parts of buffers to the internet.
   (setq desktop-environment-brightness-get-command "light")
   (setq desktop-environment-brightness-get-regexp "\\([0-9]+\\)\\.[0-9]+")
   (setq desktop-environment-screenlock-command "loginctl lock-session")
+  (setq desktop-environment-screenshot-command "flameshot gui")
 
   (require 'exwm-systemtray)
   (exwm-systemtray-enable)

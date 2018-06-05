@@ -14,7 +14,6 @@ in {
     gimp
     okular
 
-    kdeconnect  # TODO: HM service
     gwenview
     feh
     filelight
@@ -32,6 +31,13 @@ in {
     youtube-dl
     mpv
   ];
+
+  services.flameshot.enable = true;
+
+  services.kdeconnect = {
+    enable = true;
+    indicator = true;
+  };
 
   home.file.".config/pulse/daemon.conf".source = ./dotfiles/pulse/daemon.conf;
   home.file.".config/mpv/mpv.conf".source = ./dotfiles/mpv/mpv.conf;
@@ -68,7 +74,10 @@ in {
   };
 
   services.gnome-keyring.enable = true;
+
+  # Notification daemon
   services.dunst.enable = true;
+
   services.blueman-applet.enable = true;
 
   xsession.enable = true;
