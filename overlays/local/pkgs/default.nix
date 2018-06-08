@@ -24,4 +24,10 @@ in rec {
 
   linuxPackages_4_15 = super.recurseIntoAttrs (super.linuxPackagesFor linux_4_15);
 
+  # libinput = super.libinput.overrideAttrs(oldAttrs: {
+  #   patches = oldAttrs.patches ++ [
+  #     ../0001-Add-full-scrollpad-hack.patch
+  #   ];
+  # });
+
 }

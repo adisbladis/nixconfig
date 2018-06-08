@@ -103,6 +103,8 @@ in {
       epkgs.melpaPackages.notmuch
       desktopEnvironment
       epkgs.melpaPackages.weechat
+      epkgs.melpaPackages.dumb-jump
+      epkgs.melpaPackages.handlebars-mode
     ];
   };
 

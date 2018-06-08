@@ -22,6 +22,7 @@ in {
       pass-update
     ]))
     graphviz
+    unrar
 
     pavucontrol
     transmission_gtk

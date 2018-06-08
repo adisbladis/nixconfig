@@ -18,6 +18,5 @@ with lib;
   '';
 
   hardware.trackpoint.enable = true;
-  services.xserver.synaptics.enable = true;
   security.lockKernelModules = false;  # No wifi with this one enabled
 }

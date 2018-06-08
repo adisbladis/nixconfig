@@ -94,9 +94,9 @@
   services.xserver.xkbOptions = "eurosign:e";
   services.xserver.xkbVariant = "dvorak";
 
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.sddm.autoLogin.enable = true;
-  services.xserver.displayManager.sddm.autoLogin.user = "adisbladis";
+  services.xserver.displayManager.slim.enable = true;
+  services.xserver.displayManager.slim.autoLogin = true;
+  services.xserver.displayManager.slim.defaultUser = "adisbladis";
 
   networking.firewall.allowedTCPPortRanges = [
     # KDE connect
