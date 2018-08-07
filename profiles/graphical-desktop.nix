@@ -36,36 +36,8 @@
   hardware.pulseaudio = {
     enable = true;
     package = pkgs.pulseaudioFull;
-    tcp = {
-      enable = true;
-      anonymousClients.allowedIpRanges = ["127.0.0.1"];
-    };
   };
-  services.mopidy = let
-    spotifyConfig = lib.importJSON ./spotify.json;
-
-  in {
-    enable = true;
-    extensionPackages = with pkgs; [
-      mopidy-spotify
-      mopidy-local-sqlite
-    ];
-    configuration = ''
-      [spotify]
-      enabled = true
-      username = ${spotifyConfig.username}
-      password = ${spotifyConfig.password}
-
-      client_id = ${spotifyConfig.client_id}
-      client_secret = ${spotifyConfig.client_secret}
-
-      bitrate = 320
-
-      [audio]
-      output = pulsesink server=127.0.0.1
-    '';
-  };
-
+  services.pipewire.enable = true;
 
   programs.browserpass.enable = true;
   programs.simpleserver.enable = true;
@@ -115,7 +87,10 @@
     21027  # Syncthing discovery
   ];
   networking.networkmanager.enable = true;
-  services.unbound.enable = true;
+  services.unbound = {
+    enable = true;
+    extraConfig = "  neg-cache-size: 0";
+  };
 
   users.extraUsers.adisbladis.extraGroups = [ "wheel" "networkmanager" "adbusers" "wireshark" ];
 }

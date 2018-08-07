@@ -11,6 +11,7 @@ with lib;
     "/etc/nixos"
     "nixos-config=/etc/nixos/configuration.nix"
   ];
+  # nix.package = pkgs.nixUnstable;
   nix.autoOptimiseStore = true;
   nix.useSandbox = true;
 

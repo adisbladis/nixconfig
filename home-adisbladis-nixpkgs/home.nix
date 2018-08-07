@@ -8,6 +8,7 @@
   ];
 
   home.packages = with pkgs; [
+    nix-review
     traceroute
     ripgrep
     ag
@@ -31,7 +32,7 @@
   programs.git = {
     enable = true;
     userName = "adisbladis";
-    userEmail = "adis@blad.is";
+    userEmail = "adisbladis@gmail.com";
     signing.key = "FA75289B489AE1A51BCA18ABED58F95069B004F5";
   };
 

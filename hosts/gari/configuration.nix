@@ -16,6 +16,11 @@ in {
       ../../profiles/laptop.nix
     ];
 
+
+  nix.extraOptions = ''
+    secret-key-files = /home/adisbladis/.nix-secrets/gari-bincache-key
+   '';
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

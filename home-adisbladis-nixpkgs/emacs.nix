@@ -1,31 +1,6 @@
 { pkgs, ... }:
 
-let
-  desktopEnvironment = pkgs.stdenv.mkDerivation rec {
-    name = "desktop-environment-${version}";
-    version = "2018-04-23";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "DamienCassou";
-      repo = "desktop-environment";
-      rev = "62fbceded526b8e35c90803bcf80e33ebfe8473a";
-      sha256 = "1j2kvdj3k9amj93w8cbh49rbf3vhnkbisw67hjhif62ajc19ip4k";
-    };
-
-    buildInputs = [ pkgs.emacs ];
-
-    buildPhase = ''
-      emacs --batch -f batch-byte-compile desktop-environment.el
-    '';
-
-    installPhase = ''
-      mkdir -p $out/share/emacs/site-lisp
-      cp desktop-environment.el desktop-environment.elc $out/share/emacs/site-lisp/
-    '';
-
-  };
-
-in {
+{
 
   home.file.".emacs".source = ./dotfiles/emacs/emacs;
   home.file.".config/emacs/config.org".source = ./dotfiles/emacs/config.org;
@@ -39,72 +14,84 @@ in {
   programs.emacs = {
     enable = true;
 
-    extraPackages = epkgs: [
-      epkgs.pass
-      epkgs.exwm
-      epkgs.nix-mode
-      epkgs.magit
-      epkgs.zerodark-theme
-      epkgs.jedi
-      epkgs.fish-mode
-      epkgs.jinja2-mode
-      epkgs.lua-mode
-      epkgs.irony
-      epkgs.rust-mode
-      epkgs.android-mode
-      epkgs.markdown-mode
-      epkgs.go-mode
-      epkgs.yaml-mode
-      epkgs.web-mode
-      epkgs.nodejs-repl
-      epkgs.company
-      epkgs.elixir-mode
-      epkgs.company-flx
-      epkgs.company-statistics
-      epkgs.company-go
-      epkgs.ag
-      epkgs.flx-ido
-      epkgs.smooth-scrolling
-      epkgs.swiper
-      epkgs.webpaste
-      epkgs.smart-mode-line
-      epkgs.smart-mode-line-powerline-theme
-      epkgs.flycheck
-      epkgs.flycheck-irony
-      epkgs.flycheck-mypy
-      epkgs.flycheck-rust
-      epkgs.flycheck-elixir
-      epkgs.smartparens
-      epkgs.direnv
-      epkgs.js2-mode
-      epkgs.ac-js2
-      epkgs.ox-gfm
-      epkgs.org
-      epkgs.swift-mode
-      epkgs.xref-js2
-      (epkgs.melpaPackages.mocha.overrideAttrs(oldAttrs: {
+    extraPackages = epkgs: with epkgs; [
+      pass
+      exwm
+      nix-mode
+      zerodark-theme
+      jedi
+      fish-mode
+      jinja2-mode
+      lua-mode
+      irony
+      rust-mode
+      android-mode
+      markdown-mode
+      go-mode
+      yaml-mode
+      web-mode
+      nodejs-repl
+      company
+      elixir-mode
+      company-flx
+      company-statistics
+      company-go
+      ag
+      flx-ido
+      smooth-scrolling
+      swiper
+      webpaste
+      smart-mode-line
+      smart-mode-line-powerline-theme
+      flycheck
+      flycheck-irony
+      flycheck-mypy
+      flycheck-rust
+      flycheck-elixir
+      smartparens
+      direnv
+      js2-mode
+      ac-js2
+      ox-gfm
+      org
+      swift-mode
+      xref-js2
+      (melpaPackages.mocha.overrideAttrs(oldAttrs: {
         patches = [ ./mocha-inspect.patch ];
       }))
-      epkgs.indium
-      epkgs.protobuf-mode
-      epkgs.blacken
-      epkgs.emacs-libvterm
-      epkgs.melpaPackages.emms
-      (epkgs.melpaPackages.bongo.overrideAttrs(oldAttrs: {
-        patches = pkgs.fetchpatch {
-          url = "https://patch-diff.githubusercontent.com/raw/dbrock/bongo/pull/45.patch";
-          sha256 = "08cvbvlplx42nks569si8wv0gp2d386ijvnrn360wpkcbf8zfwmf";
+      indium
+      protobuf-mode
+      blacken
+      emacs-libvterm
+      melpaPackages.emms
+      melpaPackages.transmission
+      melpaPackages.terraform-mode
+      melpaPackages.kdeconnect
+      melpaPackages.mpdel
+      melpaPackages.notmuch
+      melpaPackages.desktop-environment
+      melpaPackages.weechat
+      melpaPackages.dumb-jump
+      melpaPackages.handlebars-mode
+      (melpaPackages.magit-org-todos.overrideAttrs(oldAttrs: {
+        buildInputs = oldAttrs.buildInputs ++ [ pkgs.git ];
+      }))
+      melpaPackages.magit
+      melpaPackages.deadgrep
+      melpaPackages.helm
+      melpaPackages.helm-ag
+      melpaPackages.helm-pass
+      melpaPackages.helm-fuzzier
+      melpaPackages.helm-projectile
+      (melpaPackages.magit-todos.overrideAttrs(oldAttrs: {
+        buildInputs = oldAttrs.buildInputs ++ [ pkgs.git ];
+        src = pkgs.fetchFromGitHub {
+          owner = "alphapapa";
+          repo = "magit-todos";
+          rev = "d12e2e3ccad4b87d5df5285ade0c56ec5f46ad63";
+          sha256 = "006yy13hjzalwz7pz0br32zifxlxrrf8cvnz0j3km55sxpdvqmil";
         };
       }))
-      epkgs.melpaPackages.transmission
-      epkgs.melpaPackages.terraform-mode
-      epkgs.melpaPackages.kdeconnect
-      epkgs.melpaPackages.mpdel
-      epkgs.melpaPackages.notmuch
-      desktopEnvironment
-      epkgs.melpaPackages.weechat
-      epkgs.melpaPackages.dumb-jump
-      epkgs.melpaPackages.handlebars-mode
     ];
   };
 

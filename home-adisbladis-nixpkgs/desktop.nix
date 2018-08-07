@@ -12,9 +12,7 @@ in {
     scrot
     spotify
     gimp
-    okular
 
-    gwenview
     feh
     filelight
     (pass.withExtensions (ext: with ext; [
@@ -27,13 +25,15 @@ in {
     pavucontrol
     transmission_gtk
     darktable
-    wireshark
+    # wireshark
     android-studio
     youtube-dl
     mpv
   ];
 
   services.flameshot.enable = true;
+
+  programs.autorandr.enable = true;
 
   services.kdeconnect = {
     enable = true;
@@ -79,7 +79,7 @@ in {
   # Notification daemon
   services.dunst.enable = true;
 
-  services.blueman-applet.enable = true;
+  # services.blueman-applet.enable = true;
 
   xsession.enable = true;
   xsession.windowManager.command = ''
