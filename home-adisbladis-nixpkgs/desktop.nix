@@ -28,6 +28,7 @@ in {
     # wireshark
     android-studio
     youtube-dl
+    qt5ct
     mpv
   ];
 
@@ -89,6 +90,8 @@ in {
     # This needs to run in the desktop session for child
     # processes (shells etc) to also run in the session
     ${urxvtPackage}/bin/urxvtd -q -o -f &
+
+    ${pkgs.adis-applauncher}/bin/applauncher &
 
     # Shell needs to be bash :(
     env SHELL=$(which bash) emacs -f x11-wm-init

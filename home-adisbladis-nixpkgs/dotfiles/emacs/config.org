@@ -267,34 +267,19 @@ Paste whole buffers or parts of buffers to the internet.
 #+begin_src emacs-lisp :tangle yes
   (require 'exwm)
   (require 'exwm-randr)
-
-  (defun exwm-auto-toggle-screen ()
-    (with-temp-buffer
-      (call-process "xrandr" nil t nil)
-      (beginning-of-buffer)
-      (if (search-forward "DP-2-2 connected" nil 'noerror)
-          (start-process-shell-command
-           "xrandr" nil "xrandr --output DP-2-2 --right-of eDP-1 --auto")
-        (start-process-shell-command
-         "xrandr" nil "xrandr --output DP-2-2 --off"))))
-
-  (require 'exwm-config)
-    (add-hook 'exwm-randr-screen-change-hook
-    (lambda ()
-      (start-process-shell-command
-        "xrandr" nil "xrandr --output DP-2-2 --right-of eDP-1 --auto")))
-
-    (add-hook 'exwm-manage-finish-hook
-            (lambda ()
-              (when (and exwm-class-name
-                         (string= exwm-class-name "Yakuake"))
-                (exwm-floating-toggle-floating))))
+  (require 'dbus)
 
   (defun pnh-run (command)
     (interactive (list (read-shell-command "$ ")))
-    (start-process-shell-command command nil command))
-    (define-key exwm-mode-map (kbd "s-!") 'pnh-run)
-    (global-set-key (kbd "s-!") 'pnh-run)
+
+    (dbus-call-method
+    :session "com.github.adisbladis.AppLauncher"
+    "/com/github/adisbladis/AppLauncher"
+    "com.github.adisbladis.AppLauncher" "Start"
+    (split-string command)))
+
+  (define-key exwm-mode-map (kbd "s-!") 'pnh-run)
+  (global-set-key (kbd "s-!") 'pnh-run)
 
   (add-hook 'exwm-update-class-hook
             (lambda ()
@@ -414,7 +399,11 @@ Paste whole buffers or parts of buffers to the internet.
   (exwm-input-set-key (kbd "s-t")
     (defun pnh-terminal ()
       (interactive)
-      (start-process-shell-command "urxvt" nil "urxvt")))
+      (dbus-call-method
+      :session "com.github.adisbladis.AppLauncher"
+      "/com/github/adisbladis/AppLauncher"
+      "com.github.adisbladis.AppLauncher" "Start"
+      (split-string "urxvt"))))
 
   (setq browse-url-firefox-arguments '("-new-window"))
 
