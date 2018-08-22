@@ -2,8 +2,7 @@
 
 {
 
-  home.file.".emacs".source = ./dotfiles/emacs/emacs;
-  home.file.".config/emacs/config.org".source = ./dotfiles/emacs/config.org;
+  home.file.".emacs".source = ./dotfiles/.emacs;
 
   home.sessionVariables.EDITOR = "emacsclient";
 
@@ -63,6 +62,7 @@
       protobuf-mode
       blacken
       emacs-libvterm
+      use-package
       melpaPackages.emms
       melpaPackages.transmission
       melpaPackages.terraform-mode

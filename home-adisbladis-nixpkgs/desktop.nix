@@ -84,8 +84,6 @@ in {
 
   xsession.enable = true;
   xsession.windowManager.command = ''
-    rm -f ~/.config/emacs/config.el
-
     # Speed up terminal startup
     # This needs to run in the desktop session for child
     # processes (shells etc) to also run in the session
