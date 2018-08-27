@@ -12,6 +12,7 @@
   ];
 
   home.packages = with pkgs; [
+    home-manager.home-manager
     nix-review
     traceroute
     ripgrep

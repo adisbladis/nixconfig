@@ -16,17 +16,18 @@ in {
       ../../profiles/laptop.nix
     ];
 
-
-  nix.extraOptions = ''
-    secret-key-files = /home/adisbladis/.nix-secrets/gari-bincache-key
-   '';
+  boot.initrd.availableKernelModules = [
+    "aes_x86_64"
+    "aesni_intel"
+    "cryptd"
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # boot.extraModulePackages = [ pkgs.linuxPackages.sysdig ];
-  boot.kernelPackages = pkgs.linuxPackages_4_15;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   users.extraUsers.adisbladis.extraGroups = [ "docker" ];
   virtualisation.docker.enable = true;
@@ -65,9 +66,6 @@ in {
   environment.variables.MOZ_USE_XINPUT2 = "1";
 
   networking.hostName = "gari";
-  boot.zfs.enableUnstable = true;
-  boot.zfs.enableLegacyCrypto = true;
-  services.zfs.autoScrub.enable = true;
 
   networking.hostId = "a8c06607";
   networking.networkmanager.enable = true;
@@ -84,6 +82,6 @@ in {
 
   networking.firewall.allowedTCPPorts = [ 51418 ];
 
-  system.stateVersion = "18.03"; # Did you read the comment?
+  system.stateVersion = "18.09"; # Did you read the comment?
 
 }

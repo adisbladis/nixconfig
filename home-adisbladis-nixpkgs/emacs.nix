@@ -2,7 +2,7 @@
 
 {
 
-  home.file.".emacs".source = ./dotfiles/.emacs;
+  home.file.".emacs".source = ./dotfiles/emacs.el;
 
   home.sessionVariables.EDITOR = "emacsclient";
 
@@ -92,6 +92,7 @@
           sha256 = "006yy13hjzalwz7pz0br32zifxlxrrf8cvnz0j3km55sxpdvqmil";
         };
       }))
+      sauron
     ];
   };
 
