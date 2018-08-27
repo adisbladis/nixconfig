@@ -29,7 +29,6 @@
 
   environment.systemPackages = with pkgs; [
     emacs-all-the-icons-fonts
-    direnv
   ];
 
   # Enable pulse with all the modules
