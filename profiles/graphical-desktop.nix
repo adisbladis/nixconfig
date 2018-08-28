@@ -38,6 +38,8 @@
   };
   services.pipewire.enable = true;
 
+  programs.firejail.enable = true;
+
   programs.browserpass.enable = true;
   programs.simpleserver.enable = true;
   programs.adb.enable = true;

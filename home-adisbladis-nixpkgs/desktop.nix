@@ -32,6 +32,10 @@ in {
     mpv
   ];
 
+  services.blueman-applet.enable = true;
+
+  services.pasystray.enable = true;
+
   services.flameshot.enable = true;
 
   programs.autorandr.enable = true;

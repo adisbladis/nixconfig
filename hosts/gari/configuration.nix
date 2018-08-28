@@ -29,8 +29,13 @@ in {
   # boot.extraModulePackages = [ pkgs.linuxPackages.sysdig ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  users.extraUsers.adisbladis.extraGroups = [ "docker" ];
-  virtualisation.docker.enable = true;
+  # Disable pulseaudio bluetooth
+  hardware.pulseaudio.configFile = pkgs.runCommand "default.pa" {} ''
+    grep -v '^load-module.*blue*' ${config.hardware.pulseaudio.package}/etc/pulse/default.pa > $out
+  '';
+
+  # users.extraUsers.adisbladis.extraGroups = [ "docker" ];
+  # virtualisation.docker.enable = true;
 
   environment.systemPackages = with pkgs; [
     # libreoffice
