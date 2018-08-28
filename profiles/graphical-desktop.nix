@@ -1,7 +1,9 @@
 { stdenv, pkgs, lib, ... }:
 
 {
-  imports = [ ./tkssh.nix ];
+  imports = [
+    ../home-adisbladis-nixpkgs/home-manager/nixos
+  ];
 
   nixpkgs.config.allowUnfree = true;
 
@@ -92,6 +94,8 @@
     enable = true;
     extraConfig = "  neg-cache-size: 0";
   };
+
+  home-manager.users.adisbladis = import ../home-adisbladis-nixpkgs/home.nix;
 
   users.extraUsers.adisbladis.extraGroups = [ "wheel" "networkmanager" "adbusers" "wireshark" ];
 }

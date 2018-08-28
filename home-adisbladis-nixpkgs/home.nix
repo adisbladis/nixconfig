@@ -7,12 +7,7 @@
     ./emacs.nix
   ];
 
-  nixpkgs.overlays = [
-    (import /etc/nixos/overlays/local/pkgs)
-  ];
-
   home.packages = with pkgs; [
-    home-manager.home-manager
     wgetpaste
     nix-review
     traceroute

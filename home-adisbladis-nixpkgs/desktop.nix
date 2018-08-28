@@ -5,6 +5,8 @@ let
 
 in {
 
+  nixpkgs.config.allowUnfree = true;
+
   home.packages = with pkgs; [
     firefox-devedition-bin
     urxvtPackage
@@ -87,13 +89,15 @@ in {
   # services.blueman-applet.enable = true;
 
   xsession.enable = true;
-  xsession.windowManager.command = ''
+  xsession.windowManager.command = let
+    applauncher = pkgs.callPackage ../overlays/local/pkgs/applauncher {};
+  in ''
     # Speed up terminal startup
     # This needs to run in the desktop session for child
     # processes (shells etc) to also run in the session
     ${urxvtPackage}/bin/urxvtd -q -o -f &
 
-    ${pkgs.adis-applauncher}/bin/applauncher &
+    ${applauncher}/bin/applauncher &
 
     # Shell needs to be bash :(
     env SHELL=$(which bash) emacs -f x11-wm-init
