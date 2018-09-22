@@ -93,6 +93,7 @@
         };
       }))
       sauron
+      pdf-tools
     ];
   };
 

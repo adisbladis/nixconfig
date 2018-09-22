@@ -1,20 +1,15 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 let
   nvidiaDriver = "nouveau";
 
 in {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../profiles/common.nix
-      ../../profiles/graphical-desktop.nix
-      ../../profiles/laptop.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    ../../profiles/common.nix
+    ../../profiles/graphical-desktop.nix
+    ../../profiles/laptop.nix
+  ];
 
   boot.initrd.availableKernelModules = [
     "aes_x86_64"
@@ -28,18 +23,6 @@ in {
 
   # boot.extraModulePackages = [ pkgs.linuxPackages.sysdig ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  # Disable pulseaudio bluetooth
-  hardware.pulseaudio.configFile = pkgs.runCommand "default.pa" {} ''
-    grep -v '^load-module.*blue*' ${config.hardware.pulseaudio.package}/etc/pulse/default.pa > $out
-  '';
-
-  # users.extraUsers.adisbladis.extraGroups = [ "docker" ];
-  # virtualisation.docker.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    # libreoffice
-  ];
 
   services.acpid.enable = true;
 
@@ -58,14 +41,8 @@ in {
   #  Power use is good enough without it anyway
   hardware.opengl.enable = true;
   hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau vaapiIntel ];
-  # hardware.bumblebee.enable = true;
-  # hardware.bumblebee.connectDisplay = true;
-  # hardware.bumblebee.driver = nvidiaDriver;
   services.xserver.videoDrivers = [ "modesetting" ];
   boot.kernelParams = [ "i915.enable_psr=1" ];
-
-  # BPF compiler
-  # programs.bcc.enable = true;
 
   # Touch screen in firefox
   environment.variables.MOZ_USE_XINPUT2 = "1";
@@ -73,7 +50,6 @@ in {
   networking.hostName = "gari";
 
   networking.hostId = "a8c06607";
-  networking.networkmanager.enable = true;
 
   fileSystems."/".options = [ "noatime" "nodiratime" ];
   fileSystems."/tmp" = {
@@ -84,8 +60,6 @@ in {
   };
 
   hardware.cpu.intel.updateMicrocode = true;
-
-  networking.firewall.allowedTCPPorts = [ 51418 ];
 
   system.stateVersion = "18.09"; # Did you read the comment?
 

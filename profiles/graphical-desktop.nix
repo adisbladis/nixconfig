@@ -36,8 +36,15 @@
   # Enable pulse with all the modules
   hardware.pulseaudio = {
     enable = true;
-    package = pkgs.pulseaudioFull;
+    # Replace built in pulseaudio modules with enhanced bluetooth ones
+    package = with pkgs; pulseaudioFull.overrideAttrs(oldAttrs: {
+      postInstall = oldAttrs.postInstall + ''
+
+        cp -a ${pulseaudio-modules-bt}/* $out/
+      '';
+    });
   };
+
   services.pipewire.enable = true;
 
   programs.firejail.enable = true;

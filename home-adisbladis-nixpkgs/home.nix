@@ -7,7 +7,19 @@
     ./emacs.nix
   ];
 
-  home.packages = with pkgs; [
+  home.packages = with pkgs; let
+    ipythonEnv = (python3.withPackages (ps: with ps; [
+      ps.ipython
+      ps.requests
+      ps.psutil
+    ]));
+    # Link into ipythonEnv package to avoid polluting $PATH with python deps
+    ipythonPackage = pkgs.runCommand "ipython-stripped" {} ''
+      mkdir -p $out/bin
+      ln -s ${ipythonEnv}/bin/ipython $out/bin/ipython
+    '';
+  in [
+    ipythonPackage
     wgetpaste
     nix-review
     traceroute
@@ -31,13 +43,6 @@
     enable = true;
     shellAliases = with pkgs; {
       pcat = "${python3Packages.pygments}/bin/pygmentize";
-      ipython = let
-        pythonEnv = (python3.withPackages (ps: [
-          ps.ipython
-          ps.requests
-          ps.psutil
-        ]));
-      in "${pythonEnv}/bin/ipython";
     };
   };
 

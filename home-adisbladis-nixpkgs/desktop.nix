@@ -28,7 +28,7 @@ in {
     transmission_gtk
     darktable
     # wireshark
-    android-studio
+    # android-studio
     youtube-dl
     qt5ct
     mpv

@@ -2,6 +2,7 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
+;;; Code:
 (package-initialize)
 
 ;; Define XDG directories
@@ -326,6 +327,13 @@
     (server-start)))
 
 (use-package vterm :defer 1)
+
+;; Better pdf rendering
+(use-package pdf-tools
+    :ensure t
+    :config
+    (pdf-tools-install)
+    (setq-default pdf-view-display-size 'fit-page))
 
 ;; (add-hook 'message-setup-hook
 ;;           (lambda ()
