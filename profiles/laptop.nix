@@ -17,6 +17,8 @@ with lib;
     ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="deadline"
   '';
 
+  services.fwupd.enable = true;
+
   hardware.trackpoint.enable = true;
   security.lockKernelModules = false;  # No wifi with this one enabled
 }

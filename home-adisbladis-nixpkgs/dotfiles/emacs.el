@@ -27,8 +27,38 @@
     (mkdir backup-dir t))
   (setq-default backup-directory-alist (cons (cons "." backup-dir) nil)))
 
-;; ido
-(ido-mode)
+;; helm
+(use-package helm
+  :defer 2
+  :diminish helm-mode
+  :bind (("C-x C-f" . helm-find-files)
+         ("M-x" . helm-M-x)
+         ("C-x b" . helm-mini)
+         ("C-x C-b" . helm-mini)
+         ("M-y" . helm-show-kill-ring)
+         :map helm-map
+         ("<tab>" . helm-execute-persistent-action) ; Rebind TAB to expand
+         ("C-i" . helm-execute-persistent-action) ; Make TAB work in CLI
+         ("C-z" . helm-select-action)) ; List actions using C-z
+  :config
+  (progn
+    (setq helm-buffer-max-length nil) ;; Size according to longest buffer name
+    (setq helm-split-window-in-side-p t)
+    (helm-mode 1)))
+
+(use-package helm-fuzzier
+  :defer 2
+  :config
+  (progn
+    (setq helm-mode-fuzzy-match t
+          helm-M-x-fuzzy-match t
+          helm-buffers-fuzzy-match t
+          helm-recentf-fuzzy-match t)
+    (helm-fuzzier-mode 1)))
+
+;; Remove suspend keys (annoying at best)
+(global-unset-key (kbd "C-z"))
+(global-unset-key (kbd "C-x C-z"))
 
 ;; Disable creation of lock-files named .#<filename>.
 (setq-default create-lockfiles nil)
@@ -97,6 +127,11 @@
     (setq web-mode-markup-indent-offset 4) ; HTML
     (setq web-mode-css-indent-offset 4)    ; CSS
     (setq web-mode-code-indent-offset 4))) ; JS/PHP/etc
+
+;; Nix
+(use-package nix-mode
+  :defer 2
+  :mode "\\.nix$")
 
 ;; Better js mode
 (use-package js2-mode
@@ -283,16 +318,16 @@
     ;;         #tabbrowser-tabs { visibility: collapse !important; }
     ;; Step 5: add this code to your exwm config:
     ;; Step 6: restart your browser and enjoy your new C-x b fanciness!
-    (defun pnh-trim-non-ff ()
-      (cl-delete-if-not
-       (apply-partially 'string-match "- Mozilla Firefox$")
-       ido-temp-list))
+    ;; (defun pnh-trim-non-ff ()
+    ;;   (cl-delete-if-not
+    ;;    (apply-partially 'string-match "- Mozilla Firefox$")
+    ;;    ido-temp-list))
 
-    (add-hook
-     'exwm-manage-finish-hook
-     (defun pnh-exwm-manage-hook ()
-       (when (string-match "Firefox" exwm-class-name)
-         (setq ido-make-buffer-list-hook 'pnh-trim-non-ff))))
+    ;; (add-hook
+    ;;  'exwm-manage-finish-hook
+    ;;  (defun pnh-exwm-manage-hook ()
+    ;;    (when (string-match "Firefox" exwm-class-name)
+    ;;      (setq ido-make-buffer-list-hook 'pnh-trim-non-ff))))
 
     (exwm-input-set-key
      (kbd "s-g")
@@ -328,24 +363,13 @@
 
 (use-package vterm :defer 1)
 
-;; Better pdf rendering
+;; PDF support
 (use-package pdf-tools
     :ensure t
     :config
     (pdf-tools-install)
-    (setq-default pdf-view-display-size 'fit-page))
-
-;; (add-hook 'message-setup-hook
-;;           (lambda ()
-;;             (gnus-alias-determine-identity)
-;;             (define-key message-mode-map (kbd "C-c f")
-;;               (lambda ()
-;;                 (interactive)
-;;                 (message-remove-header "Fcc")
-;;                 (message-remove-header "Organization")
-;;                 (gnus-alias-select-identity)
-;;                 (notmuch-fcc-header-setup)))
-;;             (flyspell-mode)))
+    (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward-regexp)  ;; Pdf and swiper does not work together
+    )
 
 (use-package notmuch
   :config
@@ -396,5 +420,6 @@
       mail-specify-envelope-from t
       mail-envelope-from 'header
       message-sendmail-envelope-from 'header)
+
 ;; Sign messages by default.
 (add-hook 'message-setup-hook 'mml-secure-message-sign-pgpmime)
