@@ -11,7 +11,6 @@
     weechat-env = (pkgs.buildFHSUserEnv {
       name = "weechat";
       targetPkgs = (pkgs: [
-        pkgs.weechat-matrix-bridge
         pkgs.weechat
       ]);
       runScript = "${pkgs.weechat}/bin/weechat";
@@ -19,7 +18,6 @@
       profile = ''
         export TERM=xterm
         mkdir -p $HOME/.weechat/lua/autoload
-        cp ${pkgs.weechat-matrix-bridge}/share/matrix.lua $HOME/.weechat/lua/autoload/matrix.lua
       '';
     });
   in with pkgs; [

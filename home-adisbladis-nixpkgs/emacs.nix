@@ -1,6 +1,10 @@
 { pkgs, ... }:
 
-{
+let
+
+  myExwm = pkgs.callPackage ./exwm.nix { };
+
+in {
 
   home.file.".emacs".source = ./dotfiles/emacs.el;
 
@@ -15,7 +19,7 @@
 
     extraPackages = epkgs: with epkgs; [
       pass
-      exwm
+      myExwm
       nix-mode
       zerodark-theme
       jedi

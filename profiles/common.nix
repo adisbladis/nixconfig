@@ -27,7 +27,7 @@ in {
     ../overlays/local/modules/default.nix
   ];
 
-  time.timeZone = "Asia/Hong_Kong";
+  time.timeZone = "Europe/London";
 
   i18n = {
     consoleFont = "Lat2-Terminus16";
@@ -41,10 +41,8 @@ in {
     nox
     fish
     gnupg
-    emacs
     wget
     htop
-    mosh
     git
     screen
     tmux
@@ -67,7 +65,7 @@ in {
   users.extraUsers.adisbladis = {
     isNormalUser = true;
     uid = 1000;
-    extraGroups = [ "wheel" "networkmanager" "video" ];
+    extraGroups = [ "wheel" "networkmanager" "video" "libvirtd" ];
     shell = pkgs.fish;
 
     openssh.authorizedKeys.keys = sshKeys;

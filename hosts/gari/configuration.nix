@@ -21,7 +21,6 @@ in {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # boot.extraModulePackages = [ pkgs.linuxPackages.sysdig ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   services.acpid.enable = true;
@@ -40,7 +39,7 @@ in {
   #  Bumblebee has issues with tearing and crashes
   #  Power use is good enough without it anyway
   hardware.opengl.enable = true;
-  hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau vaapiIntel ];
+  hardware.opengl.extraPackages = with pkgs; [ vaapiIntel ];
   services.xserver.videoDrivers = [ "modesetting" ];
   boot.kernelParams = [ "i915.enable_psr=1" ];
 

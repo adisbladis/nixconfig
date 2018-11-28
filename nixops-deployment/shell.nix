@@ -1,5 +1,5 @@
 with (import <nixpkgs> {});
 
 mkShell {
-  buildInputs = [ nixops ];
+  buildInputs = [ nixopsUnstable ];
 }

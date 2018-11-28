@@ -207,6 +207,17 @@
 ;; Org-exports
 (eval-after-load "org"
   '(require 'ox-gfm nil t))
+;; Syntax highlight in babel exports (has extra env requirements)
+(require 'ox-beamer)
+(require 'ox-latex)
+(setq org-export-allow-bind-keywords t)
+(setq org-latex-listings 'minted)
+(add-to-list 'org-latex-packages-alist '("" "minted" "listings"))
+(setq org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
 
 (defun x11-wm-init ()
   (progn
@@ -235,6 +246,11 @@
               (lambda ()
                 (when (and exwm-class-name
                            (string= exwm-class-name "URxvt"))
+                  (exwm-input-set-local-simulation-keys '(([?\C-c ?\C-c] . ?\C-c))))))
+    (add-hook 'exwm-manage-finish-hook
+              (lambda ()
+                (when (and exwm-class-name
+                           (string= exwm-class-name "kitty"))
                   (exwm-input-set-local-simulation-keys '(([?\C-c ?\C-c] . ?\C-c))))))
 
     (add-hook 'exwm-update-title-hook
@@ -352,7 +368,7 @@
         :session "com.github.adisbladis.AppLauncher"
         "/com/github/adisbladis/AppLauncher"
         "com.github.adisbladis.AppLauncher" "Start"
-        (split-string "urxvt"))))
+        (split-string "kitty"))))
 
     (setq browse-url-firefox-arguments '("-new-window"))
     (setq exwm-randr-workspace-output-plist '(1 "DP-2-2"))

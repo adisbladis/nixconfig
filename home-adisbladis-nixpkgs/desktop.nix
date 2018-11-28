@@ -9,8 +9,6 @@ in {
 
   home.packages = with pkgs; [
     firefox-devedition-bin
-    urxvtPackage
-    notmuch
     scrot
     spotify
     gimp
@@ -24,14 +22,15 @@ in {
     graphviz
     unrar
 
-    pavucontrol
     transmission_gtk
     darktable
-    # wireshark
-    # android-studio
     youtube-dl
-    qt5ct
     mpv
+    yubioath-desktop
+    slack
+
+    kitty
+    yubioath-desktop
   ];
 
   services.blueman-applet.enable = true;
@@ -40,23 +39,19 @@ in {
 
   services.flameshot.enable = true;
 
-  programs.autorandr.enable = true;
-
   services.kdeconnect = {
     enable = true;
     indicator = true;
   };
 
-  home.file.".config/pulse/daemon.conf".source = ./dotfiles/pulse/daemon.conf;
+  # home.file.".config/pulse/daemon.conf".source = ./dotfiles/pulse/daemon.conf;
   home.file.".config/mpv/mpv.conf".source = ./dotfiles/mpv/mpv.conf;
 
-  services.mbsync = with pkgs; {
-    preExec = "${coreutils}/bin/mkdir -p %h/Maildir/adisbladis-gmail";
-    postExec = "${notmuch}/bin/notmuch new";
-    enable = true;
-  };
-
-  services.syncthing.enable = true;
+  # services.mbsync = with pkgs; {
+  #   preExec = "${coreutils}/bin/mkdir -p %h/Maildir/adisbladis-gmail";
+  #   postExec = "${notmuch}/bin/notmuch new";
+  #   enable = true;
+  # };
 
   programs.browserpass.enable = true;
 
@@ -86,17 +81,10 @@ in {
   # Notification daemon
   services.dunst.enable = true;
 
-  # services.blueman-applet.enable = true;
-
   xsession.enable = true;
   xsession.windowManager.command = let
     applauncher = pkgs.callPackage ../overlays/local/pkgs/applauncher {};
   in ''
-    # Speed up terminal startup
-    # This needs to run in the desktop session for child
-    # processes (shells etc) to also run in the session
-    ${urxvtPackage}/bin/urxvtd -q -o -f &
-
     ${applauncher}/bin/applauncher &
 
     # Shell needs to be bash :(
