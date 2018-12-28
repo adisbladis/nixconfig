@@ -227,13 +227,11 @@
 
     (defun pnh-run (command)
       (interactive (list (read-shell-command "$ ")))
-
-      (dbus-call-method
-       :session "com.github.adisbladis.AppLauncher"
-       "/com/github/adisbladis/AppLauncher"
-       "com.github.adisbladis.AppLauncher" "Start"
-       (split-string command)))
-
+      (let (
+            (cmd (concat
+                  "systemd-run --user "
+                  command)))
+        (start-process-shell-command cmd nil cmd)))
     (define-key exwm-mode-map (kbd "s-!") 'pnh-run)
     (global-set-key (kbd "s-!") 'pnh-run)
 
@@ -246,11 +244,6 @@
               (lambda ()
                 (when (and exwm-class-name
                            (string= exwm-class-name "URxvt"))
-                  (exwm-input-set-local-simulation-keys '(([?\C-c ?\C-c] . ?\C-c))))))
-    (add-hook 'exwm-manage-finish-hook
-              (lambda ()
-                (when (and exwm-class-name
-                           (string= exwm-class-name "kitty"))
                   (exwm-input-set-local-simulation-keys '(([?\C-c ?\C-c] . ?\C-c))))))
 
     (add-hook 'exwm-update-title-hook
@@ -320,31 +313,6 @@
                ("M->" . C-end)
                ("C-M-h" . C-backspace))))
 
-    ;; Using ido to change "tabs" in Firefox!
-    ;;
-    ;; For this to work properly you need to stop opening new tabs and open
-    ;; everything in new windows. It sounds crazy, but then you can use ido
-    ;; to switch between "tabs" and everything is wonderful.
-    ;;
-    ;; Step 1: about:config -> browser.tabs.opentabfor.middleclick -> false
-    ;; Step 2: change whatever "open link in new tab" binding in Saka Key or
-    ;;         whatever you use to open the link in a new window
-    ;; Step 3: rebind ctrl-t to open a new window as well
-    ;; Step 4: place the following in chrome/userChrome.css in your FF profile:
-    ;;         #tabbrowser-tabs { visibility: collapse !important; }
-    ;; Step 5: add this code to your exwm config:
-    ;; Step 6: restart your browser and enjoy your new C-x b fanciness!
-    ;; (defun pnh-trim-non-ff ()
-    ;;   (cl-delete-if-not
-    ;;    (apply-partially 'string-match "- Mozilla Firefox$")
-    ;;    ido-temp-list))
-
-    ;; (add-hook
-    ;;  'exwm-manage-finish-hook
-    ;;  (defun pnh-exwm-manage-hook ()
-    ;;    (when (string-match "Firefox" exwm-class-name)
-    ;;      (setq ido-make-buffer-list-hook 'pnh-trim-non-ff))))
-
     (exwm-input-set-key
      (kbd "s-g")
      (defun pnh-ff-gsearch ()
@@ -364,11 +332,8 @@
      (kbd "s-t")
      (defun pnh-terminal ()
        (interactive)
-       (dbus-call-method
-        :session "com.github.adisbladis.AppLauncher"
-        "/com/github/adisbladis/AppLauncher"
-        "com.github.adisbladis.AppLauncher" "Start"
-        (split-string "kitty"))))
+       (let ((cmd "systemd-run --user urxvt"))
+         (start-process-shell-command cmd nil cmd))))
 
     (setq browse-url-firefox-arguments '("-new-window"))
     (setq exwm-randr-workspace-output-plist '(1 "DP-2-2"))
@@ -381,61 +346,8 @@
 
 ;; PDF support
 (use-package pdf-tools
-    :ensure t
     :config
     (pdf-tools-install)
-    (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward-regexp)  ;; Pdf and swiper does not work together
+    ;; Pdf and swiper does not work together
+    (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward-regexp)
     )
-
-(use-package notmuch
-  :config
-  (progn
-    (setq notmuch-show-logo nil)
-    (setq notmuch-search-oldest-first nil)))
-
-;; ; gnus-alias
-(autoload 'gnus-alias-determine-identity "gnus-alias" "" t)
-(setq gnus-alias-identity-alist
-      '(("adisbladis-gmail"
-         nil ;; Does not refer to any other identity
-         "Adam Hose <adisbladis@gmail.com>"
-         nil ;; No organization header
-         nil ;; No extra headers
-         nil ;; No extra body text
-         nil ;; No signature
-         )
-        ("enuma"
-         nil
-         "Adam Hose <adam.hose@enuma.io>"
-         "Enuma Technologies"
-         nil
-         nil
-         nil
-         )
-        ("trustedkey"
-         nil
-         "Adam Hose <adam.hose@trustedkey.com>"
-         "Trusted Key"
-         nil
-         nil
-         nil
-         )
-        ))
-
-(setq gnus-alias-default-identity "adisbladis-gmail")
-(setq gnus-alias-identity-rules
-      '(("@enuma.io" ("any" "@enuma\\.io" both) "enuma")
-        ("@trustedkey.com" ("any" "@trustedkey\\.com" both) "trustedkey")))
-
-(setq mail-user-agent 'message-user-agent)
-(setq message-send-mail-function 'message-send-mail-with-sendmail)
-(setq message-kill-buffer-on-exit t)
-(setq mail-specify-envelope-from t)
-
-(setq sendmail-program "msmtp"
-      mail-specify-envelope-from t
-      mail-envelope-from 'header
-      message-sendmail-envelope-from 'header)
-
-;; Sign messages by default.
-(add-hook 'message-setup-hook 'mml-secure-message-sign-pgpmime)

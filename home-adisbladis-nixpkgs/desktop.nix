@@ -29,8 +29,9 @@ in {
     yubioath-desktop
     slack
 
-    kitty
+    urxvtPackage
     yubioath-desktop
+    zoom-us
   ];
 
   services.blueman-applet.enable = true;
@@ -82,14 +83,7 @@ in {
   services.dunst.enable = true;
 
   xsession.enable = true;
-  xsession.windowManager.command = let
-    applauncher = pkgs.callPackage ../overlays/local/pkgs/applauncher {};
-  in ''
-    ${applauncher}/bin/applauncher &
-
-    # Shell needs to be bash :(
-    env SHELL=$(which bash) emacs -f x11-wm-init
-  '';
+  xsession.windowManager.command = "emacs -f x11-wm-init";
 
   services.screen-locker = {
     enable = true;

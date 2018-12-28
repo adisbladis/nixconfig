@@ -7,3 +7,9 @@
 [submodule "overlays/nixpkgs-trustedkey"]
 	path = overlays/nixpkgs-trustedkey
 	url = https://github.com/trustedkey/nixpkgs-trustedkey.git
+[submodule "overlays/--force"]
+	path = overlays/--force
+	url = git@github.com:adisbladis/exwm-overlay.git
+[submodule "overlays/exwm-overlay"]
+	path = overlays/exwm-overlay
+	url = git@github.com:adisbladis/exwm-overlay.git

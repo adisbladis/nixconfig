@@ -22,6 +22,7 @@ in {
   # Local overlays
   nixpkgs.overlays = [
     (import ../overlays/local/pkgs/default.nix)
+    (import ../overlays/exwm-overlay)
   ];
   imports = [
     ../overlays/local/modules/default.nix
@@ -65,9 +66,14 @@ in {
   users.extraUsers.adisbladis = {
     isNormalUser = true;
     uid = 1000;
-    extraGroups = [ "wheel" "networkmanager" "video" "libvirtd" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "video"
+      "libvirtd"
+      "docker"
+    ];
     shell = pkgs.fish;
-
     openssh.authorizedKeys.keys = sshKeys;
   };
 }

@@ -7,6 +7,10 @@
     ./emacs.nix
   ];
 
+  nixpkgs.overlays = [
+    (import ../overlays/exwm-overlay)
+  ];
+
   home.packages = with pkgs; let
     ipythonEnv = (python3.withPackages (ps: with ps; [
       ps.ipython

@@ -19,7 +19,7 @@ in {
 
     extraPackages = epkgs: with epkgs; [
       pass
-      myExwm
+      exwm
       nix-mode
       zerodark-theme
       jedi
@@ -87,15 +87,7 @@ in {
       melpaPackages.helm-pass
       melpaPackages.helm-fuzzier
       melpaPackages.helm-projectile
-      (melpaPackages.magit-todos.overrideAttrs(oldAttrs: {
-        buildInputs = oldAttrs.buildInputs ++ [ pkgs.git ];
-        src = pkgs.fetchFromGitHub {
-          owner = "alphapapa";
-          repo = "magit-todos";
-          rev = "d12e2e3ccad4b87d5df5285ade0c56ec5f46ad63";
-          sha256 = "006yy13hjzalwz7pz0br32zifxlxrrf8cvnz0j3km55sxpdvqmil";
-        };
-      }))
+      melpaPackages.magit-todos
       sauron
       pdf-tools
     ];

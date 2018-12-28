@@ -53,7 +53,7 @@
 
   programs.browserpass.enable = true;
   programs.simpleserver.enable = true;
-  programs.adb.enable = true;
+  # programs.adb.enable = true;
 
   services.dbus.packages = [ pkgs.blueman ];
 
