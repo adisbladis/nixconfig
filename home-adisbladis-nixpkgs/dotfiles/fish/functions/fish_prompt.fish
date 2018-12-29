@@ -1,17 +1,14 @@
 function fish_prompt --description 'Display prompt'
 	set last_ret $status
 
-    if not set -q __fish_prompt_hostname
-        set -g __fish_prompt_hostname (hostname|cut -d . -f 1)
-    end
-
     set PROMPT ''
 
     # Add User
     set PROMPT $PROMPT(set_color -b 585858)(set_color bbbbbb)' '$USER' '
 
     # Add hostname
-    set PROMPT $PROMPT(set_color -b 444444)' '$__fish_prompt_hostname' '
+    set -l prompt_hostname (string split -m 1 "." $hostname)[1]
+    set PROMPT $PROMPT(set_color -b 444444)' '$prompt_hostname' '
 
     # Add CWD (home|root) with colors
     switch (prompt_pwd)
