@@ -56,6 +56,10 @@
           helm-recentf-fuzzy-match t)
     (helm-fuzzier-mode 1)))
 
+(use-package helm-ag)
+(use-package helm-pass)
+(use-package helm-projectile)
+
 ;; Remove suspend keys (annoying at best)
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
@@ -98,13 +102,6 @@
     (setq-default jedi:setup-keys t)
     (setq-default jedi:complete-on-dot t)))
 
-;; c/cpp modes
-;;  (add-hook 'c++-mode-hook 'irony-mode)
-;;  (add-hook 'c-mode-hook 'irony-mode)
-;;  (add-hook 'objc-mode-hook 'irony-mode)
-;;  (eval-after-load 'company
-;;    '(add-to-list 'company-backends 'company-irony))
-
 (use-package go-mode
   :defer 1
   :config
@@ -129,11 +126,14 @@
     (setq web-mode-code-indent-offset 4))) ; JS/PHP/etc
 
 ;; Nix
-(use-package nix-mode
+(use-package
+  nix-mode
   :defer 2
   :mode "\\.nix$")
 
 ;; Better js mode
+(use-package xref-js2)
+(use-package ac-js2)
 (use-package js2-mode
   :defer 1
   :config
@@ -149,6 +149,7 @@
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 ;; JS debugger
+(use-package mocha)
 (use-package indium
   :defer 1
   :config
@@ -157,10 +158,19 @@
     (setq mocha-debugger 'indium)))
 
 ;; Global magit keys
-(global-set-key (kbd "C-x g") 'magit-status) ; Display the main magit popup
-(global-set-key (kbd "C-x M-g") 'magit-dispatch-popup) ; Display keybinds for magit
+(use-package magit
+  :config
+  (progn
+    (global-set-key (kbd "C-x g") 'magit-status) ; Display the main magit popup
+    (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup) ; Display keybinds for magit
+    ))
 
 ;; Autocomplete
+(use-package company)
+(use-package company-flx)
+(use-package company-statistics)
+(use-package company-go)
+
 (progn
   (setq-default company-tooltip-minimum-width 15)
     (setq-default company-idle-delay 0.1)
@@ -175,50 +185,74 @@
   (company-statistics-mode))
 
 ;; Smooth-scroll
-(progn
-  (setq-default smooth-scroll-margin 2))
+(use-package smooth-scrolling
+  :config
+  (progn
+    (setq-default smooth-scroll-margin 2)))
 
 ;; Fancy search
-(global-set-key (kbd "C-s") 'swiper)
-(global-set-key (kbd "C-r") 'swiper)
+(use-package swiper
+  :config
+  (progn
+    (global-set-key (kbd "C-s") 'swiper)
+    (global-set-key (kbd "C-r") 'swiper)))
 
 ;; Global webpaste shortcuts
-(global-set-key (kbd "C-c C-p C-b") 'webpaste-paste-buffer)
-(global-set-key (kbd "C-c C-p C-r") 'webpaste-paste-region)
+(use-package webpaste
+  :defer 1
+  :config
+  (progn
+    (global-set-key (kbd "C-c C-p C-b") 'webpaste-paste-buffer)
+    (global-set-key (kbd "C-c C-p C-r") 'webpaste-paste-region)))
 
 ;; Smart mode line
-(progn
-  (setq sml/theme 'powerline)
-  (setq sml/no-confirm-load-theme t)
-  (sml/setup))
+(use-package smart-mode-line-powerline-theme)
+(use-package smart-mode-line
+  :config
+  (progn
+    (setq sml/theme 'powerline)
+    (setq sml/no-confirm-load-theme t)
+    (sml/setup)))
 
 ;; Always attempt flycheck
-(global-flycheck-mode)
+(use-package flycheck
+  :config (global-flycheck-mode))
+(use-package flycheck-irony)
+(use-package flycheck-mypy)
+(use-package flycheck-rust)
+(use-package flycheck-elixir)
 
 ;; Smart parens
-(progn
-  (add-hook 'js-mode-hook #'smartparens-mode)
-  (add-hook 'html-mode-hook #'smartparens-mode)
-  (add-hook 'python-mode-hook #'smartparens-mode)
-  (add-hook 'lua-mode-hook #'smartparens-mode)
-  (add-hook 'ruby-mode-hook #'smartparens-mode)
-  (add-hook 'rust-mode-hook #'smartparens-mode))
+(use-package smartparens
+  :config
+  (progn
+    (add-hook 'js-mode-hook #'smartparens-mode)
+    (add-hook 'html-mode-hook #'smartparens-mode)
+    (add-hook 'python-mode-hook #'smartparens-mode)
+    (add-hook 'lua-mode-hook #'smartparens-mode)
+    (add-hook 'ruby-mode-hook #'smartparens-mode)
+    (add-hook 'rust-mode-hook #'smartparens-mode)))
 
 ;; Org-exports
-(eval-after-load "org"
-  '(require 'ox-gfm nil t))
-;; Syntax highlight in babel exports (has extra env requirements)
-(require 'ox-beamer)
-(require 'ox-latex)
-(setq org-export-allow-bind-keywords t)
-(setq org-latex-listings 'minted)
-(add-to-list 'org-latex-packages-alist '("" "minted" "listings"))
-(setq org-latex-pdf-process
-      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+(use-package org)
+(use-package ox-gfm
+  :config
+  (progn
+    (eval-after-load "org"
+      '(require 'ox-gfm nil t))
+    ;; Syntax highlight in babel exports (has extra env requirements)
+    (require 'ox-beamer)
+    (require 'ox-latex)
+    (setq org-export-allow-bind-keywords t)
+    (setq org-latex-listings 'minted)
+    (add-to-list 'org-latex-packages-alist '("" "minted" "listings"))
+    (setq org-latex-pdf-process
+          '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+            "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+            "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))))
 
 
+(use-package exwm)
 (defun x11-wm-init ()
   (progn
     (require 'exwm)
@@ -260,17 +294,20 @@
     ;; Battery is useful too
     (display-battery-mode)
 
-    (require 'desktop-environment)
-    (desktop-environment-mode)
-    (setq desktop-environment-brightness-set-command "light %s")
-    (setq desktop-environment-brightness-normal-decrement "-U 10")
-    (setq desktop-environment-brightness-small-decrement "-U 5")
-    (setq desktop-environment-brightness-normal-increment "-A 10")
-    (setq desktop-environment-brightness-small-increment "-A 5")
-    (setq desktop-environment-brightness-get-command "light")
-    (setq desktop-environment-brightness-get-regexp "\\([0-9]+\\)\\.[0-9]+")
-    (setq desktop-environment-screenlock-command "loginctl lock-session")
-    (setq desktop-environment-screenshot-command "flameshot gui")
+    (use-package desktop-environment
+      :config
+      (progn
+        (require 'desktop-environment)
+        (desktop-environment-mode)
+        (setq desktop-environment-brightness-set-command "light %s")
+        (setq desktop-environment-brightness-normal-decrement "-U 10")
+        (setq desktop-environment-brightness-small-decrement "-U 5")
+        (setq desktop-environment-brightness-normal-increment "-A 10")
+        (setq desktop-environment-brightness-small-increment "-A 5")
+        (setq desktop-environment-brightness-get-command "light")
+        (setq desktop-environment-brightness-get-regexp "\\([0-9]+\\)\\.[0-9]+")
+        (setq desktop-environment-screenlock-command "loginctl lock-session")
+        (setq desktop-environment-screenshot-command "flameshot gui")))
 
     (require 'exwm-systemtray)
     (exwm-systemtray-enable)
@@ -342,7 +379,6 @@
     (exwm-randr-enable)
     (server-start)))
 
-(use-package vterm :defer 1)
 
 ;; PDF support
 (use-package pdf-tools
@@ -351,3 +387,27 @@
     ;; Pdf and swiper does not work together
     (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward-regexp)
     )
+
+;; Various modes
+(use-package vterm :defer 1)
+(use-package magit-org-todos)
+(use-package weechat)
+(use-package pass)
+(use-package fish-mode)
+(use-package jinja2-mode)
+(use-package lua-mode)
+(use-package rust-mode)
+(use-package android-mode)
+(use-package markdown-mode)
+(use-package yaml-mode)
+(use-package elixir-mode)
+(use-package ag)
+(use-package swift-mode)
+(use-package protobuf-mode)
+(use-package terraform-mode)
+(use-package kdeconnect)
+(use-package dumb-jump)
+(use-package handlebars-mode)
+(use-package deadgrep)
+(use-package magit-todos)
+(use-package sauron)
