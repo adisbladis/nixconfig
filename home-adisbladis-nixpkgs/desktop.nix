@@ -83,7 +83,7 @@ in {
   services.dunst.enable = true;
 
   xsession.enable = true;
-  xsession.windowManager.command = "emacs -f x11-wm-init";
+  xsession.windowManager.command = "emacs";
 
   services.screen-locker = {
     enable = true;

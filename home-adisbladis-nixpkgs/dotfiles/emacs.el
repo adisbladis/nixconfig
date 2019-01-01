@@ -252,8 +252,8 @@
             "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))))
 
 
-(use-package exwm)
-(defun x11-wm-init ()
+(use-package exwm
+  :config
   (progn
     (require 'exwm)
     (require 'exwm-randr)
