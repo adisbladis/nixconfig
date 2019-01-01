@@ -5,6 +5,10 @@
   home.file.".emacs".source = ./dotfiles/emacs.el;
 
   home.sessionVariables.EDITOR = "emacsclient";
+  home.sessionVariables.XMODIFIERS = "@im=exim";
+  home.sessionVariables.GTK_IM_MODULE = "xim";
+  home.sessionVariables.QT_IM_MODULE = "xim";
+  home.sessionVariables.CLUTTER_IM_MODULE = "xim";
 
   home.packages = [
     ((import ./dotfiles/elisp.nix { inherit pkgs; }).fromEmacsUsePackage {

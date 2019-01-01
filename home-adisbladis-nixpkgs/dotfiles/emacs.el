@@ -294,21 +294,6 @@
     ;; Battery is useful too
     (display-battery-mode)
 
-    (use-package desktop-environment
-      :config
-      (progn
-        (require 'desktop-environment)
-        (desktop-environment-mode)
-        (setq desktop-environment-brightness-set-command "light %s")
-        (setq desktop-environment-brightness-normal-decrement "-U 10")
-        (setq desktop-environment-brightness-small-decrement "-U 5")
-        (setq desktop-environment-brightness-normal-increment "-A 10")
-        (setq desktop-environment-brightness-small-increment "-A 5")
-        (setq desktop-environment-brightness-get-command "light")
-        (setq desktop-environment-brightness-get-regexp "\\([0-9]+\\)\\.[0-9]+")
-        (setq desktop-environment-screenlock-command "loginctl lock-session")
-        (setq desktop-environment-screenshot-command "flameshot gui")))
-
     (require 'exwm-systemtray)
     (exwm-systemtray-enable)
     (setq exwm-systemtray-height 16)
@@ -377,8 +362,29 @@
     (require 'exwm-config)
     (exwm-config-default)
     (exwm-randr-enable)
+    (exwm-enable)
     (server-start)))
 
+(use-package exim
+  :config
+  (progn
+    (push ?\C-\\ exwm-input-prefix-keys)
+    (add-hook 'exwm-init-hook 'exim-start)))
+
+(use-package desktop-environment
+  :config
+  (progn
+    (require 'desktop-environment)
+    (desktop-environment-mode)
+    (setq desktop-environment-brightness-set-command "light %s")
+    (setq desktop-environment-brightness-normal-decrement "-U 10")
+    (setq desktop-environment-brightness-small-decrement "-U 5")
+    (setq desktop-environment-brightness-normal-increment "-A 10")
+    (setq desktop-environment-brightness-small-increment "-A 5")
+    (setq desktop-environment-brightness-get-command "light")
+    (setq desktop-environment-brightness-get-regexp "\\([0-9]+\\)\\.[0-9]+")
+    (setq desktop-environment-screenlock-command "loginctl lock-session")
+    (setq desktop-environment-screenshot-command "flameshot gui")))
 
 ;; PDF support
 (use-package pdf-tools
