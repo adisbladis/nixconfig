@@ -388,10 +388,20 @@
     (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward-regexp)
     )
 
+(use-package weechat
+  :config
+  (progn
+    (require 'weechat-notifications)
+    (defun weechat-activate ()
+      (interactive)
+      (weechat-connect "localhost" 9000 "supersecret" 'plain))
+    (add-hook 'weechat-mode-hook
+              (lambda () (set-input-method "swedish-postfix")))
+    (add-hook 'weechat-connect-hook
+              (lambda () (weechat-monitor-all-buffers)))))
+
 ;; Various modes
 (use-package vterm :defer 1)
-(use-package magit-org-todos)
-(use-package weechat)
 (use-package pass)
 (use-package fish-mode)
 (use-package jinja2-mode)
@@ -409,5 +419,3 @@
 (use-package dumb-jump)
 (use-package handlebars-mode)
 (use-package deadgrep)
-(use-package magit-todos)
-(use-package sauron)

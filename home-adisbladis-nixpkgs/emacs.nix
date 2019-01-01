@@ -8,7 +8,7 @@
 
   home.packages = [
     ((import ./dotfiles/elisp.nix { inherit pkgs; }).fromEmacsUsePackage {
-      configPath = ./dotfiles/emacs.el;
+      config = builtins.readFile ./dotfiles/emacs.el;
       override = epkgs: epkgs // {
         weechat = epkgs.melpaPackages.weechat;
         magit-org-todos = (epkgs.melpaPackages.magit-org-todos.overrideAttrs(oldAttrs: {
