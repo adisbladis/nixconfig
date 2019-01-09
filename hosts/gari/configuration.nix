@@ -21,6 +21,8 @@ in {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  virtualisation.docker.enable = true;
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   services.acpid.enable = true;

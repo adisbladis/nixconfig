@@ -365,6 +365,12 @@
     (exwm-enable)
     (server-start)))
 
+(use-package exwm-edit
+  :config
+  (add-hook
+   'exwm-edit-compose-hook
+   (lambda () (set-input-method "swedish-postfix")))
+
 (use-package exim
   :config
   (progn
