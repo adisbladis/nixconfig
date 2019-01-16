@@ -126,10 +126,10 @@
     (setq web-mode-code-indent-offset 4))) ; JS/PHP/etc
 
 ;; Nix
-(use-package
-  nix-mode
+(use-package nix-mode
   :defer 2
-  :mode "\\.nix$")
+  :mode "\\.nix$"
+  :config (setq nix-indent-function 'nix-indent-line))
 
 ;; Better js mode
 (use-package xref-js2)
@@ -191,11 +191,12 @@
     (setq-default smooth-scroll-margin 2)))
 
 ;; Fancy search
-(use-package swiper
+(use-package swiper-helm
   :config
   (progn
-    (global-set-key (kbd "C-s") 'swiper)
-    (global-set-key (kbd "C-r") 'swiper)))
+    (global-set-key (kbd "C-s") 'swiper-helm)
+    (global-set-key (kbd "C-r") 'swiper-helm)))
+(use-package helm-rg)
 
 ;; Global webpaste shortcuts
 (use-package webpaste
@@ -365,11 +366,13 @@
     (exwm-enable)
     (server-start)))
 
+(winner-mode 1)
+
 (use-package exwm-edit
   :config
   (add-hook
    'exwm-edit-compose-hook
-   (lambda () (set-input-method "swedish-postfix")))
+   (lambda () (set-input-method "swedish-postfix"))))
 
 (use-package exim
   :config
@@ -430,4 +433,56 @@
 (use-package kdeconnect)
 (use-package dumb-jump)
 (use-package handlebars-mode)
+(use-package dockerfile-mode)
 (use-package deadgrep)
+(use-package groovy-mode)
+(use-package cider)
+
+(use-package 2048-game)
+
+(defvar multiple-cursors-keymap (make-sparse-keymap))
+(use-package multiple-cursors
+  :bind-keymap ("C-t" . multiple-cursors-keymap)
+  :bind (:map multiple-cursors-keymap
+              ("C-s" . mc--mark-symbol-at-point)
+              ("C-w" . mark-word)
+              ("C-n" . mc/mark-next-like-this)
+              ("C-p" . mc/mark-previous-like-this)
+              ("n" . mc/mark-next-like-this-symbol)
+              ("p" . mc/mark-previous-like-this-symbol)
+              ("C-a" . 'mc/mark-all-like-this)))
+
+(use-package expand-region
+  :bind ("C-=" . er/expand-region))
+
+(use-package which-key
+  :config
+  (progn
+    (which-key-mode)))
+
+(use-package transmission
+  :bind (:map transmission-mode-map
+              ("k" . transmission-remove)))
+
+(use-package aggressive-indent)
+  ;; :config
+  ;; (progn
+  ;;   (global-aggressive-indent-mode 1)
+  ;;   (add-hook 'helm-minibuffer-set-up-hook
+  ;;             (lambda () (global-aggressive-indent-mode 0)))
+  ;;   (add-hook 'helm-cleanup-hook
+  ;;             (lambda () (global-aggressive-indent-mode 1)))))
+
+(use-package highlight-parentheses
+  :config
+  (global-highlight-parentheses-mode))
+
+;; Rebind O to open files in external applications
+(define-key dired-mode-map (kbd "O")
+  (lambda ()
+    (interactive)
+    (let (
+          (cmd (concat
+                "xdg-open "
+                (dired-file-name-at-point))))
+      (start-process-shell-command cmd nil cmd))))
