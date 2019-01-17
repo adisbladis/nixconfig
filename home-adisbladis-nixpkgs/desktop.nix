@@ -31,7 +31,6 @@ in {
 
     urxvtPackage
     yubioath-desktop
-    zoom-us
   ];
 
   services.blueman-applet.enable = true;
@@ -45,14 +44,8 @@ in {
     indicator = true;
   };
 
-  # home.file.".config/pulse/daemon.conf".source = ./dotfiles/pulse/daemon.conf;
   home.file.".config/mpv/mpv.conf".source = ./dotfiles/mpv/mpv.conf;
-
-  # services.mbsync = with pkgs; {
-  #   preExec = "${coreutils}/bin/mkdir -p %h/Maildir/adisbladis-gmail";
-  #   postExec = "${notmuch}/bin/notmuch new";
-  #   enable = true;
-  # };
+  home.file.".Xresources".source = ./dotfiles/Xresources;
 
   programs.browserpass.enable = true;
 

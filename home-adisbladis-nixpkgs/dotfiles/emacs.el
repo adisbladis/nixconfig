@@ -420,7 +420,7 @@
 (use-package pass)
 (use-package fish-mode)
 (use-package jinja2-mode)
-(use-package lua-mode)
+;; (use-package lua-mode)
 (use-package rust-mode)
 (use-package android-mode)
 (use-package markdown-mode)

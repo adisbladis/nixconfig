@@ -1,6 +1,32 @@
 { pkgs, ... }:
 
-{
+
+let
+  # Fully persisted and backed up links
+  mkPersistentLink = path: pkgs.runCommand "persistent-link" {} ''
+    ln -s /nix/persistent/adisbladis/${path} $out
+  '';
+
+  # Semi-persisted, not backed up
+  mkSemiPersistentLink = path: pkgs.runCommand "semi-persistent-link" {} ''
+    ln -s /nix/semi-persistent/adisbladis/${path} $out
+  '';
+
+in {
+
+  # Home files with persistency
+  home.file.".password-store".source = mkPersistentLink ".password-store";
+  home.file.".local/share/fish".source = mkPersistentLink ".local/share/fish";
+  home.file.".mozilla/firefox".source = mkPersistentLink ".mozilla/firefox";
+
+  # Data storage directories
+  home.file."Downloads".source = mkPersistentLink "Downloads";
+  home.file."Music".source = mkPersistentLink "Music";
+  home.file."Documents".source = mkPersistentLink "Documents";
+  home.file."Vids".source = mkPersistentLink "Vids";
+  home.file."sauce".source = mkPersistentLink "sauce";
+
+  home.file.".config/Slack".source = mkSemiPersistentLink ".config/Slack";
 
   imports = [
     ./desktop.nix

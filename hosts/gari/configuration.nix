@@ -1,9 +1,14 @@
+# Edit this configuration file to define what should be installed on
+# your system.  Help is available in the configuration.nix(5) man page
+# and in the NixOS manual (accessible by running ‘nixos-help’).
+
 { config, pkgs, ... }:
 
 let
-  nvidiaDriver = "nouveau";
+  secrets = import ../../secrets.nix;
 
 in {
+
   imports = [
     ./hardware-configuration.nix
     ../../profiles/common.nix
@@ -11,19 +16,29 @@ in {
     ../../profiles/laptop.nix
   ];
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   boot.initrd.availableKernelModules = [
     "aes_x86_64"
     "aesni_intel"
     "cryptd"
   ];
 
+  environment.etc."nixos".source = pkgs.runCommand "persistent-link" {} ''
+    ln -s /nix/persistent/etc/nixos $out
+  '';
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  virtualisation.docker.enable = true;
+  users.users.root.initialHashedPassword = secrets.passwordHash;
+  users.users.adisbladis.initialHashedPassword = secrets.passwordHash;
+  users.mutableUsers = false;
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  system.stateVersion = "18.09"; # Did you read the comment?
+
+  virtualisation.docker.enable = true;
 
   services.acpid.enable = true;
 
@@ -50,8 +65,6 @@ in {
 
   networking.hostName = "gari";
 
-  networking.hostId = "a8c06607";
-
   fileSystems."/".options = [ "noatime" "nodiratime" ];
   fileSystems."/tmp" = {
     mountPoint = "/tmp";
@@ -61,7 +74,5 @@ in {
   };
 
   hardware.cpu.intel.updateMicrocode = true;
-
-  system.stateVersion = "18.09"; # Did you read the comment?
 
 }
