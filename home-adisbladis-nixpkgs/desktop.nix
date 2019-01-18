@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 let
   urxvtPackage = pkgs.rxvt_unicode-with-plugins;

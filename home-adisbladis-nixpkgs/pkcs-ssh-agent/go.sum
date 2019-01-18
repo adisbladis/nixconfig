@@ -1,0 +1,6 @@
+github.com/jkeiser/iter v0.0.0-20140714165249-67b94d6149c6 h1:GZQmKU7MeD2vOOId8N2Mprc+V7P00nDY9iUdNzg11OI=
+github.com/jkeiser/iter v0.0.0-20140714165249-67b94d6149c6/go.mod h1:fP/NdyhRVOv09PLRbVXrSqHhrfQypdZwgE2L4h2U5C8=
+github.com/jochenvg/go-udev v0.0.0-20171110120927-d6b62d56d37b h1:dgF9Rx3oPIz2d816jKSjnShkJfmtYc/N/DxGDFv2CGk=
+github.com/jochenvg/go-udev v0.0.0-20171110120927-d6b62d56d37b/go.mod h1:IBDUGq30U56w969YNPomhMbRje1GrhUsCh7tHdwgLXA=
+golang.org/x/sys v0.0.0-20190116161447-11f53e031339 h1:g/Jesu8+QLnA0CPzF3E1pURg0Byr7i6jLoX5sqjcAh0=
+golang.org/x/sys v0.0.0-20190116161447-11f53e031339/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=

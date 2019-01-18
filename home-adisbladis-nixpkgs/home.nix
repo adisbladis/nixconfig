@@ -31,6 +31,7 @@ in {
   imports = [
     ./desktop.nix
     ./emacs.nix
+    ./ssh-agent.nix
   ];
 
   nixpkgs.overlays = [
