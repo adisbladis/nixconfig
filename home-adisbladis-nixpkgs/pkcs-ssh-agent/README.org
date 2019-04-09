@@ -1,5 +1,0 @@
-* Use PKCS#11 based ssh agents
-
-** Problem:
-`ssh-agent` supports PKCS#11 based tokens.
-It does not do a good job of handling devices disappearing, hotplugged etc etc.
