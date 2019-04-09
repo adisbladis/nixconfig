@@ -256,9 +256,14 @@
 (use-package exwm
   :config
   (progn
+    ;; (push ?\C-\\ exwm-input-prefix-keys)
     (require 'exwm)
     (require 'exwm-randr)
     (require 'dbus)
+
+    ;; Enable input method
+    ;; (require 'exwm-xim)
+    ;; (exwm-xim-enable)
 
     (defun pnh-run (command)
       (interactive (list (read-shell-command "$ ")))
@@ -374,11 +379,11 @@
    'exwm-edit-compose-hook
    (lambda () (set-input-method "swedish-postfix"))))
 
-(use-package exim
-  :config
-  (progn
-    (push ?\C-\\ exwm-input-prefix-keys)
-    (add-hook 'exwm-init-hook 'exim-start)))
+;; (use-package exim
+;;   :config
+;;   (progn
+;;
+;;     (add-hook 'exwm-init-hook 'exim-start)))
 
 (use-package desktop-environment
   :config

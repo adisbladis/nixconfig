@@ -21,6 +21,7 @@ in {
     ]))
     graphviz
     unrar
+    pulseeffects
 
     transmission_gtk
     darktable
@@ -69,6 +70,14 @@ in {
     useGtkTheme = true;
     enable = true;
   };
+
+  xsession.profileExtra = ''
+    export XMODIFIERS=@im=exwm-xim
+    export GTK_IM_MODULE=xim
+    export QT_IM_MODULE=xim
+    export CLUTTER_IM_MODULE=xim
+    systemctl --user import-environment XMODIFIERS GTK_IM_MODULE QT_IM_MODULE CLUTTER_IM_MODULE
+  '';
 
   services.gnome-keyring.enable = true;
 

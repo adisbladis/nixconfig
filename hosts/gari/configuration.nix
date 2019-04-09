@@ -38,8 +38,6 @@ in {
 
   system.stateVersion = "18.09"; # Did you read the comment?
 
-  virtualisation.docker.enable = true;
-
   services.acpid.enable = true;
 
   hardware.bluetooth.enable = true;

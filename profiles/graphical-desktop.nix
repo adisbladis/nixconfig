@@ -26,11 +26,15 @@
     "exfat"
   ];
 
+  # Gtk3 apps seems to require dconf... :/
+  programs.dconf.enable = true;
+
   # setuid wrapper for backlight
   programs.light.enable = true;
 
   environment.systemPackages = with pkgs; [
     emacs-all-the-icons-fonts
+    bulkrecode
   ];
 
   # Enable pulse with all the modules
