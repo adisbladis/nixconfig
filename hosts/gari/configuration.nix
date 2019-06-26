@@ -40,6 +40,9 @@ in {
 
   services.acpid.enable = true;
 
+  # Required by some clients
+  # security.clamav.daemon.enable = true;
+
   hardware.bluetooth.enable = true;
 
   services.xserver.synaptics.enable = true;

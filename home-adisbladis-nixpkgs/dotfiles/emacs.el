@@ -147,6 +147,12 @@
     (add-hook 'js2-mode-hook (lambda ()
       (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))))
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+;; Better typescript
+(use-package tide
+  :after (typescript-mode company flycheck)
+  :hook ((typescript-mode . tide-setup)
+         (typescript-mode . tide-hl-identifier-mode)))
+         ;; (before-save . tide-format-before-save)))
 
 ;; JS debugger
 (use-package mocha)
@@ -156,6 +162,10 @@
   (progn
     (add-hook 'js-mode-hook #'indium-interaction-mode)
     (setq mocha-debugger 'indium)))
+
+
+;; Debugging
+(use-package realgud)
 
 ;; Global magit keys
 (use-package magit
@@ -183,6 +193,10 @@
                 (concat user-emacs-data-directory
                         "/company-statistics.dat"))
   (company-statistics-mode))
+
+;; Ethereum development
+(use-package solidity-mode)
+(use-package solidity-flycheck)
 
 ;; Smooth-scroll
 (use-package smooth-scrolling
@@ -218,7 +232,6 @@
 ;; Always attempt flycheck
 (use-package flycheck
   :config (global-flycheck-mode))
-(use-package flycheck-irony)
 (use-package flycheck-mypy)
 (use-package flycheck-rust)
 (use-package flycheck-elixir)
@@ -364,7 +377,7 @@
          (start-process-shell-command cmd nil cmd))))
 
     (setq browse-url-firefox-arguments '("-new-window"))
-    (setq exwm-randr-workspace-output-plist '(1 "DP-2-2"))
+    (setq exwm-randr-workspace-output-plist '(1 "HDMI-2"))
     (require 'exwm-config)
     (exwm-config-default)
     (exwm-randr-enable)
@@ -481,6 +494,10 @@
 (use-package highlight-parentheses
   :config
   (global-highlight-parentheses-mode))
+
+;; Pomodoro timer
+(use-package org-pomodoro)
+(use-package pomidor)
 
 ;; Rebind O to open files in external applications
 (define-key dired-mode-map (kbd "O")

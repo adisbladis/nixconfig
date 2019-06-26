@@ -10,7 +10,6 @@ in {
   home.packages = with pkgs; [
     firefox-devedition-bin
     scrot
-    spotify
     gimp
 
     feh
@@ -21,14 +20,12 @@ in {
     ]))
     graphviz
     unrar
-    pulseeffects
 
     transmission_gtk
     darktable
     youtube-dl
     mpv
     yubioath-desktop
-    slack
 
     urxvtPackage
     yubioath-desktop
@@ -199,6 +196,28 @@ in {
     enable = true;
     enableSshSupport = true;
   };
+
+  # services.xbindkeys = {
+  #   enable = true;
+  #   bindings = [
+  #     {
+  #       sequence = "XF86AudioNext";
+  #       command = "${pkgs.playerctl}/bin/playerctl next";
+  #     }
+  #     {
+  #       sequence = "XF86AudioPrev";
+  #       command = "${pkgs.playerctl}/bin/playerctl previous";
+  #     }
+  #     {
+  #       sequence = "XF86AudioPlay";
+  #       command = "${pkgs.playerctl}/bin/playerctl play";
+  #     }
+  #     {
+  #       sequence = "XF86AudioPause";
+  #       command = "${pkgs.playerctl}/bin/playerctl pause";
+  #     }
+  #   ];
+  # };
 
   # Fix stupid java applications like android studio
   home.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";

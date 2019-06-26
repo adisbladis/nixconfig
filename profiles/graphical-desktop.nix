@@ -35,6 +35,9 @@
   environment.systemPackages = with pkgs; [
     emacs-all-the-icons-fonts
     bulkrecode
+    dolphin  # GUI file browser for stupid drag & drop web apps
+    electrum  # BTC wallet
+    tor-browser-bundle-bin
   ];
 
   # Enable pulse with all the modules
@@ -105,7 +108,12 @@
   networking.networkmanager.enable = true;
   services.unbound = {
     enable = true;
-    extraConfig = "  neg-cache-size: 0";
+    extraConfig = ''
+      forward-zone:
+        name: "."
+        forward-addr: 8.8.8.8
+        forward-addr: 8.8.4.4
+    '';
   };
 
   home-manager.users.adisbladis = import ../home-adisbladis-nixpkgs/home.nix;

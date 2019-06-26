@@ -38,10 +38,11 @@ in {
   ];
 
   home.packages = with pkgs; let
-    ipythonEnv = (python3.withPackages (ps: with ps; [
+    ipythonEnv = (python3.withPackages (ps: [
       ps.ipython
       ps.requests
       ps.psutil
+      ps.nixpkgs
     ]));
     # Link into ipythonEnv package to avoid polluting $PATH with python deps
     ipythonPackage = pkgs.runCommand "ipython-stripped" {} ''
@@ -80,7 +81,7 @@ in {
     enable = true;
     userName = "adisbladis";
     userEmail = "adisbladis@gmail.com";
-    signing.key = "FA75289B489AE1A51BCA18ABED58F95069B004F5";
+    signing.key = "00244EF5295026AA323A4BDB110BFAD44C6249B7";
   };
 
   manual.manpages.enable = true;

@@ -19,6 +19,9 @@
         magit-org-todos = (epkgs.melpaPackages.magit-org-todos.overrideAttrs(oldAttrs: {
           buildInputs = oldAttrs.buildInputs ++ [ pkgs.git ];
         }));
+        # realgud = (epkgs.melpaPackages.realgud.overrideAttrs(oldAttrs: {
+        #   buildInputs = oldAttrs.buildInputs ++ [ pkgs.clang ];
+        # }));
         vterm = epkgs.emacs-libvterm;
         nix-mode = epkgs.nix-mode.overrideAttrs(old: {
           src = ./emacs-modes/nix-mode;
