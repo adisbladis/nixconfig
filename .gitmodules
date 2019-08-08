@@ -10,3 +10,6 @@
 [submodule "home-adisbladis-nixpkgs/emacs-modes/nix-mode"]
 	path = home-adisbladis-nixpkgs/emacs-modes/nix-mode
 	url = https://github.com/NixOS/nix-mode.git
+[submodule "home-adisbladis-nixpkgs/emacs/emacs"]
+	path = home-adisbladis-nixpkgs/emacs/emacs
+	url = https://git.savannah.gnu.org/git/emacs.git

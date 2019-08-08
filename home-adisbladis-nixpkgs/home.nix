@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 
 let
@@ -11,6 +11,15 @@ let
   mkSemiPersistentLink = path: pkgs.runCommand "semi-persistent-link" {} ''
     ln -s /nix/semi-persistent/adisbladis/${path} $out
   '';
+
+  findGitRecursive = root: let
+    files = builtins.readDir root;
+    dirs = lib.filterAttrs (k: v: v == "directory") files;
+    repoSet = lib.mapAttrs (k: v: builtins.pathExists (root + "/${k}/.git")) dirs;
+    repos = builtins.map (v: builtins.toString (root + "/${v}")) (lib.attrNames (lib.filterAttrs (k: v: v) repoSet));
+    notRepos = lib.attrNames (lib.filterAttrs (k: v: !v) repoSet);
+    nestedRepos = builtins.foldl' (a: v: a ++ findGitRecursive (root + "/${v}")) [] notRepos;
+  in repos ++ nestedRepos;
 
 in {
 
@@ -75,6 +84,16 @@ in {
     shellAliases = with pkgs; {
       pcat = "${python3Packages.pygments}/bin/pygmentize";
     };
+  };
+
+  services.hound = {
+    enable = true;
+    repositories = let
+      repos = findGitRecursive /home/adisbladis/sauce;
+    in lib.listToAttrs (builtins.map (v: {
+      name = builtins.baseNameOf v;
+      value = { url = "file://" + v; };
+    }) repos);
   };
 
   programs.git = {

@@ -58,7 +58,7 @@ in {
   #  Power use is good enough without it anyway
   hardware.opengl.enable = true;
   hardware.opengl.extraPackages = with pkgs; [ vaapiIntel ];
-  services.xserver.videoDrivers = [ "modesetting" ];
+  services.xserver.videoDrivers = [ "intel" "modesetting" ];
   boot.kernelParams = [ "i915.enable_psr=1" ];
 
   # Touch screen in firefox

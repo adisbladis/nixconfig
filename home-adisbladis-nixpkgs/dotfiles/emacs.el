@@ -101,6 +101,7 @@
     (add-hook 'python-mode-hook 'jedi:setup)
     (setq-default jedi:setup-keys t)
     (setq-default jedi:complete-on-dot t)))
+(use-package blacken)
 
 (use-package go-mode
   :defer 1
@@ -373,11 +374,12 @@
      (kbd "s-t")
      (defun pnh-terminal ()
        (interactive)
-       (let ((cmd "systemd-run --user urxvt"))
-         (start-process-shell-command cmd nil cmd))))
+       (vterm)))
+       ;; (let ((cmd "systemd-run --user urxvt"))
+       ;;   (start-process-shell-command cmd nil cmd))))
 
     (setq browse-url-firefox-arguments '("-new-window"))
-    (setq exwm-randr-workspace-output-plist '(1 "HDMI-2"))
+    (setq exwm-randr-workspace-output-plist '(1 "HDMI2"))
     (require 'exwm-config)
     (exwm-config-default)
     (exwm-randr-enable)
@@ -391,6 +393,12 @@
   (add-hook
    'exwm-edit-compose-hook
    (lambda () (set-input-method "swedish-postfix"))))
+
+;; Code search
+(use-package hound
+  :config
+  (progn
+    (setq hound-root-directory "~/sauce")))
 
 ;; (use-package exim
 ;;   :config
@@ -455,8 +463,6 @@
 (use-package deadgrep)
 (use-package groovy-mode)
 (use-package cider)
-
-(use-package 2048-game)
 
 (defvar multiple-cursors-keymap (make-sparse-keymap))
 (use-package multiple-cursors

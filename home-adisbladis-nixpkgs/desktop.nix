@@ -21,6 +21,8 @@ in {
     graphviz
     unrar
 
+    kcachegrind
+
     transmission_gtk
     darktable
     youtube-dl
@@ -76,7 +78,7 @@ in {
     systemctl --user import-environment XMODIFIERS GTK_IM_MODULE QT_IM_MODULE CLUTTER_IM_MODULE
   '';
 
-  services.gnome-keyring.enable = true;
+  # services.gnome-keyring.enable = true;
 
   # Notification daemon
   services.dunst.enable = true;

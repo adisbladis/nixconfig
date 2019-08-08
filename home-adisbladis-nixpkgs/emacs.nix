@@ -12,10 +12,12 @@
 
   home.packages = [
     ((import ./dotfiles/elisp.nix { inherit pkgs; }).fromEmacsUsePackage {
+      package = pkgs.emacsGit;
       config = builtins.readFile ./dotfiles/emacs.el;
       override = epkgs: epkgs // {
-        "2048-game" = epkgs._2048-game;
-        weechat = epkgs.melpaPackages.weechat;
+        weechat = epkgs.melpaPackages.weechat.overrideAttrs(old: {
+          patches = [ ./weechat-el.patch ];
+        });
         magit-org-todos = (epkgs.melpaPackages.magit-org-todos.overrideAttrs(oldAttrs: {
           buildInputs = oldAttrs.buildInputs ++ [ pkgs.git ];
         }));
