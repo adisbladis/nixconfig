@@ -3,9 +3,19 @@
 let
   urxvtPackage = pkgs.rxvt_unicode-with-plugins;
 
+  emacs = pkgs.callPackage ./emacs { };
+
 in {
 
   nixpkgs.config.allowUnfree = true;
+
+  # Emacs (exwm)
+  home.file.".emacs".source = ./emacs/emacs.el;
+  home.sessionVariables.EDITOR = "emacsclient";
+  home.sessionVariables.XMODIFIERS = "@im=exim";
+  home.sessionVariables.GTK_IM_MODULE = "xim";
+  home.sessionVariables.QT_IM_MODULE = "xim";
+  home.sessionVariables.CLUTTER_IM_MODULE = "xim";
 
   home.packages = with pkgs; [
     firefox-devedition-bin
@@ -48,8 +58,6 @@ in {
   home.file.".Xresources".source = ./dotfiles/Xresources;
 
   programs.browserpass.enable = true;
-
-  home.sessionVariables.EDITOR = "emacsclient";
 
   services.compton.enable = true;
 
@@ -198,28 +206,6 @@ in {
     enable = true;
     enableSshSupport = true;
   };
-
-  # services.xbindkeys = {
-  #   enable = true;
-  #   bindings = [
-  #     {
-  #       sequence = "XF86AudioNext";
-  #       command = "${pkgs.playerctl}/bin/playerctl next";
-  #     }
-  #     {
-  #       sequence = "XF86AudioPrev";
-  #       command = "${pkgs.playerctl}/bin/playerctl previous";
-  #     }
-  #     {
-  #       sequence = "XF86AudioPlay";
-  #       command = "${pkgs.playerctl}/bin/playerctl play";
-  #     }
-  #     {
-  #       sequence = "XF86AudioPause";
-  #       command = "${pkgs.playerctl}/bin/playerctl pause";
-  #     }
-  #   ];
-  # };
 
   # Fix stupid java applications like android studio
   home.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";

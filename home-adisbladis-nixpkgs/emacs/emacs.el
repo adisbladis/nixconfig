@@ -386,8 +386,6 @@
     (exwm-enable)
     (server-start)))
 
-(winner-mode 1)
-
 (use-package exwm-edit
   :config
   (add-hook
@@ -397,17 +395,19 @@
 ;; Mouse follows focus for exwm
 (use-package exwm-mff)
 
-;; Code search
-(use-package hound
-  :config
-  (progn
-    (setq hound-root-directory "~/sauce")))
-
 ;; (use-package exim
 ;;   :config
 ;;   (progn
 ;;
 ;;     (add-hook 'exwm-init-hook 'exim-start)))
+
+(winner-mode 1)
+
+;; Code search
+(use-package hound
+  :config
+  (progn
+    (setq hound-root-directory "~/sauce")))
 
 (use-package desktop-environment
   :config

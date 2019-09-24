@@ -32,7 +32,6 @@ in {
 
   imports = [
     ./desktop.nix
-    ./emacs.nix
   ];
 
   nixpkgs.overlays = [
