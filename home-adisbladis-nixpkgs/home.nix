@@ -7,11 +7,6 @@ let
     ln -s /nix/persistent/adisbladis/${path} $out
   '';
 
-  # Semi-persisted, not backed up
-  mkSemiPersistentLink = path: pkgs.runCommand "semi-persistent-link" {} ''
-    ln -s /nix/semi-persistent/adisbladis/${path} $out
-  '';
-
   findGitRecursive = root: let
     files = builtins.readDir root;
     dirs = lib.filterAttrs (k: v: v == "directory") files;
@@ -34,8 +29,6 @@ in {
   home.file."Documents".source = mkPersistentLink "Documents";
   home.file."Vids".source = mkPersistentLink "Vids";
   home.file."sauce".source = mkPersistentLink "sauce";
-
-  home.file.".config/Slack".source = mkSemiPersistentLink ".config/Slack";
 
   imports = [
     ./desktop.nix
@@ -73,7 +66,7 @@ in {
 
   # Fish config
   home.file.".config/fish/functions/fish_prompt.fish".source = ./dotfiles/fish/functions/fish_prompt.fish;
-  home.file.".config/fish/functions/fish_right_prompt.fish".source = ./dotfiles/fish/functions/fish_right_prompt.fish;
+  # home.file.".config/fish/functions/fish_right_prompt.fish".source = ./dotfiles/fish/functions/fish_right_prompt.fish;
 
   home.sessionVariables.LESS = "-R";
 
@@ -86,15 +79,13 @@ in {
     };
   };
 
-  services.hound = {
-    enable = true;
-    repositories = let
-      repos = findGitRecursive /home/adisbladis/sauce;
-    in lib.listToAttrs (builtins.map (v: {
-      name = builtins.baseNameOf v;
-      value = { url = "file://" + v; };
-    }) repos);
-  };
+  # services.hound = {
+  #   enable = true;
+  #   repositories = lib.listToAttrs (builtins.map (v: {
+  #     name = builtins.baseNameOf v;
+  #     value = { url = "file://" + v; };
+  #   }) (findGitRecursive /home/adisbladis/sauce));
+  # };
 
   programs.git = {
     enable = true;
@@ -103,5 +94,5 @@ in {
     signing.key = "00244EF5295026AA323A4BDB110BFAD44C6249B7";
   };
 
-  manual.manpages.enable = true;
+  manual.manpages.enable = false;
 }

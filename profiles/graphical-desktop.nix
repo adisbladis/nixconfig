@@ -35,9 +35,9 @@
   environment.systemPackages = with pkgs; [
     emacs-all-the-icons-fonts
     bulkrecode
-    dolphin  # GUI file browser for stupid drag & drop web apps
-    electrum  # BTC wallet
-    tor-browser-bundle-bin
+    # dolphin  # GUI file browser for stupid drag & drop web apps
+    # electrum  # BTC wallet
+    # tor-browser-bundle-bin
   ];
 
   # Enable pulse with all the modules
@@ -49,7 +49,6 @@
       flat-volumes = "no";
       default-sample-format = "s24le";
       default-sample-rate = "192000";
-      resample-method = "speex-float-10";
       avoid-resampling = "true";
     };
 
@@ -60,7 +59,7 @@
 
   programs.browserpass.enable = true;
   programs.simpleserver.enable = true;
-  # programs.adb.enable = true;
+  programs.adb.enable = true;
 
   services.dbus.packages = [ pkgs.blueman ];
 
@@ -81,8 +80,9 @@
   services.pcscd.enable = true;
   hardware.u2f.enable = true;
   services.xserver.enable = true;
-  services.xserver.layout = "se";
-  services.xserver.xkbOptions = "eurosign:e";
+
+  services.xserver.layout = "us";
+  services.xserver.xkbOptions = "ctrl:nocaps";
   services.xserver.xkbVariant = "dvorak";
 
   services.xserver.displayManager.slim.enable = true;
@@ -106,6 +106,7 @@
     21027  # Syncthing discovery
   ];
   networking.networkmanager.enable = true;
+
   services.unbound = {
     enable = true;
     extraConfig = ''
@@ -116,6 +117,7 @@
     '';
   };
 
+  # TODO: Make a "meta" home-manager module that can merge multiple files
   home-manager.users.adisbladis = import ../home-adisbladis-nixpkgs/home.nix;
 
   users.extraUsers.adisbladis.extraGroups = [ "wheel" "networkmanager" "adbusers" "wireshark" ];

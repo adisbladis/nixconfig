@@ -1,5 +1,5 @@
 function fish_prompt --description 'Display prompt'
-	set last_ret $status
+    set last_ret $status
 
     set PROMPT ''
 
@@ -22,6 +22,19 @@ function fish_prompt --description 'Display prompt'
     # Add the rest of the CWD
     if test (prompt_pwd | sed -e 's/^~//' -e 's:/::g') != ''
         set PROMPT $PROMPT(set_color -b 3a3a3a)(set_color bbbbbb)(prompt_pwd | sed -e 's/^~//' -e 's:/: :g')' '
+    end
+
+    if test -n "$IN_NIX_SHELL"
+        if test "$IN_NIX_SHELL" = "pure"
+            set PROMPT $PROMPT(set_color -b 0087af)(set_color faf5e3)" ❄ "
+        else
+            set PROMPT $PROMPT(set_color -b 897e01)(set_color faf5e3)" ❄ "
+        end
+    end
+
+    set git_prompt (__fish_git_prompt ' %s ')
+    if test $status = 0
+        set PROMPT $PROMPT(set_color -b 585858)(set_color bbbbbb)$git_prompt
     end
 
     # Add colors depending on if previous command was successful or not

@@ -379,7 +379,7 @@
        ;;   (start-process-shell-command cmd nil cmd))))
 
     (setq browse-url-firefox-arguments '("-new-window"))
-    (setq exwm-randr-workspace-output-plist '(1 "HDMI2"))
+    (setq exwm-randr-workspace-output-plist '(1 "DP1"))
     (require 'exwm-config)
     (exwm-config-default)
     (exwm-randr-enable)
@@ -393,6 +393,9 @@
   (add-hook
    'exwm-edit-compose-hook
    (lambda () (set-input-method "swedish-postfix"))))
+
+;; Mouse follows focus for exwm
+(use-package exwm-mff)
 
 ;; Code search
 (use-package hound

@@ -10,7 +10,7 @@ in {
   home.packages = with pkgs; [
     firefox-devedition-bin
     scrot
-    gimp
+    # gimp
 
     feh
     filelight
@@ -26,7 +26,7 @@ in {
     transmission_gtk
     darktable
     youtube-dl
-    mpv
+    # mpv
     yubioath-desktop
 
     urxvtPackage
@@ -178,7 +178,7 @@ in {
 
   services.screen-locker = {
     enable = true;
-    lockCmd = "${pkgs.i3lock}/bin/i3lock -n -c 000000";
+    lockCmd = "${pkgs.xsecurelock}/bin/xsecurelock";
   };
 
   services.unclutter = {
