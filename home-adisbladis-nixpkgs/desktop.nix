@@ -18,6 +18,7 @@ in {
   home.sessionVariables.CLUTTER_IM_MODULE = "xim";
 
   home.packages = with pkgs; [
+    emacs
     firefox-devedition-bin
     scrot
     # gimp
