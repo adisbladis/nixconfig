@@ -23,17 +23,13 @@ in {
     pkgs.libva-utils
   ];
 
-  programs.adb.enable = true;
-
-  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_5_1;
-
   boot.initrd.availableKernelModules = [
     "aes_x86_64"
     "aesni_intel"
     "cryptd"
   ];
 
-  # virtualisation.docker.enable = true;
+  virtualisation.docker.enable = true;
 
   # nixpkgs.config.allowUnfree = true;
   # users.extraGroups.vboxusers.members = [ "adisbladis" ];
@@ -73,6 +69,7 @@ in {
   #  Bumblebee has issues with tearing and crashes
   #  Power use is good enough without it anyway
   hardware.opengl.enable = true;
+
   hardware.opengl.extraPackages = [
     (pkgs.vaapiIntel.override { enableHybridCodec = true; })
     pkgs.vaapiVdpau
@@ -80,12 +77,14 @@ in {
     pkgs.libvdpau-va-gl
     pkgs.intel-media-driver
   ];
-  services.xserver.videoDrivers = [ "nouveau" "intel" ];
+  services.xserver.videoDrivers = [
+    # "nouveau"
+    "intel"
+  ];
   services.xserver.deviceSection = ''
     Option        "Tearfree"      "true"
   '';
   boot.kernelParams = [ "i915.enable_psr=1" ];
-
   environment.variables = {
     MESA_LOADER_DRIVER_OVERRIDE = "iris";
   };
@@ -108,6 +107,7 @@ in {
 
   hardware.cpu.intel.updateMicrocode = true;
 
+  # Gemini PDA
   services.udev.extraRules = ''
     ATTRS{idVendor}=="0e8d", ENV{ID_MM_DEVICE_IGNORE}="1"
     ATTRS{idVendor}=="6000", ENV{ID_MM_DEVICE_IGNORE}="1"

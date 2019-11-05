@@ -44,8 +44,6 @@ in {
     yubioath-desktop
   ];
 
-  services.blueman-applet.enable = true;
-
   services.pasystray.enable = true;
 
   services.flameshot.enable = true;

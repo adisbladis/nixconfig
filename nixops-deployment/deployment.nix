@@ -12,6 +12,25 @@
       deployment.targetHost = "159.69.86.193";
     };
 
+  tablet =
+    { resources, ... }:
+    {
+      imports = [
+        ./tablet/configuration.nix
+      ];
+
+      deployment.targetHost = "192.168.0.61";
+    };
+
+  kombu =
+    { resources, ... }:
+    {
+      imports = [
+        ./kombu/configuration.nix
+      ];
+      deployment.targetHost = "192.168.0.70";
+    };
+
   # laptop =
   #   { resources, ... }:
   #   {

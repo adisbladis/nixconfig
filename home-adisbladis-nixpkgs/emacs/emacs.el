@@ -379,7 +379,7 @@
        ;;   (start-process-shell-command cmd nil cmd))))
 
     (setq browse-url-firefox-arguments '("-new-window"))
-    (setq exwm-randr-workspace-output-plist '(1 "DP1"))
+    (setq exwm-randr-workspace-output-plist '(1 "HDMI2"))
     (require 'exwm-config)
     (exwm-config-default)
     (exwm-randr-enable)

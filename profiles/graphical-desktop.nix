@@ -61,8 +61,6 @@
   programs.simpleserver.enable = true;
   programs.adb.enable = true;
 
-  services.dbus.packages = [ pkgs.blueman ];
-
   services.udev.extraRules = ''
     # Meizu Pro 5
     SUBSYSTEM=="usb", ATTR{idVendor}=="2a45", MODE="0666", GROUP="adbusers"

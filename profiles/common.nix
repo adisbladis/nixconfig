@@ -11,6 +11,12 @@ in {
   # imports = [ ./hardening.nix ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  services.udev.extraRules = ''
+    # set deadline scheduler for non-rotating disks
+    # according to https://wiki.debian.org/SSDOptimization, deadline is preferred over noop
+    ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="deadline"
+  '';
+
   # Use local nixpkgs checkout
   nix.nixPath = [
     "/etc/nixos"
@@ -33,7 +39,7 @@ in {
 
   i18n = {
     consoleFont = "Lat2-Terminus16";
-    consoleKeyMap = "dvorak-sv-a1";
+    consoleKeyMap = "dvorak";
     defaultLocale = "en_US.UTF-8";
   };
 
