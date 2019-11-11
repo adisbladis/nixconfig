@@ -10,8 +10,6 @@
   # Sane font defaults
   fonts.enableFontDir = true;
   fonts.enableGhostscriptFonts = true;
-  fonts.fontconfig.ultimate.enable = true;
-  fonts.fontconfig.ultimate.preset = "osx";
 
   fonts.fonts = with pkgs; [
     liberation_ttf
@@ -35,9 +33,11 @@
   environment.systemPackages = with pkgs; [
     emacs-all-the-icons-fonts
     bulkrecode
-    # dolphin  # GUI file browser for stupid drag & drop web apps
-    # electrum  # BTC wallet
-    # tor-browser-bundle-bin
+    spotify
+    dolphin  # GUI file browser for stupid drag & drop web apps
+    electrum  # BTC wallet
+    tor-browser-bundle-bin
+    mpv
   ];
 
   # Enable pulse with all the modules

@@ -15,10 +15,33 @@ in {
     ln -s /nix/persistent/etc/nixos $out
   '';
 
+  # For steam
+  hardware.opengl.driSupport32Bit = true;
+  hardware.pulseaudio.support32Bit = true;
+
+  hardware.openrazer.enable = true;
+  users.users.adisbladis.extraGroups = [ "plugdev" ];
+
+  environment.systemPackages = [
+    pkgs.steam
+    pkgs.flightgear
+    pkgs.zeroad
+    pkgs.hedgewars
+  ];
+
+  boot.initrd.availableKernelModules = [
+    "aes_x86_64"
+    "aesni_intel"
+    "cryptd"
+  ];
 
   users.users.root.initialHashedPassword = secrets.passwordHash;
   users.users.adisbladis.initialHashedPassword = secrets.passwordHash;
   users.mutableUsers = false;
+
+  services.xserver.deviceSection = ''
+    Option        "Tearfree"      "true"
+  '';
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

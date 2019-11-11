@@ -52,7 +52,6 @@ in {
     wget
     htop
     git
-    screen
     tmux
     jq
     sshfs-fuse

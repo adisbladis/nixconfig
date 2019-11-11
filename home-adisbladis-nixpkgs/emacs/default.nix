@@ -3,7 +3,7 @@
 }:
 
 emacsWithPackagesFromUsePackage {
-  package = pkgs.emacsGit;
+  # package = pkgs.emacsGit;
 
   config = builtins.readFile ./emacs.el;
 
