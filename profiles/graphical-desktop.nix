@@ -49,7 +49,6 @@
       flat-volumes = "no";
       default-sample-format = "s24le";
       default-sample-rate = "192000";
-      avoid-resampling = "true";
     };
 
     package = pkgs.pulseaudioFull;
@@ -83,9 +82,27 @@
   services.xserver.xkbOptions = "ctrl:nocaps";
   services.xserver.xkbVariant = "dvorak";
 
-  services.xserver.displayManager.slim.enable = true;
-  services.xserver.displayManager.slim.autoLogin = true;
-  services.xserver.displayManager.slim.defaultUser = "adisbladis";
+  services.xserver.desktopManager.default = "none";
+  services.xserver.windowManager.default = "xsession";
+
+  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.displayManager.lightdm.autoLogin.enable = true;
+  services.xserver.displayManager.lightdm.autoLogin.user = "adisbladis";
+
+
+  # Set up the login session
+  services.xserver.windowManager.session = lib.singleton {
+    name = "xsession";
+    start = pkgs.writeScript "xsession" ''
+      #!${pkgs.runtimeShell}
+      if test -f $HOME/.xsession; then
+        exec ${pkgs.runtimeShell} -c $HOME/.xsession
+      else
+        echo "No xsession script found"
+        exit 1
+      fi
+    '';
+  };
 
   networking.firewall.allowedTCPPortRanges = [
     # KDE connect

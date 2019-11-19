@@ -22,10 +22,10 @@ in {
   hardware.openrazer.enable = true;
   users.users.adisbladis.extraGroups = [ "plugdev" ];
 
+  virtualisation.docker.enable = true;
+
   environment.systemPackages = [
     pkgs.steam
-    pkgs.flightgear
-    pkgs.zeroad
     pkgs.hedgewars
   ];
 
@@ -51,7 +51,10 @@ in {
   networking.hostName = "kombu";
   networking.networkmanager.enable = true;
 
-  services.xserver.videoDrivers = [ "amdgpu" ];
+  services.xserver.videoDrivers = [
+    "amdgpu"
+    "dummy"  # For xpra
+  ];
 
   hardware.cpu.amd.updateMicrocode = true;
 
