@@ -81,5 +81,8 @@ in {
     ];
     shell = pkgs.fish;
     openssh.authorizedKeys.keys = sshKeys;
+    # For podman
+    subUidRanges = [{ startUid = 100000; count = 65536; }];
+    subGidRanges = [{ startGid = 100000; count = 65536; }];
   };
 }

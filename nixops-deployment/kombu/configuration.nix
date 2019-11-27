@@ -10,6 +10,8 @@ in {
     ../../profiles/graphical-desktop.nix
   ];
 
+  # Overclock EPYC
+  boot.kernelModules = [ "msr" ];
   systemd.services.zenstates = let
     zenstates = let
       src = pkgs.fetchFromGitHub {
