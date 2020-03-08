@@ -25,6 +25,15 @@ in {
       pkgs.fuse-overlayfs  # CoW for images, much faster than default vfs
     ];
 
+    environment.etc."containers/registries.conf".text = ''
+      [registries.search]
+      registries = ['docker.io']
+
+      [registries.block]
+      registries = []
+    '';
+    environment.etc."containers/policy.json".source = "${pkgs.skopeo.src}/default-policy.json";
+
     users.extraUsers.adisbladis = {
       subUidRanges = [{ startUid = 100000; count = 65536; }];
       subGidRanges = [{ startGid = 100000; count = 65536; }];
