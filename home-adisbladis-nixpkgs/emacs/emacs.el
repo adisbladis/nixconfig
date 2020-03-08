@@ -455,6 +455,10 @@
 
     (setq erc-modules (delq 'fill erc-modules))
 
+    (erc-scrolltobottom-mode)
+    (add-to-list 'erc-mode-hook (lambda ()
+                                  (set (make-local-variable 'scroll-conservatively) 100)))
+
     (setq erc-hide-list '("JOIN" "PART" "QUIT"))
     (setq erc-lurker-hide-list '("JOIN" "PART" "QUIT"))
     (setq znc-servers
