@@ -78,6 +78,8 @@ in {
     };
   };
 
+  services.lorri.enable = true;
+
   # services.hound = {
   #   enable = true;
   #   repositories = lib.listToAttrs (builtins.map (v: {

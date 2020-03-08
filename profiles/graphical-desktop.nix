@@ -82,8 +82,7 @@
   services.xserver.xkbOptions = "ctrl:nocaps";
   services.xserver.xkbVariant = "dvorak";
 
-  services.xserver.desktopManager.default = "none";
-  services.xserver.windowManager.default = "xsession";
+  services.xserver.displayManager.defaultSession = "none+xsession";
 
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.lightdm.autoLogin.enable = true;

@@ -41,7 +41,6 @@ in {
     yubioath-desktop
 
     urxvtPackage
-    yubioath-desktop
   ];
 
   services.pasystray.enable = true;

@@ -38,9 +38,12 @@ in {
   time.timeZone = "Europe/London";
 
   i18n = {
-    consoleFont = "Lat2-Terminus16";
-    consoleKeyMap = "dvorak";
     defaultLocale = "en_US.UTF-8";
+  };
+
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "dvorak";
   };
 
   programs.fish.enable = true;

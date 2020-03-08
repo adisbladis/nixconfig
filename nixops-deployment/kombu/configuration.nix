@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   secrets = import ../../secrets.nix;
@@ -37,6 +37,9 @@ in {
     wantedBy = [ "multi-user.target" ];
   };
 
+  # Prevent pulling in mailutils
+  services.zfs.zed.settings.ZED_EMAIL_PROG = lib.mkForce "";
+
   # For tmpfs /
   environment.etc."nixos".source = pkgs.runCommand "persistent-link" {} ''
     ln -s /nix/persistent/etc/nixos $out
@@ -51,9 +54,12 @@ in {
 
   virtualisation.docker.enable = true;
 
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+  ];
+
   environment.systemPackages = [
     pkgs.steam
-    pkgs.hedgewars
   ];
 
   boot.initrd.availableKernelModules = [
