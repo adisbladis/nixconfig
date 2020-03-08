@@ -11,7 +11,6 @@
     ../overlays/local/modules/default.nix
     ./common.nix
     ./graphical-desktop.nix
-    ./laptop.nix
     ./my-gaming.nix
     ./my-laptop.nix
     ./my-spell.nix
