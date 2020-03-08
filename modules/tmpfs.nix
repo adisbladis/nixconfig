@@ -5,7 +5,10 @@ let
 
 in {
 
-  options.my.tmpfs-root.enable = lib.mkEnableOption "Enables global settings required by tmpfs root.";
+  options.my.tmpfs-root.enable = lib.mkOption {
+    default = config.fileSystems."/".fsType == "tmpfs";
+    description = "Symlink persistent directories in $HOME";
+  };
 
   config = lib.mkIf cfg.enable {
 
