@@ -432,17 +432,45 @@
     (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward-regexp)
     )
 
-(use-package weechat
+(use-package znc
   :config
   (progn
-    (require 'weechat-notifications)
-    (defun weechat-activate ()
-      (interactive)
-      (weechat-connect "localhost" 9000 "supersecret" 'plain))
-    (add-hook 'weechat-mode-hook
+    (add-hook 'erc-mode-hook
               (lambda () (set-input-method "swedish-postfix")))
-    (add-hook 'weechat-connect-hook
-              (lambda () (weechat-monitor-all-buffers)))))
+
+    ;; Show messages with syntax:
+    ;; 20:13 <nickname> message
+    (setq erc-last-datestamp "0")
+    (defun ks-timestamp (string)
+      (erc-insert-timestamp-left string)
+      (let ((datestamp (erc-format-timestamp (current-time) erc-datestamp-format)))
+        (unless (string= datestamp erc-last-datestamp)
+          (erc-insert-timestamp-left datestamp)
+          (setq erc-last-datestamp datestamp))))
+    (setq erc-timestamp-only-if-changed-flag t
+          erc-timestamp-format "%H:%M "
+          erc-datestamp-format " === [%Y-%m-%d %a] ===\n" ; mandatory ascii art
+          erc-fill-prefix "      "
+          erc-insert-timestamp-function 'ks-timestamp)
+
+    (setq erc-modules (delq 'fill erc-modules))
+
+    (setq erc-hide-list '("JOIN" "PART" "QUIT"))
+    (setq erc-lurker-hide-list '("JOIN" "PART" "QUIT"))
+    (setq znc-servers
+      '(("localhost" 5000 nil
+         (
+          (network-freenode "adisbladis/freenode" "1234")
+          (network-oftc "adisbladis/oftc" "1234")
+          (network-xinutec "adisbladis/xinutec" "1234")
+          (network-beanjuice "adisbladis/beanjuice" "1234")
+          ))))))
+
+(use-package erc-hl-nicks ;; Highlight erc nicknames
+  :after erc)
+
+(use-package erc-image  ;; Show images inline
+  :after erc)
 
 ;; Various modes
 (use-package vterm :defer 1)

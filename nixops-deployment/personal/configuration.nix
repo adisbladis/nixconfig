@@ -4,6 +4,7 @@
   imports = [
     ../../modules
     ./hardware-configuration.nix
+    ./znc.nix
   ];
 
   my.common-cli.enable = true;
