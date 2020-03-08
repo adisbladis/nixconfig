@@ -2,38 +2,42 @@
 
 {
   imports = [
-    ../../profiles/common.nix
+    ../../modules
     ./hardware-configuration.nix
   ];
+
+  my.common-cli.enable = true;
 
   users.extraUsers.adisbladis.openssh.authorizedKeys.keys = [
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9Cy5XfsjN8Wp60fTjWbKZe7mYpbALiSNdjfHod6rbg0oqicckRhzZApXY8RsoH89u95F2FUzKphjbveAuRk25fyFWXIXwIalmz4VGPisug9+wImcOnBJT7HVMPlY4sS80ZkphJXTbNLjsGBg5vOf0qM7csM0cAkRzVii74gP1moaFwYd0elE+hZhtnD70xLeo7LfBPkIkMJss2zzUEYN45llJEcGB7ZavI8VoBS7P35D/Ma5L2T2F6/dT3Nw21B0zYf3xLBtMtGTUxEO0in4HUIO+qfzOeejQckbYPLMAVUPNRDXPrp4fOhKyc57kL6XFIpsm14I0oFFZlKAV6RD1 weechat-android"
   ];
 
-  environment.systemPackages = let
-    weechatPackage = pkgs.weechat.override {
-      configure = { availablePlugins, ... }: {
-        scripts = with pkgs.weechatScripts; [
-          weechat-xmpp weechat-matrix-bridge wee-slack
-        ];
-      };
-    };
+  # environment.systemPackages = let
+  #   weechatPackage = pkgs.weechat.override {
+  #     configure = { availablePlugins, ... }: {
+  #       scripts = with pkgs.weechatScripts; [
+  #         weechat-xmpp weechat-matrix-bridge wee-slack
+  #       ];
+  #     };
+  #   };
 
-    # Weechat + extra protocol support
-    weechat-env = (pkgs.buildFHSUserEnv {
-      name = "weechat";
-      targetPkgs = (pkgs: [ weechatPackage ]);
-      runScript = "${weechatPackage}/bin/weechat";
+  #   # Weechat + extra protocol support
+  #   weechat-env = (pkgs.buildFHSUserEnv {
+  #     name = "weechat";
+  #     targetPkgs = (pkgs: [ weechatPackage ]);
+  #     runScript = "${weechatPackage}/bin/weechat";
 
-      profile = ''
-        export TERM=xterm
-        mkdir -p $HOME/.weechat/lua/autoload
-      '';
-    });
-  in with pkgs; [
-    weechat-env
-    tmux
-  ];
+  #     profile = ''
+  #       export TERM=xterm
+  #       mkdir -p $HOME/.weechat/lua/autoload
+  #     '';
+  #   });
+  # in with pkgs; [
+  #   weechat-env
+  #   tmux
+  # ];
+
+  environment.systemPackages = [ pkgs.tmux ];
 
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;

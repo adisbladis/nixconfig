@@ -1,14 +1,17 @@
 { config, pkgs, lib, ... }:
 
-let
-  secrets = import ../../secrets.nix;
-
-in {
+{
   imports = [
     ./hardware-configuration.nix
-    ../../profiles/common.nix
-    ../../profiles/graphical-desktop.nix
+    ../../modules/default.nix
   ];
+
+  my.common-cli.enable = true;
+  my.common-graphical.enable = true;
+  my.gaming.enable = true;
+  my.podman.enable = true;
+  my.spell.enable = true;
+  my.tmpfs-root.enable = true;
 
   # Overclock EPYC
   boot.kernelModules = [ "msr" ];
@@ -37,29 +40,15 @@ in {
     wantedBy = [ "multi-user.target" ];
   };
 
-  # Prevent pulling in mailutils
-  services.zfs.zed.settings.ZED_EMAIL_PROG = lib.mkForce "";
-
   # For tmpfs /
   environment.etc."nixos".source = pkgs.runCommand "persistent-link" {} ''
     ln -s /nix/persistent/etc/nixos $out
   '';
 
-  # For steam
-  hardware.opengl.driSupport32Bit = true;
-  hardware.pulseaudio.support32Bit = true;
-
   hardware.openrazer.enable = true;
-  users.users.adisbladis.extraGroups = [ "plugdev" ];
-
-  virtualisation.docker.enable = true;
 
   boot.binfmt.emulatedSystems = [
     "aarch64-linux"
-  ];
-
-  environment.systemPackages = [
-    pkgs.steam
   ];
 
   boot.initrd.availableKernelModules = [
@@ -67,10 +56,6 @@ in {
     "aesni_intel"
     "cryptd"
   ];
-
-  users.users.root.initialHashedPassword = secrets.passwordHash;
-  users.users.adisbladis.initialHashedPassword = secrets.passwordHash;
-  users.mutableUsers = false;
 
   services.xserver.deviceSection = ''
     Option        "Tearfree"      "true"
@@ -82,9 +67,8 @@ in {
 
   networking.hostId = "b6d4529e";
   networking.hostName = "kombu";
-  networking.networkmanager.enable = true;
 
-  services.xserver.videoDrivers = [
+  services.xserver.videoDrivers = lib.mkForce [
     "amdgpu"
     "dummy"  # For xpra
   ];
@@ -93,19 +77,11 @@ in {
 
   hardware.enableRedistributableFirmware = true;
 
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport = true;
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.openssh.passwordAuthentication = false;
-
   networking.useDHCP = false;
   networking.interfaces.eno1.useDHCP = false;
   networking.interfaces.eno2.useDHCP = false;
   networking.interfaces.wlp37s0.useDHCP = false;
 
   system.stateVersion = "20.03"; # Did you read the comment?
-
 
 }

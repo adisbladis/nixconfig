@@ -11,30 +11,23 @@ in {
 
   imports = [
     ./hardware-configuration.nix
-    ../../profiles/common.nix
+
+    ../../modules
+
+    # ../../profiles/common.nix
     ../../profiles/graphical-desktop.nix
     ../../profiles/laptop.nix
   ];
 
-  documentation.enable = false;
-
-  environment.systemPackages = [
-#    pkgs.sp-flash-tool
-    pkgs.libva-utils
-  ];
+  my.common-cli.enable = true;
+  my.common-graphical.enable = true;
+  my.laptop.enable = true;
 
   boot.initrd.availableKernelModules = [
     "aes_x86_64"
     "aesni_intel"
     "cryptd"
   ];
-
-  virtualisation.docker.enable = true;
-
-  # nixpkgs.config.allowUnfree = true;
-  # users.extraGroups.vboxusers.members = [ "adisbladis" ];
-  # virtualisation.virtualbox.host.enable = true;
-  # virtualisation.virtualbox.host.enableExtensionPack = true;
 
   environment.etc."nixos".source = pkgs.runCommand "persistent-link" {} ''
     ln -s /nix/persistent/etc/nixos $out
@@ -44,18 +37,7 @@ in {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  users.users.root.initialHashedPassword = secrets.passwordHash;
-  users.users.adisbladis.initialHashedPassword = secrets.passwordHash;
-  users.mutableUsers = false;
-
-  system.stateVersion = "18.09"; # Did you read the comment?
-
-  services.acpid.enable = true;
-
-  # Required by some clients
-  # security.clamav.daemon.enable = true;
-
-  hardware.bluetooth.enable = true;
+  hardware.trackpoint.enable = true;
 
   services.xserver.synaptics.enable = true;
   # Make trackpad act as scroll wheel
@@ -65,10 +47,6 @@ in {
     Option "VertEdgeScroll"  "1"
     Option "AreaTopEdge"  "2500"
   '';
-
-  #  Bumblebee has issues with tearing and crashes
-  #  Power use is good enough without it anyway
-  hardware.opengl.enable = true;
 
   hardware.opengl.extraPackages = [
     (pkgs.vaapiIntel.override { enableHybridCodec = true; })
@@ -92,9 +70,6 @@ in {
     galliumDrivers = [ "nouveau" "virgl" "swrast" "iris" ];
   }).drivers;
 
-  # Touch screen in firefox
-  environment.variables.MOZ_USE_XINPUT2 = "1";
-
   networking.hostName = "gari";
 
   fileSystems."/".options = [ "noatime" "nodiratime" ];
@@ -112,5 +87,7 @@ in {
     ATTRS{idVendor}=="0e8d", ENV{ID_MM_DEVICE_IGNORE}="1"
     ATTRS{idVendor}=="6000", ENV{ID_MM_DEVICE_IGNORE}="1"
   '';
+
+  system.stateVersion = "18.09"; # Did you read the comment?
 
 }
