@@ -386,6 +386,9 @@
     (setq exwm-randr-workspace-output-plist '(1 "HDMI2"))
     (require 'exwm-config)
     (exwm-config-default)
+    (setq exwm-workspace-show-all-buffers t)
+    (setq exwm-layout-show-all-buffers t)
+
     (exwm-randr-enable)
     (exwm-enable)
     (server-start)))
