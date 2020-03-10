@@ -400,7 +400,10 @@
    (lambda () (set-input-method "swedish-postfix"))))
 
 ;; Mouse follows focus for exwm
-(use-package exwm-mff)
+(use-package exwm-mff
+  :config
+  (progn
+    (exwm-mff-mode)))
 
 ;; (use-package exim
 ;;   :config
