@@ -31,14 +31,14 @@
       deployment.targetHost = "192.168.0.70";
     };
 
-  # laptop =
-  #   { resources, ... }:
-  #   {
-  #     imports = [
-  #       ../hosts/gari/configuration.nix
-  #     ];
+  laptop =
+    { resources, ... }:
+    {
+      imports = [
+        ../hosts/gari/configuration.nix
+      ];
 
-  #     deployment.targetHost = "127.0.0.1";
-  #   };
+      deployment.targetHost = "192.168.0.73";
+    };
 
 }
