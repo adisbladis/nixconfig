@@ -356,7 +356,7 @@ in {
 
     };
 
-    users.users.adisbladis.extraGroups = [ "plugdev" "networkmanager" "adbusers" "wireshark" ];
+    users.users.adisbladis.extraGroups = [ "plugdev" "networkmanager" "adbusers" "wireshark" "video" ];
 
   };
 
