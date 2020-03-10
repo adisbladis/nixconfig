@@ -411,6 +411,11 @@
 ;;
 ;;     (add-hook 'exwm-init-hook 'exim-start)))
 
+(use-package ace-window
+  :config
+  (progn
+    (ace-window-display-mode)))
+
 (winner-mode 1)
 
 ;; Code search
