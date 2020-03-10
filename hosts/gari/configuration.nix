@@ -4,24 +4,18 @@
 
 { config, lib, pkgs, ... }:
 
-let
-  secrets = import ../../secrets.nix;
-
-in {
+{
 
   imports = [
     ./hardware-configuration.nix
 
     ../../modules
-
-    # ../../profiles/common.nix
-    ../../profiles/graphical-desktop.nix
-    ../../profiles/laptop.nix
   ];
 
   my.common-cli.enable = true;
   my.common-graphical.enable = true;
   my.laptop.enable = true;
+  my.podman.enable = true;
 
   boot.initrd.availableKernelModules = [
     "aes_x86_64"
@@ -32,6 +26,8 @@ in {
   environment.etc."nixos".source = pkgs.runCommand "persistent-link" {} ''
     ln -s /nix/persistent/etc/nixos $out
   '';
+
+  networking.hostId = "f118a855";
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -55,7 +51,7 @@ in {
     pkgs.libvdpau-va-gl
     pkgs.intel-media-driver
   ];
-  services.xserver.videoDrivers = [
+  services.xserver.videoDrivers = lib.mkForce [
     # "nouveau"
     "intel"
   ];
@@ -63,12 +59,9 @@ in {
     Option        "Tearfree"      "true"
   '';
   boot.kernelParams = [ "i915.enable_psr=1" ];
-  environment.variables = {
-    MESA_LOADER_DRIVER_OVERRIDE = "iris";
-  };
-  hardware.opengl.package = (pkgs.mesa.override {
-    galliumDrivers = [ "nouveau" "virgl" "swrast" "iris" ];
-  }).drivers;
+  # environment.variables = {
+  #   MESA_LOADER_DRIVER_OVERRIDE = "iris";
+  # };
 
   networking.hostName = "gari";
 
@@ -88,6 +81,6 @@ in {
     ATTRS{idVendor}=="6000", ENV{ID_MM_DEVICE_IGNORE}="1"
   '';
 
-  system.stateVersion = "18.09"; # Did you read the comment?
+  system.stateVersion = "20.09"; # Did you read the comment?
 
 }
