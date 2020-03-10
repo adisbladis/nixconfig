@@ -355,6 +355,10 @@
                ("M->" . C-end)
                ("C-M-h" . C-backspace))))
 
+   (exwm-input-set-key
+    (kbd "s-o")
+    'ace-window)
+
     (exwm-input-set-key
      (kbd "s-g")
      (defun pnh-ff-gsearch ()
