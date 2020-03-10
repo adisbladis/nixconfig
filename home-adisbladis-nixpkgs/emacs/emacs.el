@@ -438,6 +438,13 @@
     (add-hook 'erc-mode-hook
               (lambda () (set-input-method "swedish-postfix")))
 
+    (defun kill-erc-buffers ()
+      (interactive)
+      (mapc (lambda (buffer)
+              (when (eq 'erc-mode (buffer-local-value 'major-mode buffer))
+                (kill-buffer buffer)))
+            (buffer-list)))
+
     ;; Show messages with syntax:
     ;; 20:13 <nickname> message
     (setq erc-last-datestamp "0")
