@@ -12,10 +12,10 @@ in {
 
   config = lib.mkIf cfg.enable {
 
-    systemd.tmpfiles.rules = [
-      "L /var/lib/bluetooth - - - - /nix/persistent/var/lib/bluetooth"
-      "L /var/lib/NetworkManager - - - - /nix/persistent/var/lib/NetworkManager"
-    ];
+    # systemd.tmpfiles.rules = [
+    #   "L /var/lib/bluetooth - - - - /nix/persistent/var/lib/bluetooth"
+    #   "L /var/lib/NetworkManager - - - - /nix/persistent/var/lib/NetworkManager"
+    # ];
 
     home-manager.users.adisbladis = { ... }: {
       imports = [ ./home-manager/persistence.nix ];
