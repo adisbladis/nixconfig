@@ -132,6 +132,7 @@ in {
       21027  # Syncthing discovery
     ];
     networking.networkmanager.enable = true;
+    networking.networkmanager.wifi.backend = "iwd";
 
     # Touch screen in firefox
     environment.variables.MOZ_USE_XINPUT2 = "1";

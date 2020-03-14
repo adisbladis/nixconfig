@@ -38,7 +38,7 @@
         ../hosts/gari/configuration.nix
       ];
 
-      deployment.targetHost = "192.168.0.73";
+      deployment.targetHost = "192.168.0.44";
     };
 
 }
