@@ -9,7 +9,7 @@ in {
 
   config = lib.mkIf cfg.enable {
 
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelPackages = pkgs.linuxPackages_5_5;
 
     nixpkgs.config.allowUnfree = true;
 
@@ -62,7 +62,7 @@ in {
 
     programs.browserpass.enable = true;
 
-    programs.simpleserver.enable = true;
+    # programs.simpleserver.enable = true;
 
     programs.adb.enable = true;
 
@@ -207,7 +207,7 @@ in {
 
       programs.browserpass.enable = true;
 
-      services.compton.enable = true;
+      services.picom.enable = true;
 
       # Needed for wifi password input
       services.network-manager-applet.enable = true;

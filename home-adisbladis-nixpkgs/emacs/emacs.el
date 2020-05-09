@@ -13,6 +13,10 @@
 (setq-default user-emacs-cache-directory
               (concat (getenv "HOME") "/.cache/emacs"))
 
+;; ;; Some packages violate these..
+;; (setq max-lisp-eval-depth 10000)
+;; (setq max-specpdl-size 13000)
+
 ;; Increase the threshold to reduce the amount of garbage collections made
 ;; during startups.
 (setq gc-cons-threshold (* 50 1000 1000))
@@ -57,7 +61,6 @@
     (helm-fuzzier-mode 1)))
 
 (use-package helm-ag)
-(use-package helm-pass)
 (use-package helm-projectile)
 
 ;; Remove suspend keys (annoying at best)
@@ -237,6 +240,7 @@
 (use-package flycheck-rust)
 (use-package flycheck-elixir)
 
+
 ;; Smart parens
 (use-package smartparens
   :config
@@ -245,8 +249,8 @@
     (add-hook 'html-mode-hook #'smartparens-mode)
     (add-hook 'python-mode-hook #'smartparens-mode)
     (add-hook 'lua-mode-hook #'smartparens-mode)
-    (add-hook 'ruby-mode-hook #'smartparens-mode)
-    (add-hook 'rust-mode-hook #'smartparens-mode)))
+    (add-hook 'rust-mode-hook #'smartparens-mode)
+    (add-hook 'ruby-mode-hook #'smartparens-mode)))
 
 ;; Org-exports
 (use-package org)
@@ -391,6 +395,13 @@
 
     (exwm-randr-enable)
     (exwm-enable)
+
+    ;; Mouse follows focus for exwm
+    (use-package exwm-mff
+      :config
+      (progn
+        (exwm-mff-mode)))
+
     (server-start)))
 
 (use-package exwm-edit
@@ -398,12 +409,6 @@
   (add-hook
    'exwm-edit-compose-hook
    (lambda () (set-input-method "swedish-postfix"))))
-
-;; Mouse follows focus for exwm
-(use-package exwm-mff
-  :config
-  (progn
-    (exwm-mff-mode)))
 
 ;; (use-package exim
 ;;   :config
@@ -500,7 +505,6 @@
 
 ;; Various modes
 (use-package vterm :defer 1)
-(use-package pass)
 (use-package fish-mode)
 (use-package jinja2-mode)
 ;; (use-package lua-mode)
@@ -571,3 +575,6 @@
                 "xdg-open "
                 (dired-file-name-at-point))))
       (start-process-shell-command cmd nil cmd))))
+
+;; Asciidoc
+(use-package adoc-mode)

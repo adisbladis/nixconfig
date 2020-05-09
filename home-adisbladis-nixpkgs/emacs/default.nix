@@ -3,7 +3,7 @@
 }:
 
 emacsWithPackagesFromUsePackage {
-  # package = pkgs.emacsGit;
+  # package = pkgs.emacsUnstable;
 
   config = builtins.readFile ./emacs.el;
 

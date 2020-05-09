@@ -18,7 +18,7 @@ in {
 
     services.lorri.enable = true;
 
-    documentation.enable = false;
+    documentation.enable = true;
 
     services.udev.extraRules = ''
       # set deadline scheduler for non-rotating disks
@@ -47,6 +47,8 @@ in {
 
     programs.fish.enable = true;
 
+    programs.simpleserver.enable = true;
+
     environment.systemPackages = with pkgs; [
       nox
       fish
@@ -72,6 +74,12 @@ in {
     users.users.root.initialHashedPassword = secrets.passwordHash;
     users.users.adisbladis.initialHashedPassword = secrets.passwordHash;
     users.mutableUsers = false;
+
+    networking.firewall.allowedTCPPorts = [
+      8000  # http server
+    ];
+
+    nix.trustedUsers = [ "@wheel" ];
 
     users.extraUsers.root.openssh.authorizedKeys.keys = sshKeys;
     users.extraUsers.adisbladis = {
