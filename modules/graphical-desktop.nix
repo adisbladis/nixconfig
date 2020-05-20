@@ -155,10 +155,19 @@ in {
       # Emacs (exwm)
       home.file.".emacs".source = ../home-adisbladis-nixpkgs/emacs/emacs.el;
       home.sessionVariables.EDITOR = "emacsclient";
-      home.sessionVariables.XMODIFIERS = "@im=exim";
+      home.sessionVariables.XMODIFIERS = "@im=exwm-xim";
       home.sessionVariables.GTK_IM_MODULE = "xim";
       home.sessionVariables.QT_IM_MODULE = "xim";
       home.sessionVariables.CLUTTER_IM_MODULE = "xim";
+
+      xsession.importedVariables = [
+        "MOZ_USE_XINPUT2"
+        "EDITOR"
+        "XMODIFIERS"
+        "GTK_IM_MODULE"
+        "QT_IM_MODULE"
+        "CLUTTER_IM_MODULE"
+      ];
 
       home.packages = with pkgs; [
         firefox-devedition-bin

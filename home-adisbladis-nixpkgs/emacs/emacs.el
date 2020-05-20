@@ -274,14 +274,15 @@
 (use-package exwm
   :config
   (progn
-    ;; (push ?\C-\\ exwm-input-prefix-keys)
+
     (require 'exwm)
     (require 'exwm-randr)
     (require 'dbus)
 
     ;; Enable input method
-    ;; (require 'exwm-xim)
-    ;; (exwm-xim-enable)
+    (require 'exwm-xim)
+    (exwm-xim-enable)
+    (push ?\C-\\ exwm-input-prefix-keys)
 
     (defun pnh-run (command)
       (interactive (list (read-shell-command "$ ")))
