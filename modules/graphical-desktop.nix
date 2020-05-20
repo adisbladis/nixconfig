@@ -9,7 +9,7 @@ in {
 
   config = lib.mkIf cfg.enable {
 
-    boot.kernelPackages = pkgs.linuxPackages_5_5;
+    boot.kernelPackages = pkgs.linuxPackages_latest;
 
     nixpkgs.config.allowUnfree = true;
 

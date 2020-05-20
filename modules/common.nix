@@ -34,6 +34,12 @@ in {
     nix.autoOptimiseStore = true;
     nix.useSandbox = true;
 
+    # Disable cgroups v1
+    boot.kernelParams = [
+      "cgroup_no_v1=all"
+      "systemd.unified_cgroup_hierarchy=yes"
+    ];
+
     time.timeZone = "Europe/London";
 
     i18n = {
