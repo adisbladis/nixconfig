@@ -17,13 +17,13 @@
 ;; (setq max-lisp-eval-depth 10000)
 ;; (setq max-specpdl-size 13000)
 
+
 ;; Increase the threshold to reduce the amount of garbage collections made
 ;; during startups.
-(setq gc-cons-threshold (* 50 1000 1000))
-;; And reset it to make gc pauses shorter once everything is up and running
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (setq gc-cons-threshold (* 2 1000 1000))))
+(let ((gc-cons-threshold (* 50 1000 1000))
+      (gc-cons-percentage 0.6)
+      (file-name-handler-alist nil)))
+
 
 ;; Unless the =$XGD_DATA_DIR/emacs/backup= directory exists, create it. Then set as backup directory.
 (let ((backup-dir (concat user-emacs-data-directory "/backup")))
