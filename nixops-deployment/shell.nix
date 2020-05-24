@@ -1,5 +1,7 @@
-with (import <nixpkgs> {});
+{ pkgs ? import ../nixpkgs {} }:
 
-mkShell {
-  buildInputs = [ nixops ];
+pkgs.mkShell {
+  buildInputs = [
+    (import ./nixops { inherit pkgs; })
+  ];
 }
