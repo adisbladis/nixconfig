@@ -12,6 +12,9 @@
     ../../modules
   ];
 
+
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   my.common-cli.enable = true;
   my.common-graphical.enable = true;
   my.laptop.enable = true;
