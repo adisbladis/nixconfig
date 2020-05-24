@@ -31,6 +31,14 @@
     (mkdir backup-dir t))
   (setq-default backup-directory-alist (cons (cons "." backup-dir) nil)))
 
+
+;; Use pass for authentication, it's bundled in emacs but lets use the latest one
+(use-package auth-source-pass
+  :config
+  (progn
+    (auth-source-pass-enable)))
+
+
 ;; helm
 (use-package helm
   :defer 2
