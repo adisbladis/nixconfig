@@ -243,6 +243,8 @@ in {
         systemctl --user import-environment XMODIFIERS GTK_IM_MODULE QT_IM_MODULE CLUTTER_IM_MODULE
       '';
 
+      systemd.user.startServices = true;
+
       # services.gnome-keyring.enable = true;
 
       # Notification daemon
