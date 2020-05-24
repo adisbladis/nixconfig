@@ -40,11 +40,6 @@
     wantedBy = [ "multi-user.target" ];
   };
 
-  # For tmpfs /
-  environment.etc."nixos".source = pkgs.runCommand "persistent-link" {} ''
-    ln -s /nix/persistent/etc/nixos $out
-  '';
-
   hardware.openrazer.enable = true;
 
   boot.binfmt.emulatedSystems = [

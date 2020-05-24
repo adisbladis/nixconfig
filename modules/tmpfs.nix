@@ -17,18 +17,39 @@ in {
     #   "L /var/lib/NetworkManager - - - - /nix/persistent/var/lib/NetworkManager"
     # ];
 
+    environment.persistence = {
+      targetDir = "/nix/persistent";
+      # root = {
+      #   directories = [
+      #     "/var/log"
+      #     "/var/lib/bluetooth"
+      #   ];
+      # };
+      etc = {
+        directories = [
+          "nixos"
+          "NetworkManager/system-connections"
+        ];
+        files = [ "machine-id" ];
+      };
+    };
+
     home-manager.users.adisbladis = { ... }: {
       imports = [ ./home-manager/persistence.nix ];
 
       home.persistence."/nix/persistent/adisbladis" = {
-        files = [];
+        files = [
+          # ".gnupg/pubring.kbx"
+          ".gnupg/trustdb.gpg"
+          ".gnupg/random_seed"
+        ];
         directories = [
           ".ssh"
           ".password-store"
-          ".local/share/fish"
           ".mozilla/firefox"
           ".local/share/fish"
           ".local/share/direnv"
+          ".local/share/containers"
           ".emacs.d"
           "Downloads"
           "Music"
@@ -36,6 +57,8 @@ in {
           "Vids"
           "sauce"
           "Videos"
+          "Pictures"
+          ".local/share/fish"
         ];
       };
     };

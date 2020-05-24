@@ -26,10 +26,6 @@
     "cryptd"
   ];
 
-  environment.etc."nixos".source = pkgs.runCommand "persistent-link" {} ''
-    ln -s /nix/persistent/etc/nixos $out
-  '';
-
   networking.hostId = "f118a855";
 
   # Use the systemd-boot EFI boot loader.

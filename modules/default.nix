@@ -16,6 +16,7 @@
     ./my-spell.nix
     ./podman.nix
     ./tmpfs.nix
+    ./persistence.nix
   ];
 
 }
