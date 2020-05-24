@@ -207,6 +207,7 @@
     (global-set-key (kbd "C-x g") 'magit-status) ; Display the main magit popup
     (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup) ; Display keybinds for magit
     ))
+(use-package forge)
 
 ;; Autocomplete
 (use-package company)

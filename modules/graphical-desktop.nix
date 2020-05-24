@@ -362,7 +362,12 @@ in {
       # Fix stupid java applications like android studio
       home.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
 
-      programs.git.signing.signByDefault = true;
+      programs.git = {
+        signing.signByDefault = true;
+        extraConfig.github = {
+          user = "adisbladis";
+        };
+      };
 
     };
 
