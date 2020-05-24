@@ -69,7 +69,28 @@
     (helm-fuzzier-mode 1)))
 
 (use-package helm-ag)
-(use-package helm-projectile)
+(use-package helm-projectile
+  :defer 2
+  :bind (("C-x , p" . helm-projectile-switch-project)
+         ("C-x , f" . helm-projectile-find-file)
+         ("C-x , b" . projectile-ibuffer)
+         ("C-x , i" . projectile-invalidate-cache)
+         ("C-x , a" . helm-projectile-ag)
+         ("C-x , k" . projectile-kill-buffers))
+  :init
+  (setq projectile-enable-caching t)
+  :config
+  (projectile-mode))
+
+
+;; Display emojis in Emacs
+(use-package emojify
+  :defer 2
+  :config (progn (setq emojify-display-style 'unicode
+                       emojify-emoji-styles '(unicode)
+                       emojify-program-contexts nil)
+                 (global-emojify-mode)))
+
 
 ;; Remove suspend keys (annoying at best)
 (global-unset-key (kbd "C-z"))
