@@ -152,6 +152,19 @@ in {
 
     {
 
+      imports = [ ./tunnels.nix ];
+
+      services.activated-tunnels = {
+        irc = {
+          host = "159.69.86.193";
+          bind = "127.0.0.1:5000";
+          type = "port";
+          portOptions = {
+            port = 5000;
+          };
+        };
+      };
+
       # Emacs (exwm)
       home.file.".emacs".source = ../home-adisbladis-nixpkgs/emacs/emacs.el;
       home.sessionVariables.EDITOR = "emacsclient";
