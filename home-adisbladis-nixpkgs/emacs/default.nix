@@ -7,6 +7,8 @@ emacsWithPackagesFromUsePackage {
 
   config = builtins.readFile ./emacs.el;
 
+  alwaysEnsure = true;
+
   override = epkgs: epkgs // {
 
     weechat = epkgs.melpaPackages.weechat.overrideAttrs(old: {
