@@ -40,7 +40,7 @@ in {
       "systemd.unified_cgroup_hierarchy=yes"
     ];
 
-    time.timeZone = "Europe/London";
+    time.timeZone = "Europe/Stockholm";
 
     i18n = {
       defaultLocale = "en_US.UTF-8";
