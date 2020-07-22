@@ -81,7 +81,6 @@ in {
     services.printing.drivers = [ pkgs.gutenprint ];
 
     services.pcscd.enable = true;
-    hardware.u2f.enable = true;
     services.xserver.enable = true;
 
     services.xserver.layout = "us";
