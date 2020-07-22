@@ -12,6 +12,15 @@
     ../../modules
   ];
 
+  security.doas.enable = true;
+
+  # security.pam.u2f.enable = true;
+  security.pam.services.sudo.u2fAuth = true;
+  security.pam.services.doas.u2fAuth = true;
+
+  security.pam.u2f.authFile = pkgs.writeText "u2f_keys" ''
+    adisbladis:4tTUtBtgsj9ANcqfkjiK1Lh0dcacIkH_8013_D4rd7kNIg383jhnVS28aqxhxj0b7reCK_zPwCmGOkDRDUb8jg,04db86d74a17ea3031765fc23ecfa9a860a72929887dfc92e965574c38d4d2f23c56ea0c4f31f33edccce9713a37001fdde0d7c8b13d59118f4ebc4d28c4e06a15
+  '';
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
