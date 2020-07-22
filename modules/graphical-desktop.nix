@@ -151,7 +151,7 @@ in {
 
     {
 
-      imports = [ ./tunnels.nix ];
+      imports = [ ../overlays/activated-tunnel/nixos ];
 
       services.activated-tunnels = {
         irc = {
@@ -161,6 +161,11 @@ in {
           portOptions = {
             port = 5000;
           };
+        };
+        web = {
+          host = "159.69.86.193";
+          bind = "127.0.0.1:20248";
+          type = "socks";
         };
       };
 

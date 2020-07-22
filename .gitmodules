@@ -13,3 +13,6 @@
 [submodule "overlays/local/pkgs/activated-tunnel"]
 	path = overlays/local/pkgs/activated-tunnel
 	url = https://github.com/adisbladis/activated-tunnel.git
+[submodule "overlays/activated-tunnel"]
+	path = overlays/activated-tunnel
+	url = https://github.com/adisbladis/activated-tunnel.git
