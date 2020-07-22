@@ -10,7 +10,6 @@ in {
   config = lib.mkIf cfg.enable {
     virtualisation.podman.enable = true;
     virtualisation.podman.dockerCompat = true;
-    virtualisation.containers.users = [ "adisbladis" ];
   };
 
 }
