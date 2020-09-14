@@ -34,6 +34,11 @@ in {
     nix.autoOptimiseStore = true;
     nix.useSandbox = true;
 
+    # nix.package = pkgs.nixFlakes;
+    # nix.extraOptions =
+    #   lib.optionalString (config.nix.package == pkgs.nixFlakes)
+    #   "experimental-features = nix-command flakes";
+
     # Disable cgroups v1
     boot.kernelParams = [
       "cgroup_no_v1=all"
