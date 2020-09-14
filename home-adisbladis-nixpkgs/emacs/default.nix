@@ -3,17 +3,10 @@
 }:
 
 emacsWithPackagesFromUsePackage {
-  # package = pkgs.emacsUnstable;
+  package = pkgs.emacsGit;
 
-  config = builtins.readFile ./emacs.el;
+  config = ./emacs.el;
 
   alwaysEnsure = true;
 
-  override = epkgs: epkgs // {
-
-    weechat = epkgs.melpaPackages.weechat.overrideAttrs(old: {
-      patches = [ ./weechat-el.patch ];
-    });
-
-  };
 }
