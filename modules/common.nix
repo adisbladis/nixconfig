@@ -61,7 +61,7 @@ in {
       gnupg
       wget
       htop
-      git
+      gitAndTools.gitFull
       tmux
       jq
       dnsutils
