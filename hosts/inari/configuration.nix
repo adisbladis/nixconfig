@@ -7,11 +7,29 @@
     ../../modules
   ];
 
+  # boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  services.udev.extraRules = ''
+    # Bixolon LCD display
+    ACTION=="add", ATTRS{idVendor}=="1504", ATTRS{idProduct}=="0011", RUN+="${pkgs.kmod}/bin/modprobe -q ftdi_sio" RUN+="${pkgs.runtimeShell} -c 'echo 1504 0011 > /sys/bus/usb-serial/drivers/ftdi_sio/new_id'"
+  '';
+
+  services.tailscale.enable = true;
+
+  # virtualisation.virtualbox.host.enable = true;
+  # users.extraGroups.vboxusers.members = [ "adisbladis" ];
+  # virtualisation.virtualbox.host.enableExtensionPack = true;
+
+  # xdg.portal.enable = true;
+  # xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   security.pam.services.sudo.u2fAuth = true;
   security.pam.services.doas.u2fAuth = true;
+
+  # virtualisation.anbox.enable = true;
 
   my.common-cli.enable = true;
   my.common-graphical.enable = true;
@@ -42,15 +60,17 @@
   hardware.trackpoint.enable = true;
   services.xserver.synaptics.enable = true;
   # # Make trackpad act as scroll wheel
-  # services.xserver.synaptics.additionalOptions = ''
-  #   Option "LeftEdge"  "1"
-  #   Option "RightEdge"  "2"
-  #   Option "VertEdgeScroll"  "1"
-  #   Option "AreaTopEdge"  "2500"
-  # '';
+  services.xserver.synaptics.additionalOptions = ''
+    Option "LeftEdge"  "46"
+    Option "RightEdge"  "47"
+    Option "VertEdgeScroll"  "1"
+  '';
 
   # Has 10bit display!
-  # services.xserver.defaultDepth = 30;
+  services.xserver.defaultDepth = 30;
+  home-manager.users.adisbladis = { ... }: {
+    systemd.user.services.picom.Service.Environment = lib.mkForce [ ];
+  };
 
   # services.xserver.videoDrivers = lib.mkForce [ "intel" ];
   services.xserver.videoDrivers = lib.mkForce [ "modesetting" ];
@@ -66,12 +86,12 @@
   networking.interfaces.wlp0s20f3.useDHCP = false;
 
   # # Better video acceleration
-  # environment.variables = {
-  #   MESA_LOADER_DRIVER_OVERRIDE = "iris";
-  # };
-  # hardware.opengl.package = (pkgs.mesa.override {
-  #   galliumDrivers = [ "nouveau" "virgl" "swrast" "iris" ];
-  # }).drivers;
+  environment.variables = {
+    MESA_LOADER_DRIVER_OVERRIDE = "iris";
+  };
+  hardware.opengl.package = (pkgs.mesa.override {
+    galliumDrivers = [ "nouveau" "virgl" "swrast" "iris" ];
+  }).drivers;
 
   nixpkgs.overlays = [
     (self: super: {

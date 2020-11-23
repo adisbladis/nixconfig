@@ -205,6 +205,9 @@ in {
         graphviz
         unrar
 
+        python-language-server
+        gopls
+
         kcachegrind
 
         transmission_gtk
@@ -237,7 +240,10 @@ in {
 
       programs.browserpass.enable = true;
 
-      services.picom.enable = true;
+      services.picom = {
+        enable = true;
+        vSync = true;
+      };
 
       # Needed for wifi password input
       services.network-manager-applet.enable = true;

@@ -1,4 +1,10 @@
-{
+let
+
+  deployment = {
+    provisionSSHKey = false;
+  };
+
+in {
 
   network.description = "Personal machines";
 
@@ -9,7 +15,9 @@
         ./personal/configuration.nix
       ];
 
-      deployment.targetHost = "159.69.86.193";
+      deployment = deployment // {
+        targetHost = "159.69.86.193";
+      };
     };
 
   tablet =
@@ -19,7 +27,9 @@
         ./tablet/configuration.nix
       ];
 
-      deployment.targetHost = "192.168.0.61";
+      deployment = deployment // {
+        targetHost = "192.168.0.61";
+      };
     };
 
   kombu =
@@ -28,7 +38,21 @@
       imports = [
         ./kombu/configuration.nix
       ];
-      deployment.targetHost = "192.168.0.70";
+      deployment = deployment // {
+        targetHost = "192.168.0.70";
+      };
+    };
+
+  inari =
+    { resources, ... }:
+    {
+      imports = [
+        ../hosts/inari/configuration.nix
+      ];
+      deployment = deployment // {
+        hasFastConnection = true;
+        targetHost = "192.168.1.149";
+      };
     };
 
   laptop =
@@ -38,7 +62,9 @@
         ../hosts/gari/configuration.nix
       ];
 
-      deployment.targetHost = "192.168.0.44";
+      deployment = deployment // {
+        targetHost = "127.0.0.1";
+      };
     };
 
 }

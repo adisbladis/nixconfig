@@ -40,7 +40,7 @@ in {
       home.persistence."/nix/persistent/adisbladis" = {
         files = [
           # ".gnupg/pubring.kbx"
-          ".gnupg/trustdb.gpg"
+          # ".gnupg/trustdb.gpg"
           ".gnupg/random_seed"
         ];
         directories = [

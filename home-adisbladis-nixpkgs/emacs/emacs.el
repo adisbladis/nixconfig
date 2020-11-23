@@ -38,6 +38,33 @@
   (progn
     (auth-source-pass-enable)))
 
+;;;
+;;; LSP Mode
+;;;
+(use-package lsp-mode
+  :ensure t
+  :defer 2
+  :commands (lsp lsp-deferred)
+  :hook ((go-mode . lsp-deferred)
+         (php-mode . lsp))
+  :init (setq lsp-keymap-prefix "M-l"))
+
+(use-package lsp-ui
+  :ensure t
+  :defer 2
+  :commands lsp-ui-mode)
+
+(use-package helm-lsp
+  :ensure t
+  :defer 2)
+
+(use-package lsp-python-ms
+  :ensure t
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-python-ms)
+                         (lsp)))
+  :init
+  (setq lsp-python-ms-executable (executable-find "python-language-server")))
 
 ;; helm
 (use-package helm
@@ -57,16 +84,6 @@
     (setq helm-buffer-max-length nil) ;; Size according to longest buffer name
     (setq helm-split-window-in-side-p t)
     (helm-mode 1)))
-
-(use-package helm-fuzzier
-  :defer 2
-  :config
-  (progn
-    (setq helm-mode-fuzzy-match t
-          helm-M-x-fuzzy-match t
-          helm-buffers-fuzzy-match t
-          helm-recentf-fuzzy-match t)
-    (helm-fuzzier-mode 1)))
 
 (use-package helm-ag)
 (use-package helm-projectile
@@ -126,25 +143,12 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; Python autocomplete
-(use-package jedi
-  :defer 1
-  :config
-  (progn
-    (add-hook 'python-mode-hook 'jedi:setup)
-    (setq-default jedi:setup-keys t)
-    (setq-default jedi:complete-on-dot t)))
 (use-package blacken)
 
 (use-package go-mode
   :defer 1
   :config
   (progn
-    (add-hook 'go-mode-hook
-              (lambda ()
-                (unless (executable-find "gocode")
-                  (error "Program: gocode is missing"))
-                (set (make-local-variable 'company-backends) '(company-go))
-                (company-mode t)))
     (add-hook 'before-save-hook 'gofmt-before-save)))
 
 ;; Multi-mode web file editing
@@ -418,7 +422,7 @@
        ;;   (start-process-shell-command cmd nil cmd))))
 
     (setq browse-url-firefox-arguments '("-new-window"))
-    (setq exwm-randr-workspace-output-plist '(1 "HDMI2"))
+    (setq exwm-randr-workspace-output-plist '(1 "HDMI-1"))
     (require 'exwm-config)
     (exwm-config-default)
     (setq exwm-workspace-show-all-buffers t)
