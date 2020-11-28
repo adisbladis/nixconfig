@@ -41,30 +41,24 @@
 ;;;
 ;;; LSP Mode
 ;;;
-(use-package lsp-mode
+(use-package eglot
   :ensure t
   :defer 2
-  :commands (lsp lsp-deferred)
-  :hook ((go-mode . lsp-deferred)
-         (php-mode . lsp))
-  :init (setq lsp-keymap-prefix "M-l"))
+  :config
+  (progn
+    (setq eglot-ignored-server-capabilites '(:documentHighlightProvider))))
+  ;; :commands (lsp lsp-deferred)
+  ;; :hook ((go-mode . lsp-deferred)
+  ;;        (php-mode . lsp))
+  ;; :init (setq lsp-keymap-prefix "M-l"))
 
-(use-package lsp-ui
-  :ensure t
-  :defer 2
-  :commands lsp-ui-mode)
-
-(use-package helm-lsp
-  :ensure t
-  :defer 2)
-
-(use-package lsp-python-ms
-  :ensure t
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-python-ms)
-                         (lsp)))
-  :init
-  (setq lsp-python-ms-executable (executable-find "python-language-server")))
+;; (use-package lsp-python-ms
+;;   :ensure t
+;;   :hook (python-mode . (lambda ()
+;;                          (require 'lsp-python-ms)
+;;                          (lsp)))
+;;   :init
+;;   (setq lsp-python-ms-executable (executable-find "python-language-server")))
 
 ;; helm
 (use-package helm
