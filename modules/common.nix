@@ -16,14 +16,29 @@ in {
 
   config = lib.mkIf cfg.enable {
 
-    services.lorri.enable = true;
-
     documentation.enable = true;
+
+    nix = {
+      binaryCaches = [
+        "https://nix-community.cachix.org"
+        "https://poetry2nix.cachix.org"
+      ];
+      binaryCachePublicKeys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "poetry2nix.cachix.org-1:2EWcWDlH12X9H76hfi5KlVtHgOtLa1Xeb7KjTjaV/R8="
+      ];
+      trustedUsers = [ "@wheel" ];
+    };
 
     services.udev.extraRules = ''
       # set deadline scheduler for non-rotating disks
       # according to https://wiki.debian.org/SSDOptimization, deadline is preferred over noop
       ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="deadline"
+    '';
+
+    nix.extraOptions = ''
+      keep-outputs = true
+      keep-derivations = true
     '';
 
     # Use local nixpkgs checkout
@@ -61,6 +76,7 @@ in {
     programs.simpleserver.enable = true;
 
     environment.systemPackages = with pkgs; [
+      dtach
       nox
       fish
       gnupg
@@ -89,8 +105,6 @@ in {
     networking.firewall.allowedTCPPorts = [
       8000  # http server
     ];
-
-    nix.trustedUsers = [ "@wheel" ];
 
     users.extraUsers.root.openssh.authorizedKeys.keys = sshKeys;
     users.extraUsers.adisbladis = {
@@ -129,7 +143,6 @@ in {
         nmap
         unzip
         zip
-        (pkgs.callPackage ../home-adisbladis-nixpkgs/emacs {})
       ];
 
       # Fish config
@@ -138,11 +151,7 @@ in {
       home.sessionVariables.LESS = "-R";
 
       programs.direnv.enable = true;
-      home.file.".direnvrc".text = ''
-        use_nix() {
-          eval "$(lorri direnv)"
-        }
-      '';
+      programs.direnv.enableNixDirenvIntegration = true;
 
       programs.fish = {
         enable = true;

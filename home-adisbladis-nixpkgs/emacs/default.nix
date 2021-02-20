@@ -3,7 +3,7 @@
 }:
 
 emacsWithPackagesFromUsePackage {
-  package = pkgs.emacsGit;
+  package = pkgs.emacsGcc;
 
   config = ./emacs.el;
 

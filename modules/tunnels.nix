@@ -8,7 +8,7 @@ let
 
   package = import ../overlays/local/pkgs/activated-tunnel { inherit pkgs; };
 
-  mkCommandline = options:
+  mkCommandline = options: lib.concatStringsSep " " (
     [ "${package}/bin/activated-tunnel" ]
     ++ [ "--host" options.host ]
     ++ [ "--port" (builtins.toString options.port) ]
@@ -18,7 +18,7 @@ let
       "--host" options.portOptions.host
       "--port" (builtins.toString options.portOptions.port)
     ]
-  ;
+  );
 
 in {
 
@@ -86,7 +86,7 @@ in {
         inherit name;
         value = {
           Unit = {
-            Description = "Socket activated link ${n}";
+            Description = "Socketa activated link ${n}";
             Requires = "${name}.socket";
             After = "${name}.socket";
             RefuseManualStart = true;

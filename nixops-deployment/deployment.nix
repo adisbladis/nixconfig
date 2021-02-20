@@ -20,6 +20,18 @@ in {
       };
     };
 
+  wakame =
+    { resources, ... }:
+    {
+      imports = [
+        ./wakame/configuration.nix
+      ];
+
+      deployment = deployment // {
+        targetHost = "78.47.130.122";
+      };
+    };
+
   tablet =
     { resources, ... }:
     {

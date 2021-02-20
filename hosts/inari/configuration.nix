@@ -7,21 +7,25 @@
     ../../modules
   ];
 
-  # boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  networking.firewall.allowedTCPPorts = [
+    5900  # ReMarkable VNC
+  ];
+
+  environment.systemPackages = [
+    pkgs.x11vnc  # ReMarkable VNC
+  ];
+
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+    "armv7l-linux"
+  ];
 
   services.udev.extraRules = ''
     # Bixolon LCD display
     ACTION=="add", ATTRS{idVendor}=="1504", ATTRS{idProduct}=="0011", RUN+="${pkgs.kmod}/bin/modprobe -q ftdi_sio" RUN+="${pkgs.runtimeShell} -c 'echo 1504 0011 > /sys/bus/usb-serial/drivers/ftdi_sio/new_id'"
   '';
 
-  services.tailscale.enable = true;
-
-  # virtualisation.virtualbox.host.enable = true;
-  # users.extraGroups.vboxusers.members = [ "adisbladis" ];
-  # virtualisation.virtualbox.host.enableExtensionPack = true;
-
-  # xdg.portal.enable = true;
-  # xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  # services.tailscale.enable = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -29,7 +33,10 @@
   security.pam.services.sudo.u2fAuth = true;
   security.pam.services.doas.u2fAuth = true;
 
-  # virtualisation.anbox.enable = true;
+  hardware.pulseaudio.extraConfig = ''
+    load-module module-alsa-sink   device=hw:0,0 channels=4
+    load-module module-alsa-source device=hw:0,6 channels=4
+  '';
 
   my.common-cli.enable = true;
   my.common-graphical.enable = true;
@@ -37,7 +44,6 @@
   my.podman.enable = true;
 
   boot.initrd.availableKernelModules = [
-    "aes_x86_64"
     "aesni_intel"
     "cryptd"
   ];
@@ -72,26 +78,32 @@
     systemd.user.services.picom.Service.Environment = lib.mkForce [ ];
   };
 
-  # services.xserver.videoDrivers = lib.mkForce [ "intel" ];
+  # # Enable virtual outputs for ReMarkable vnc
+  # services.xserver.deviceSection = ''Option "VirtualHeads" "1"'';
+
   services.xserver.videoDrivers = lib.mkForce [ "modesetting" ];
-  # services.xserver.deviceSection = ''
-  #   Option        "Tearfree"      "true"
-  # '';
-  # boot.kernelParams = [ "i915.enable_psr=1" ];
+  services.xserver.deviceSection = ''
+    Option        "Tearfree"      "true"
+  '';
+  boot.kernelParams = [ "i915.enable_psr=1" ];
+
+  # services.xserver.videoDrivers = lib.mkForce [ "intel" ];
 
   hardware.cpu.intel.updateMicrocode = true;
-
-  networking.useDHCP = false;
-  networking.interfaces.enp0s31f6.useDHCP = false;
-  networking.interfaces.wlp0s20f3.useDHCP = false;
 
   # # Better video acceleration
   environment.variables = {
     MESA_LOADER_DRIVER_OVERRIDE = "iris";
   };
-  hardware.opengl.package = (pkgs.mesa.override {
-    galliumDrivers = [ "nouveau" "virgl" "swrast" "iris" ];
-  }).drivers;
+  # hardware.opengl.package = (pkgs.mesa.override {
+  #   galliumDrivers = [ "nouveau" "virgl" "swrast" "iris" ];
+  # }).drivers;
+
+  programs.captive-browser.interface = "wlp0s20f3";
+
+  networking.useDHCP = false;
+  networking.interfaces.enp0s31f6.useDHCP = false;
+  networking.interfaces.wlp0s20f3.useDHCP = false;
 
   nixpkgs.overlays = [
     (self: super: {
@@ -102,7 +114,7 @@
   hardware.opengl.extraPackages = [
     pkgs.vaapiIntel
     pkgs.vaapiVdpau
-    pkgs.intel-media-driver # only available starting nixos-19.03 or the current nixos-unstable
+    pkgs.intel-media-driver
     pkgs.libvdpau-va-gl
   ];
 

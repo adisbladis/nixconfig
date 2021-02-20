@@ -32,10 +32,9 @@ in stdenv.mkDerivation rec {
   meta = {
     description = "";
     inherit (src.meta) homepage;
-    license = stdenv.lib.licenses.gpl2;
-    platforms = with platforms; linux;
-    maintainers = with maintainers; [ tvorog ];
+    license = licenses.gpl2;
+    platforms = [ platforms.linux ];
+    maintainers = [ maintainers.tvorog ];
     priority = -1;
   };
 }
-

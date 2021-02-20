@@ -1,8 +1,5 @@
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
-;;; Code:
+(setq comp-deferred-compilation nil)
+
 (package-initialize)
 
 ;; Define XDG directories
@@ -120,6 +117,9 @@
     (tool-bar-mode -1)
     (scroll-bar-mode -1)
     (zerodark-setup-modeline-format)))
+(use-package nothing-theme)
+(use-package quasi-monochrome-theme)
+(use-package sexy-monochrome-theme)
 
 ;; Load .envrc from emacs
 (use-package direnv
@@ -590,10 +590,6 @@
 (use-package highlight-parentheses
   :config
   (global-highlight-parentheses-mode))
-
-;; Pomodoro timer
-(use-package org-pomodoro)
-(use-package pomidor)
 
 ;; Rebind O to open files in external applications
 (define-key dired-mode-map (kbd "O")

@@ -2,6 +2,7 @@
 , buildPythonApplication
 , fetchFromGitHub
 , ffmpeg_4
+, lib
 }:
 
 buildPythonApplication rec {
@@ -19,7 +20,7 @@ buildPythonApplication rec {
     ffmpeg_4
   ];
 
-  meta = with stdenv.lib; {
-    license = licenses.gpl3;
+  meta = {
+    license = lib.licenses.gpl3;
   };
 }

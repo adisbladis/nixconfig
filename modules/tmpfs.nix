@@ -54,6 +54,7 @@ in {
           "Downloads"
           "Music"
           "Documents"
+          "go"
           "Vids"
           "sauce"
           "Videos"

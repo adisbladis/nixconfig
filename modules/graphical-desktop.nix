@@ -20,7 +20,7 @@ in {
     };
 
     # Sane font defaults
-    fonts.enableFontDir = true;
+    fonts.fontDir.enable = true;
     fonts.enableGhostscriptFonts = true;
 
     fonts.fonts = with pkgs; [
@@ -43,6 +43,7 @@ in {
     programs.light.enable = true;
 
     environment.systemPackages = [
+      (pkgs.callPackage ../home-adisbladis-nixpkgs/emacs {})
       pkgs.emacs-all-the-icons-fonts
       pkgs.libva-utils
       # For whatever reason I get the unwrapped derivation in my system closure if I don't resort to this hack
@@ -94,9 +95,10 @@ in {
 
     services.xserver.displayManager.defaultSession = "none+xsession";
 
+    services.xserver.displayManager.autoLogin.user = "adisbladis";
+    services.xserver.displayManager.autoLogin.enable = true;
+
     services.xserver.displayManager.lightdm.enable = true;
-    services.xserver.displayManager.lightdm.autoLogin.enable = true;
-    services.xserver.displayManager.lightdm.autoLogin.user = "adisbladis";
 
     services.xserver.videoDrivers = [
       "dummy"  # For xpra
@@ -136,7 +138,7 @@ in {
       21027  # Syncthing discovery
     ];
     networking.networkmanager.enable = true;
-    networking.networkmanager.wifi.backend = "iwd";
+    # networking.networkmanager.wifi.backend = "iwd";
 
     # Touch screen in firefox
     environment.variables.MOZ_USE_XINPUT2 = "1";
@@ -151,7 +153,8 @@ in {
       '';
     };
 
-    # TODO: Make a "meta" home-manager module that can merge multiple files
+    # programs.captive-browser.enable = true;
+
     home-manager.users.adisbladis = { ... }:
 
     {
@@ -221,9 +224,15 @@ in {
         spotify
         bulkrecode
         dolphin  # GUI file browser for stupid drag & drop web apps
-        electrum  # BTC wallet
-        tor-browser-bundle-bin
         mpv
+
+        pulseeffects-legacy
+        ffmpeg
+
+        # chromium
+
+        qemu_test
+
       ];
 
       services.pasystray.enable = true;
@@ -242,25 +251,25 @@ in {
 
       services.picom = {
         enable = true;
-        vSync = true;
+        # vSync = true;
       };
 
       # Needed for wifi password input
       services.network-manager-applet.enable = true;
 
-      # Make icons work in network-manager-applet
-      gtk = {
-        enable = true;
-        iconTheme = {
-          package = pkgs.hicolor_icon_theme;
-          name = "hicolor";
-        };
-      };
-      # And make QT look the same
-      qt = {
-        useGtkTheme = true;
-        enable = true;
-      };
+      # # Make icons work in network-manager-applet
+      # gtk = {
+      #   enable = true;
+      #   iconTheme = {
+      #     package = pkgs.hicolor_icon_theme;
+      #     name = "hicolor";
+      #   };
+      # };
+      # # And make QT look the same
+      # qt = {
+      #   useGtkTheme = true;
+      #   enable = true;
+      # };
 
       xsession.profileExtra = ''
         export XMODIFIERS=@im=exwm-xim
