@@ -44,6 +44,7 @@ in {
           ".gnupg/random_seed"
         ];
         directories = [
+          ".config/rmcl"
           ".ssh"
           ".password-store"
           ".mozilla/firefox"

@@ -233,7 +233,23 @@ in {
 
         qemu_test
 
+        rmfuse
       ];
+
+      systemd.user.services.rmfuse = {
+        Unit = {
+          Description = "reMarkable fuse";
+          After = [ "graphical-session-pre.target" ];
+          PartOf = [ "graphical-session.target" ];
+        };
+        Install = { WantedBy = [ "graphical-session.target" ]; };
+        Service = {
+          ExecStart = "${pkgs.writeShellScript "rmfuse-script" ''
+            mkdir -p /home/adisbladis/remarkable
+            exec ${pkgs.rmfuse}/bin/rmfuse /home/adisbladis/remarkable
+          ''}";
+        };
+      };
 
       services.pasystray.enable = true;
 
