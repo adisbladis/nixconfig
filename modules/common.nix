@@ -18,7 +18,17 @@ in {
 
     documentation.enable = true;
 
-    nix = {
+    nix = let
+      niceLevel = 5;
+    in {
+      daemonNiceLevel = niceLevel;
+      daemonIONiceLevel = niceLevel;
+      nixPath = [
+        "/etc/nixos"
+        "nixos-config=/etc/nixos/configuration.nix"
+      ];
+      autoOptimiseStore = true;
+      useSandbox = true;
       binaryCaches = [
         "https://nix-community.cachix.org"
         "https://poetry2nix.cachix.org"
@@ -28,6 +38,11 @@ in {
         "poetry2nix.cachix.org-1:2EWcWDlH12X9H76hfi5KlVtHgOtLa1Xeb7KjTjaV/R8="
       ];
       trustedUsers = [ "@wheel" ];
+
+      extraOptions = ''
+        keep-outputs = true
+        keep-derivations = true
+      '';
     };
 
     services.udev.extraRules = ''
@@ -36,18 +51,7 @@ in {
       ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="deadline"
     '';
 
-    nix.extraOptions = ''
-      keep-outputs = true
-      keep-derivations = true
-    '';
-
     # Use local nixpkgs checkout
-    nix.nixPath = [
-      "/etc/nixos"
-      "nixos-config=/etc/nixos/configuration.nix"
-    ];
-    nix.autoOptimiseStore = true;
-    nix.useSandbox = true;
 
     # nix.package = pkgs.nixFlakes;
     # nix.extraOptions =
