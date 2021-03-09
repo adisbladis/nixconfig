@@ -43,6 +43,7 @@ in {
     programs.light.enable = true;
 
     environment.systemPackages = [
+      pkgs.alsaUtils
       (pkgs.callPackage ../home-adisbladis-nixpkgs/emacs {})
       pkgs.emacs-all-the-icons-fonts
       pkgs.libva-utils
@@ -53,15 +54,13 @@ in {
       '')
     ];
 
-    # Enable pulse with all the modules
-    hardware.pulseaudio = {
+    hardware.bluetooth.hsphfpd.enable = true;
+    security.rtkit.enable = true;
+    services.pipewire = {
       enable = true;
-      daemon.config = {
-        flat-volumes = "no";
-        default-sample-format = "s24le";
-        default-sample-rate = "192000";
-      };
-      package = pkgs.pulseaudioFull;
+      alsa.enable = true;
+      pulse.enable = true;
+      jack.enable = true;
     };
 
     programs.firejail.enable = true;
@@ -226,7 +225,7 @@ in {
         dolphin  # GUI file browser for stupid drag & drop web apps
         mpv
 
-        pulseeffects-legacy
+        pulseeffects-pw
         ffmpeg
 
         # chromium

@@ -35,11 +35,6 @@
   security.pam.services.sudo.u2fAuth = true;
   security.pam.services.doas.u2fAuth = true;
 
-  hardware.pulseaudio.extraConfig = ''
-    load-module module-alsa-sink   device=hw:0,0 channels=4
-    load-module module-alsa-source device=hw:0,6 channels=4
-  '';
-
   my.common-cli.enable = true;
   my.common-graphical.enable = true;
   my.laptop.enable = true;

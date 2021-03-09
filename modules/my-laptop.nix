@@ -25,7 +25,7 @@ in {
 
     security.lockKernelModules = false;  # No wifi with this one enabled
 
-    hardware.pulseaudio.extraModules = [ pkgs.pulseaudio-modules-bt ];
+    # hardware.pulseaudio.extraModules = [ pkgs.pulseaudio-modules-bt ];
 
   };
 }
