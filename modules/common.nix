@@ -81,7 +81,6 @@ in {
 
     environment.systemPackages = with pkgs; [
       dtach
-      nox
       fish
       gnupg
       wget
@@ -150,9 +149,10 @@ in {
       ];
 
       # Fish config
-      home.file.".config/fish/functions/fish_prompt.fish".source = ../home-adisbladis-nixpkgs/dotfiles/fish/functions/fish_prompt.fish;
-
-      home.sessionVariables.LESS = "-R";
+      home.file = {
+        ".config/fish/functions/fish_prompt.fish".source = ../home-adisbladis-nixpkgs/dotfiles/fish/functions/fish_prompt.fish;
+        ".config/fish/functions/fish_title.fish".source = ../home-adisbladis-nixpkgs/dotfiles/fish/functions/fish_title.fish;
+      };
 
       programs.direnv.enable = true;
       programs.direnv.enableNixDirenvIntegration = true;

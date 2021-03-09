@@ -90,15 +90,8 @@
   :config
   (projectile-mode))
 
-
 ;; Display emojis in Emacs
-(use-package emojify
-  :defer 2
-  :config (progn (setq emojify-display-style 'unicode
-                       emojify-emoji-styles '(unicode)
-                       emojify-program-contexts nil)
-                 (global-emojify-mode)))
-
+(set-fontset-font t 'symbol "Noto Color Emoji" nil 'append)
 
 ;; Remove suspend keys (annoying at best)
 (global-unset-key (kbd "C-z"))
@@ -205,7 +198,6 @@
     (global-set-key (kbd "C-x g") 'magit-status) ; Display the main magit popup
     (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup) ; Display keybinds for magit
     ))
-(use-package forge)
 
 ;; Autocomplete
 (use-package company)
@@ -312,15 +304,15 @@
     (exwm-xim-enable)
     (push ?\C-\\ exwm-input-prefix-keys)
 
-    (defun pnh-run (command)
+    (defun adis-run (command)
       (interactive (list (read-shell-command "$ ")))
       (let (
             (cmd (concat
                   "systemd-run --user "
                   command)))
         (start-process-shell-command cmd nil cmd)))
-    (define-key exwm-mode-map (kbd "s-!") 'pnh-run)
-    (global-set-key (kbd "s-!") 'pnh-run)
+    (define-key exwm-mode-map (kbd "s-!") 'adis-run)
+    (global-set-key (kbd "s-!") 'adis-run)
 
     (add-hook 'exwm-update-class-hook
               (lambda ()
@@ -394,7 +386,7 @@
 
     (exwm-input-set-key
      (kbd "s-g")
-     (defun pnh-ff-gsearch ()
+     (defun adis-ff-gsearch ()
        (interactive)
        (browse-url
         (format "https://google.com/search?q=%s"
@@ -402,18 +394,16 @@
 
     (exwm-input-set-key
      (kbd "s-s")
-     (defun pnh-ff-url ()
+     (defun adis-ff-url ()
        (interactive)
        (browse-url
         (read-string "URL: "))))
 
     (exwm-input-set-key
      (kbd "s-t")
-     (defun pnh-terminal ()
+     (defun adis-terminal ()
        (interactive)
-       (vterm)))
-       ;; (let ((cmd "systemd-run --user urxvt"))
-       ;;   (start-process-shell-command cmd nil cmd))))
+       (vterm "vterm*")))
 
     (setq browse-url-firefox-arguments '("-new-window"))
     (setq exwm-randr-workspace-output-plist '(1 "HDMI-1"))
@@ -457,6 +447,43 @@
   :config
   (progn
     (setq hound-root-directory "~/sauce")))
+
+
+;; (let ((desktop-environment--keybindings
+;;        `(
+;;          ;; ;; Brightness
+;;          ;; (,(kbd "<XF86MonBrightnessUp>") . ,(function desktop-environment-brightness-increment))
+;;          ;; (,(kbd "<XF86MonBrightnessDown>") . ,(function desktop-environment-brightness-decrement))
+;;          ;; (,(kbd "S-<XF86MonBrightnessUp>") . ,(function desktop-environment-brightness-increment-slowly))
+;;          ;; (,(kbd "S-<XF86MonBrightnessDown>") . ,(function desktop-environment-brightness-decrement-slowly))
+;;          ;; ;; Volume
+;;          ;; (,(kbd "<XF86AudioRaiseVolume>") . ,(function desktop-environment-volume-increment))
+;;          ;; (,(kbd "<XF86AudioLowerVolume>") . ,(function desktop-environment-volume-decrement))
+;;          ;; (,(kbd "S-<XF86AudioRaiseVolume>") . ,(function desktop-environment-volume-increment-slowly))
+;;          ;; (,(kbd "S-<XF86AudioLowerVolume>") . ,(function desktop-environment-volume-decrement-slowly))
+;;          ;; (,(kbd "<XF86AudioMute>") . ,(function desktop-environment-toggle-mute))
+;;          ;; (,(kbd "<XF86AudioMicMute>") . ,(function desktop-environment-toggle-microphone-mute))
+;;          ;; ;; Screenshot
+;;          ;; (,(kbd "S-<print>") . ,(function desktop-environment-screenshot-part))
+;;          ;; (,(kbd "<print>") . ,(function desktop-environment-screenshot))
+;;          ;; ;; Screen locking
+;;          (,(kbd "s-l") . ,(lambda () (shell-command "loginctl lock-sessiona &")))
+;;          ;; (,(kbd "<XF86ScreenSaver>") . ,(function desktop-environment-lock-screen))
+;;          ;; ;; Wifi controls
+;;          ;; (,(kbd "<XF86WLAN>") . ,(function desktop-environment-toggle-wifi))
+;;          ;; ;; Bluetooth controls
+;;          ;; (,(kbd "<XF86Bluetooth>") . ,(function desktop-environment-toggle-bluetooth))
+;;          ;; ;; Music controls
+;;          ;; (,(kbd "<XF86AudioPlay>") . ,(function desktop-environment-toggle-music))
+;;          ;; (,(kbd "<XF86AudioPrev>") . ,(function desktop-environment-music-previous))
+;;          ;; (,(kbd "<XF86AudioNext>") . ,(function desktop-environment-music-next))
+;;          ;; (,(kbd "<XF86AudioStop>") . ,(function desktop-environment-music-stop))
+;;          ))
+;;       (map (make-sparse-keymap)))
+;;   (dolist (keybinding desktop-environment--keybindings)
+;;     (define-key map (car keybinding) (cdr keybinding)))
+;;   map)
+
 
 (use-package desktop-environment
   :config
@@ -533,7 +560,9 @@
   :after erc)
 
 ;; Various modes
-(use-package vterm :defer 1)
+(use-package vterm
+  :defer 1
+  :config (setq vterm-buffer-name-string "vterm %s"))
 (use-package fish-mode)
 (use-package jinja2-mode)
 ;; (use-package lua-mode)
@@ -603,3 +632,7 @@
 
 ;; Asciidoc
 (use-package adoc-mode)
+
+(use-package matrix-client)
+
+(use-package telega)

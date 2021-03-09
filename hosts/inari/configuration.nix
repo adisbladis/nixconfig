@@ -20,12 +20,14 @@
     "armv7l-linux"
   ];
 
+  services.tailscale.enable = true;
+
   services.udev.extraRules = ''
     # Bixolon LCD display
     ACTION=="add", ATTRS{idVendor}=="1504", ATTRS{idProduct}=="0011", RUN+="${pkgs.kmod}/bin/modprobe -q ftdi_sio" RUN+="${pkgs.runtimeShell} -c 'echo 1504 0011 > /sys/bus/usb-serial/drivers/ftdi_sio/new_id'"
   '';
 
-  # services.tailscale.enable = true;
+  time.timeZone = lib.mkForce "Africa/Cairo";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -82,10 +84,7 @@
   # services.xserver.deviceSection = ''Option "VirtualHeads" "1"'';
 
   services.xserver.videoDrivers = lib.mkForce [ "modesetting" ];
-  services.xserver.deviceSection = ''
-    Option        "Tearfree"      "true"
-  '';
-  boot.kernelParams = [ "i915.enable_psr=1" ];
+  boot.kernelParams = [ "i915.enable_psrb=1" ];
 
   # services.xserver.videoDrivers = lib.mkForce [ "intel" ];
 

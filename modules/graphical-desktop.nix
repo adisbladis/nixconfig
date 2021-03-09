@@ -267,7 +267,7 @@ in {
 
       services.picom = {
         enable = true;
-        # vSync = true;
+        vSync = true;
       };
 
       # Needed for wifi password input
