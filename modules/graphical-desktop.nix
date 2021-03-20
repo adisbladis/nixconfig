@@ -208,7 +208,8 @@ in {
         unrar
 
         python-language-server
-        gopls
+        gopls # Go language server
+        rls # Rust language server
 
         kcachegrind
 
@@ -225,7 +226,6 @@ in {
         dolphin  # GUI file browser for stupid drag & drop web apps
         mpv
 
-        pulseeffects-pw
         ffmpeg
 
         # chromium
@@ -248,6 +248,11 @@ in {
             exec ${pkgs.rmfuse}/bin/rmfuse /home/adisbladis/remarkable
           ''}";
         };
+      };
+
+      services.pulseeffects = {
+        enable = true;
+        package = pkgs.pulseeffects-pw;
       };
 
       services.pasystray.enable = true;

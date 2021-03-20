@@ -559,6 +559,10 @@
 (use-package erc-image  ;; Show images inline
   :after erc)
 
+;; Rust
+(use-package rust-mode)
+(use-package cargo)
+
 ;; Various modes
 (use-package vterm
   :defer 1
@@ -566,7 +570,6 @@
 (use-package fish-mode)
 (use-package jinja2-mode)
 ;; (use-package lua-mode)
-(use-package rust-mode)
 (use-package android-mode)
 (use-package markdown-mode)
 (use-package yaml-mode)

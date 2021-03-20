@@ -44,6 +44,10 @@ in {
           ".gnupg/random_seed"
         ];
         directories = [
+          ".config/PulseEffects"
+          ".config/pipewire/media-session.d"
+          ".config/spotify"
+          ".cache/spotify"
           ".config/rmcl"
           ".ssh"
           ".password-store"
