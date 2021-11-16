@@ -3,7 +3,8 @@
 let
   cfg = config.my.podman;
 
-in {
+in
+{
 
   options.my.podman.enable = lib.mkEnableOption "Enables global settings required by podman.";
 

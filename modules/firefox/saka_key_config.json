@@ -1,0 +1,115 @@
+{
+  "activeProfiles": {
+    "General": "default",
+    "Keybindings": "default_copy_1636958828295",
+    "Appearance": "default",
+    "Blacklist": "default"
+  },
+  "profiles": {
+    "General": {},
+    "Keybindings": {
+      "default_copy_1636958828295": {
+        "physicalKeys": true,
+        "ignoreModifierKeys": false,
+        "toggleHelpMenu": [],
+        "toggleSaka": [],
+        "openLink": [
+          [
+            {
+              "code": "KeyY",
+              "key": "f",
+              "shiftKey": false,
+              "ctrlKey": false,
+              "altKey": false,
+              "metaKey": false
+            }
+          ]
+        ],
+        "openLinkInBackgroundTab": [],
+        "openLinkInForegroundTab": [],
+        "openLinkInNewWindow": [
+          [
+            {
+              "code": "KeyA",
+              "key": "u",
+              "shiftKey": false,
+              "ctrlKey": false,
+              "altKey": false,
+              "metaKey": false
+            }
+          ]
+        ],
+        "openLinkInIncognitoWindow": [],
+        "downloadLink": [],
+        "focusLink": [],
+        "focusInput": [],
+        "hintChars": "ajskdlgheworuvncm",
+        "scrollDown": [],
+        "scrollUp": [],
+        "scrollLeft": [],
+        "scrollRight": [],
+        "scrollPageDown": [],
+        "scrollPageUp": [],
+        "scrollHalfPageDown": [],
+        "scrollHalfPageUp": [],
+        "scrollToBottom": [],
+        "scrollToTop": [],
+        "scrollToLeft": [],
+        "scrollToRight": [],
+        "goBack": [],
+        "goForward": [],
+        "nextPage": [],
+        "previousPage": [],
+        "goUp": [],
+        "goToRoot": [],
+        "nextTab": [],
+        "previousTab": [],
+        "firstTab": [],
+        "lastTab": [],
+        "moveTabLeft": [],
+        "moveTabRight": [],
+        "moveTabFirst": [],
+        "moveTabLast": [],
+        "moveTabNewWindow": [],
+        "closeTab": [],
+        "closeOtherTabs": [],
+        "closeLeftTabs": [],
+        "closeRightTabs": [],
+        "newTab": [],
+        "restoreTab": [],
+        "duplicateTab": [],
+        "duplicateTabIncognito": [],
+        "newWindow": [],
+        "newIncognitoWindow": [],
+        "switchWindow": [
+          [
+            {
+              "code": "Digit5",
+              "key": "%"
+            }
+          ]
+        ],
+        "zoomIn": [],
+        "zoomOut": [],
+        "zoomReset": [],
+        "refreshTab": [],
+        "refreshAllTabs": [],
+        "hardRefreshTab": [],
+        "toggleMuteTab": [],
+        "toggleMuteAllTabs": [],
+        "togglePinTab": [],
+        "passOneKey": [],
+        "passAllKeys": [],
+        "exitPassMode": [],
+        "copyURL": [],
+        "clipboardCurrentTab": [],
+        "clipboardBackgroundTab": [],
+        "clipboardForegroundTab": [],
+        "clipboardNewWindow": [],
+        "clipboardIncognitoWindow": []
+      }
+    },
+    "Appearance": {},
+    "Blacklist": {}
+  }
+}

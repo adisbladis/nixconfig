@@ -1,0 +1,93 @@
+{
+  "browserpass-ce": {
+    "pname": "browserpass-ce",
+    "version": "3.7.2",
+    "addonId": "browserpass@maximbaz.com",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3711209/browserpass-3.7.2-fx.xpi",
+    "sha256": "sha256:b1781405b46f3274697885b53139264dca2ab56ffc4435c093102ad5ebc59297"
+  },
+  "cookie-quick-manager": {
+    "pname": "cookie-quick-manager",
+    "version": "0.5rc2",
+    "addonId": "{60f82f00-9ad5-4de5-b31c-b16a47c51558}",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3343599/cookie_quick_manager-0.5rc2-an+fx.xpi",
+    "sha256": "sha256:b826e443438c880b3998e42e099d0e1949ff51489c788b50193b92ef80426c6e"
+  },
+  "cors-everywhere": {
+    "pname": "cors-everywhere",
+    "version": "18.11.13.2043",
+    "addonId": "cors-everywhere@spenibus",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/1148493/cors_everywhere-18.11.13.2043-fx.xpi",
+    "sha256": "sha256:1232906e1fa62b7b376acada874ae5275ef9dd81680888667baf01aea54f884f"
+  },
+  "decentraleyes": {
+    "pname": "decentraleyes",
+    "version": "2.0.16",
+    "addonId": "jid1-BoFifL9Vbdl2zQ@jetpack",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3833987/decentraleyes-2.0.16-an+fx.xpi",
+    "sha256": "sha256:fa87ceac1242c26a40c07e31be62d519c4e2cd6ffb5c1f83248cc924766465c9"
+  },
+  "https-everywhere": {
+    "pname": "https-everywhere",
+    "version": "2021.7.13",
+    "addonId": "https-everywhere@eff.org",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3809748/https_everywhere-2021.7.13-an+fx.xpi",
+    "sha256": "sha256:e261461b5d4d3621285fce70773558184d691c614b330744dab672f032db731c"
+  },
+  "reddit-enhancement-suite": {
+    "pname": "reddit-enhancement-suite",
+    "version": "5.22.5",
+    "addonId": "jid1-xUfzOsOFlzSOXg@jetpack",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3784229/reddit_enhancement_suite-5.22.5-an+fx.xpi",
+    "sha256": "sha256:213f1ada92bb9d2814e6760cf20a2dc3cf2cc31b503e2baa8fe2f784be6df11c"
+  },
+  "reddit-sidebar-getter-ridder": {
+    "pname": "reddit-sidebar-getter-ridder",
+    "version": "1.4",
+    "addonId": "{6d0dcf9c-c29f-4ec3-836d-0ad795dfd2b8}",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/533680/reddit_sidebar_hider_electric_boogaloo-1.4-an+fx-linux.xpi",
+    "sha256": "sha256:73e5a3576826bd37800862276d8b96aff343001ea5015d5a27e98a418d68784b"
+  },
+  "amp2html": {
+    "pname": "amp2html",
+    "version": "2.1.0",
+    "addonId": "{569456be-2850-4f7e-b669-71e55140ee0a}",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3546077/redirect_amp_to_html-2.1.0-an+fx.xpi",
+    "sha256": "sha256:762e4032782c30d3d4805371c7730ac36255ab57f5ce5279b4849f0d4ca65790"
+  },
+  "saka-key": {
+    "pname": "saka-key",
+    "version": "1.26.3",
+    "addonId": "{46104586-98c3-407e-a349-290c9ff3594d}",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3582006/saka_key-1.26.3-fx.xpi",
+    "sha256": "sha256:9ea95fcd919100928ad5ca0dccad3700d627c28be2f2132f2e247e14009a4696"
+  },
+  "stylus": {
+    "pname": "stylus",
+    "version": "2.0",
+    "addonId": "{c102b0e7-893d-444f-917c-fc530de507c9}",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/2415216/stylus-2.0-an+fx.xpi",
+    "sha256": "sha256:d1fd535da27dfe3635a654e8450a6b05d883fa6c2cbedbeb2f488a034c4313b5"
+  },
+  "togglewebsitecolors": {
+    "pname": "togglewebsitecolors",
+    "version": "2.4.1",
+    "addonId": "{d9d33933-40dc-4da1-8dc5-5b0449ce7d46}",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3842639/toggle_website_colors_tab-2.4.1-an+fx.xpi",
+    "sha256": "sha256:1090eb6605434eb83c88b8563bacfea202f6e7c1e4c7671a9e60c47fa068fe13"
+  },
+  "ublock-origin": {
+    "pname": "ublock-origin",
+    "version": "1.38.6",
+    "addonId": "uBlock0@raymondhill.net",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3853583/ublock_origin-1.38.6-an+fx.xpi",
+    "sha256": "sha256:d095ce1d57e5b46d1de55f6f57d239630ec6259434449f45d7163d69f5c0cc85"
+  },
+  "user-agent-switcher-revived": {
+    "pname": "user-agent-switcher-revived",
+    "version": "0.2.9",
+    "addonId": "{75afe46a-7a50-4c6b-b866-c43a1075b071}",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3810316/user_agent_switcher-0.2.9-an+fx.xpi",
+    "sha256": "sha256:789e2936c553be4a909a8effcc611531e8b5bad95c65e7b00e4ea9d29279a6ac"
+  }
+}
