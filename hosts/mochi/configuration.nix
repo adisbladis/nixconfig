@@ -18,6 +18,13 @@
     "dummy" # For xpra
   ];
 
+  # acpi_call makes tlp work for newer thinkpads
+  boot.kernelModules = [ "acpi_call" ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.acpi_call ];
+
+  # acpi_backlight=none allows the backlight save/load systemd service to work.
+  boot.kernelParams = [ "acpi_backlight=none" ];
+
   time.timeZone = "America/Los_Angeles";
 
   home-manager.users.adisbladis = { ... }: {
