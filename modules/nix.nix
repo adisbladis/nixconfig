@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   nixpkgs.config.allowUnfree = true;
@@ -15,8 +15,7 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
     nixPath = [
-      "nixpkgs=/etc/nixos/third_party/nixpkgs"
-      "nixos-config=/etc/nixos/configuration.nix"
+      "nixpkgs=${lib.cleanSource pkgs.path}"
     ];
     autoOptimiseStore = true;
     useSandbox = true;
