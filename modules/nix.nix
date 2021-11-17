@@ -4,6 +4,10 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
 
+  nixpkgs.overlays = [
+    (import ../third_party/emacs-overlay)
+  ];
+
   nix = {
     # daemonCPUSchedPolicy = "idle";
     # daemonIOSchedClass = "idle";
@@ -14,8 +18,13 @@
     binaryCachePublicKeys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
-    nixPath = [
-      "nixpkgs=${lib.cleanSource pkgs.path}"
+    nixPath = let
+      overlays = pkgs.writeText "overlays.nix" ''
+        [ (import ${builtins.fetchGit ../third_party/emacs-overlay}) ]
+      '';
+    in [
+      "nixpkgs=${builtins.fetchGit pkgs.path}"
+      "nixpkgs-overlays=${overlays}"
     ];
     autoOptimiseStore = true;
     useSandbox = true;
