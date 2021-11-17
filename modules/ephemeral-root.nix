@@ -18,7 +18,6 @@ in
 
     environment.persistence."/persistent" = {
       directories = [
-        "/etc/nixos"
         "/var/log"
         "/var/lib/bluetooth"
         "/var/lib/systemd/coredump"
