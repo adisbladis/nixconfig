@@ -5,18 +5,26 @@ let
     ];
   };
   inherit (pkgs) lib;
-  inherit (builtins) toString;
+
+  nixPath = lib.concatStringsSep ":" (lib.mapAttrsToList (n: v: "${n}=${v}") {
+    nixpkgs = toString ./third_party/nixpkgs;
+    nixos-config = lib.concatStringsSep "/" [
+      (toString ./hosts)
+      "$(${pkgs.nettools}/bin/hostname -s)"
+      "configuration.nix"
+    ];
+  });
 
 in
 pkgs.mkShell {
 
   packages = [
+    # Use nixos-rebuild switch --use-remote-sudo
     pkgs.nixos-rebuild
   ];
 
-  NIX_PATH = lib.concatStringsSep ":" (lib.mapAttrsToList (n: v: "${n}=${v}") {
-    nixpkgs = "${toString ./third_party/nixpkgs}";
-    nixos-config = "${toString ./configuration.nix}";
-  });
+  shellHook = ''
+    export NIX_PATH=${nixPath}
+  '';
 
 }
