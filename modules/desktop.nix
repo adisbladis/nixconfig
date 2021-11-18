@@ -58,11 +58,6 @@ in
       pkgs.alsaUtils
       pkgs.emacs-all-the-icons-fonts
       pkgs.libva-utils
-      # For whatever reason I get the unwrapped derivation in my system closure if I don't resort to this hack
-      # (pkgs.writeScriptBin "firefox" ''
-      #   #!${pkgs.runtimeShell}
-      #   exec "${pkgs.firefox-devedition-bin}/bin/firefox-devedition" "$@"
-      # '')
     ];
 
     services.dbus.packages = [
