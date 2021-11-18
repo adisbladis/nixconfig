@@ -1,4 +1,11 @@
 {
+  "amp2html": {
+    "pname": "amp2html",
+    "version": "2.1.0",
+    "addonId": "{569456be-2850-4f7e-b669-71e55140ee0a}",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3546077/redirect_amp_to_html-2.1.0-an+fx.xpi",
+    "sha256": "sha256:762e4032782c30d3d4805371c7730ac36255ab57f5ce5279b4849f0d4ca65790"
+  },
   "browserpass-ce": {
     "pname": "browserpass-ce",
     "version": "3.7.2",
@@ -47,13 +54,6 @@
     "addonId": "{6d0dcf9c-c29f-4ec3-836d-0ad795dfd2b8}",
     "url": "https://addons.mozilla.org/firefox/downloads/file/533680/reddit_sidebar_hider_electric_boogaloo-1.4-an+fx-linux.xpi",
     "sha256": "sha256:73e5a3576826bd37800862276d8b96aff343001ea5015d5a27e98a418d68784b"
-  },
-  "amp2html": {
-    "pname": "amp2html",
-    "version": "2.1.0",
-    "addonId": "{569456be-2850-4f7e-b669-71e55140ee0a}",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/3546077/redirect_amp_to_html-2.1.0-an+fx.xpi",
-    "sha256": "sha256:762e4032782c30d3d4805371c7730ac36255ab57f5ce5279b4849f0d4ca65790"
   },
   "saka-key": {
     "pname": "saka-key",
