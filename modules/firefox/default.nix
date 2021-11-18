@@ -40,6 +40,10 @@ in
           default = {
             isDefault = true;
             settings = {
+              # Extensions are managed with Nix, don't auto update anything
+              "extensions.update.autoUpdateDefault" = false;
+              "extensions.update.enabled" = false;
+
               # Sync
               "services.sync.username" = "adisbladis@gmail.com";
 
