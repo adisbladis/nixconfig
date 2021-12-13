@@ -33,6 +33,12 @@
       fsType = "zfs";
     };
 
+  fileSystems."/semi-persistent" =
+    {
+      device = "zroot/semi-persistent";
+      fsType = "zfs";
+    };
+
   fileSystems."/boot" =
     {
       device = "/dev/disk/by-uuid/FFC7-7DA8";
