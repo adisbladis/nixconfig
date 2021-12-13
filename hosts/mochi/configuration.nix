@@ -57,7 +57,12 @@
 
   networking.hostName = "mochi";
   networking.hostId = "a5ece915";
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  # Don't downgrade to pre 5.15 kernels, but use latest compatible kernel for zfs
+  boot.kernelPackages =
+    if lib.versionAtLeast config.boot.zfs.package.latestCompatibleLinuxPackages.kernel.version "5.15"
+    then config.boot.zfs.package.latestCompatibleLinuxPackages
+    else pkgs.linuxPackages_latest;
 
   system.stateVersion = "21.11";
 }
