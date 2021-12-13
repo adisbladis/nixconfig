@@ -9,6 +9,7 @@
   ];
 
   nix = {
+    package = pkgs.nix_2_3;
     # daemonCPUSchedPolicy = "idle";
     # daemonIOSchedClass = "idle";
     # daemonIOSchedPriority = 5;
@@ -35,7 +36,6 @@
     extraOptions = ''
       keep-outputs = true
       keep-derivations = true
-      experimental-features = nix-command flakes
     '';
   };
 
