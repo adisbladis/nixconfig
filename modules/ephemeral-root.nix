@@ -24,7 +24,40 @@ in
         "/var/lib/bluetooth"
         "/var/lib/systemd/coredump"
         "/etc/NetworkManager/system-connections"
-      ];
+      ] ++ (
+        map
+        (x: "/home/adisbladis/${x}")
+        [
+          "Downloads"
+          "Music"
+          "Documents"
+          "go"
+          "Vids"
+          "sauce"
+          "Videos"
+          "Pictures"
+          ".gnupg"
+          ".mozilla"
+          ".ssh"
+          ".emacs.d"
+          ".aws"
+          ".local/share/containers"
+          ".local/share/fish"
+          ".local/share/keyrings"
+          ".local/share/direnv"
+          ".cache/lorri"
+          ".cache/nix"
+          ".local/share/pantalaimon"
+          ".password-store"
+          ".config/kdeconnect"
+          ".config/pipewire/media-session.d"
+          ".config/spotify"
+          ".cache/spotify"
+
+          ".steam"
+          ".local/share/Steam"
+        ]
+      );
       files = [
         "/etc/machine-id"
         "/etc/ssh/ssh_host_ed25519_key"
@@ -33,47 +66,6 @@ in
         "/etc/ssh/ssh_host_rsa_key.pub"
       ];
     };
-
-    home-manager.users.adisbladis = { lib, ... }:
-      {
-        imports = [ ../third_party/impermanence/home-manager.nix ];
-
-        home.persistence."/persistent/home/adisbladis" = {
-          allowOther = true;
-          files = [ ];
-          directories = [
-            "Downloads"
-            "Music"
-            "Documents"
-            "go"
-            "Vids"
-            "sauce"
-            "Videos"
-            "Pictures"
-            ".gnupg"
-            ".mozilla"
-            ".ssh"
-            ".emacs.d"
-            ".aws"
-            ".local/share/containers"
-            ".local/share/fish"
-            ".local/share/keyrings"
-            ".local/share/direnv"
-            ".cache/lorri"
-            ".cache/nix"
-            ".local/share/pantalaimon"
-            ".password-store"
-            ".config/kdeconnect"
-            ".config/pipewire/media-session.d"
-            ".config/spotify"
-            ".cache/spotify"
-
-            ".steam"
-            ".local/share/Steam"
-
-          ];
-        };
-      };
 
   };
 }
