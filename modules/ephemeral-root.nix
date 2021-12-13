@@ -14,6 +14,8 @@ in
 
     fileSystems."/persistent".neededForBoot = true;
 
+    fileSystems."/semi-persistent".neededForBoot = true;
+
     programs.fuse.userAllowOther = true;
 
     environment.persistence."/persistent" = {

@@ -44,7 +44,7 @@
 (use-package flycheck-elixir)
 
 (add-to-list 'default-frame-alist '(font . "Inconsolata 8"))
-;; (use-package monotropic-theme)
+(use-package nothing-theme)
 (use-package zerodark-theme
   :config
   (progn
@@ -307,6 +307,7 @@
 (use-package cider)
 (use-package bazel)
 (use-package lua-mode)
+(use-package capnp-mode)
 
 (defvar multiple-cursors-keymap (make-sparse-keymap))
 (use-package multiple-cursors
@@ -404,3 +405,13 @@
     (global-set-key (kbd "C-c V") 'ivy-pop-view)
 
     ))
+
+;; Use view mode in read-only buffers
+(setq view-read-only t)
+
+;; Support direnv
+(use-package envrc
+  :config
+  (progn
+    (define-key envrc-mode-map (kbd "C-c e") 'envrc-command-map)
+    (envrc-global-mode)))

@@ -12,12 +12,11 @@
   my.gaming.enable = true;
   my.mullvad.enable = true;
 
-  services.xserver.dpi = 140;
-
-  services.xserver.videoDrivers = lib.mkForce [
-    "amdgpu"
-    "dummy" # For xpra
+  environment.systemPackages = [
+    pkgs.ryzenadj
   ];
+
+  services.xserver.dpi = 140;
 
   # acpi_call makes tlp work for newer thinkpads
   boot.kernelModules = [ "acpi_call" ];

@@ -74,7 +74,10 @@ in
     hardware.opengl.enable = true;
     hardware.opengl.driSupport = true;
 
-    hardware.openrazer.enable = true;
+    hardware.openrazer = {
+      enable = true;
+      users = [ "adisbladis" ];
+    };
 
     networking.firewall.allowedTCPPortRanges = [
       # KDE connect
