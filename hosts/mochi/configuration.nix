@@ -10,7 +10,6 @@
   my.ephemeral-root.enable = true;
   my.laptop.enable = true;
   my.gaming.enable = true;
-  my.mullvad.enable = true;
 
   environment.systemPackages = [
     pkgs.ryzenadj
