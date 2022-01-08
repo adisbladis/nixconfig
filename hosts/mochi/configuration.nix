@@ -24,7 +24,7 @@
   # acpi_backlight=none allows the backlight save/load systemd service to work.
   boot.kernelParams = [ "acpi_backlight=none" ];
 
-  time.timeZone = "America/Los_Angeles";
+  time.timeZone = "Pacific/Fiji";
 
   home-manager.users.adisbladis = { ... }: {
 
