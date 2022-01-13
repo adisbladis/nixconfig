@@ -42,7 +42,6 @@ in
   programs.fish.enable = true;
 
   environment.systemPackages = [
-    pkgs.nix-eval-jobs
     pkgs.nix-top
     pkgs.dtach
     pkgs.fish

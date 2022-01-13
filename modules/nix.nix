@@ -1,6 +1,8 @@
 { config, pkgs, lib, ... }:
 
-{
+let
+  package = pkgs.nix_2_3;
+in {
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
 
@@ -8,8 +10,12 @@
     (import ../third_party/emacs-overlay)
   ];
 
+  environment.systemPackages = [
+    pkgs.nix-eval-jobs
+  ];
+
   nix = {
-    package = pkgs.nix_2_3;
+    package = package;
     # daemonCPUSchedPolicy = "idle";
     # daemonIOSchedClass = "idle";
     # daemonIOSchedPriority = 5;
