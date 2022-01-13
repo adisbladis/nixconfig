@@ -58,6 +58,7 @@ in
       pkgs.alsaUtils
       pkgs.emacs-all-the-icons-fonts
       pkgs.libva-utils
+      pkgs.element-desktop
     ];
 
     services.dbus.packages = [

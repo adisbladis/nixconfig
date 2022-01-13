@@ -50,6 +50,7 @@ in
           ".local/share/pantalaimon"
           ".password-store"
           ".config/kdeconnect"
+          ".config/Element"
           ".config/pipewire/media-session.d"
           ".config/spotify"
           ".cache/spotify"
