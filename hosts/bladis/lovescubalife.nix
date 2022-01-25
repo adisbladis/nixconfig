@@ -5,19 +5,13 @@
     enable = true;
 
     virtualHosts."www.lovescuba.life" = {
-      enableACME = true;
-      forceSSL = true;
       locations = {
-        "/".return = "302 https://instagram.com/lovescubalife";
+        "/".return = "302 https://lovescuba.life";
       };
     };
 
     virtualHosts."lovescuba.life" = {
-      enableACME = true;
-      forceSSL = true;
-      locations = {
-        "/".return = "302 https://instagram.com/lovescubalife";
-      };
+      root = "/var/lib/www/lovescuba.life";
     };
 
   };
