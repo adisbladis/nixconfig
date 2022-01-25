@@ -21,12 +21,21 @@
   boot.kernelModules = [ "acpi_call" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.acpi_call ];
 
-  # acpi_backlight=none allows the backlight save/load systemd service to work.
-  boot.kernelParams = [ "acpi_backlight=none" ];
+  boot.kernelParams = [
+
+    # acpi_backlight=none allows the backlight save/load systemd service to work.
+    "acpi_backlight=none"
+
+    # Allow turbo boost
+    "processor.ignore_ppc=1"
+
+  ];
 
   time.timeZone = "Pacific/Fiji";
 
   home-manager.users.adisbladis = { ... }: {
+
+    home.stateVersion = "22.05";
 
     # Run xmodmap _after_ home-managers setxkbmap service, otherwise we'll get undone
     systemd.user.services.setxkbmap.Service.ExecStartPost = "${pkgs.xorg.xmodmap}/bin/xmodmap -e 'keycode 115 = Insert'";
