@@ -5,7 +5,7 @@ let
     (
       { emacsWithPackagesFromUsePackage }:
       (emacsWithPackagesFromUsePackage {
-        package = pkgs.emacs;
+        package = pkgs.emacsGcc;
         config = ./emacs.el;
         alwaysEnsure = true;
       })
