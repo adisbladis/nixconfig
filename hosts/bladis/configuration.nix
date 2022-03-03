@@ -8,6 +8,10 @@
     ./lovescubalife.nix
   ];
 
+  environment.systemPackages = [
+    pkgs.casync
+  ];
+
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "adisbladis@gmail.com";
 
