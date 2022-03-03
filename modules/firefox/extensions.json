@@ -29,10 +29,10 @@
   },
   "decentraleyes": {
     "pname": "decentraleyes",
-    "version": "2.0.16",
+    "version": "2.0.17",
     "addonId": "jid1-BoFifL9Vbdl2zQ@jetpack",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/3833987/decentraleyes-2.0.16-an+fx.xpi",
-    "sha256": "sha256:fa87ceac1242c26a40c07e31be62d519c4e2cd6ffb5c1f83248cc924766465c9"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3902154/decentraleyes-2.0.17-an+fx.xpi",
+    "sha256": "sha256:e7f16ddc458eb2bc5bea75832305895553fca53c2565b6f1d07d5d9620edaff1"
   },
   "https-everywhere": {
     "pname": "https-everywhere",
@@ -43,10 +43,10 @@
   },
   "reddit-enhancement-suite": {
     "pname": "reddit-enhancement-suite",
-    "version": "5.22.5",
+    "version": "5.22.10",
     "addonId": "jid1-xUfzOsOFlzSOXg@jetpack",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/3784229/reddit_enhancement_suite-5.22.5-an+fx.xpi",
-    "sha256": "sha256:213f1ada92bb9d2814e6760cf20a2dc3cf2cc31b503e2baa8fe2f784be6df11c"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3902655/reddit_enhancement_suite-5.22.10-an+fx.xpi",
+    "sha256": "sha256:749ecad7db8a9411ab72ea7f5f40b468a084128f2e6ba9446fc1745a2b734045"
   },
   "reddit-sidebar-getter-ridder": {
     "pname": "reddit-sidebar-getter-ridder",
@@ -78,10 +78,10 @@
   },
   "ublock-origin": {
     "pname": "ublock-origin",
-    "version": "1.40.2",
+    "version": "1.41.8",
     "addonId": "uBlock0@raymondhill.net",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/3886236/ublock_origin-1.40.2-an+fx.xpi",
-    "sha256": "sha256:837915929c950651e46ed5cc30aa9faed84136e7715e74369a2eadf328bea065"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3913320/ublock_origin-1.41.8-an+fx.xpi",
+    "sha256": "sha256:527c7527116a6c6ffddb963cdfb901518d56f624cfc922f6eab32916b24e8f5d"
   },
   "user-agent-switcher-revived": {
     "pname": "user-agent-switcher-revived",
