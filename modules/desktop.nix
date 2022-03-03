@@ -341,7 +341,7 @@ in
           pkgs.gopls # Go language server
           pkgs.rls # Rust language server
           pkgs.kcachegrind
-          pkgs.transmission_gtk
+          pkgs.transmission-gtk
           pkgs.darktable
           pkgs.youtube-dl
           pkgs.yubioath-desktop
