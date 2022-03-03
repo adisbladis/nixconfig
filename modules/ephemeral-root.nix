@@ -57,6 +57,11 @@ in
 
           ".steam"
           ".local/share/Steam"
+
+          # Cities: skylines
+          ".local/share/Colossal Order"
+          ".local/share/Paradox Interactive"
+          ".paradoxlauncher"
         ]
       );
       files = [
