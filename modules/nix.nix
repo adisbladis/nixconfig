@@ -19,25 +19,16 @@ in {
     # daemonCPUSchedPolicy = "idle";
     # daemonIOSchedClass = "idle";
     # daemonIOSchedPriority = 5;
-    binaryCaches = [
+    settings.substituters = [
       "https://nix-community.cachix.org"
     ];
-    binaryCachePublicKeys = [
+    settings.trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
-    nixPath =
-      let
-        overlays = pkgs.writeText "overlays.nix" ''
-          [ (import ${builtins.fetchGit ../third_party/emacs-overlay}) ]
-        '';
-      in
-      [
-        "nixpkgs=${builtins.fetchGit pkgs.path}"
-        "nixpkgs-overlays=${overlays}"
-      ];
-    autoOptimiseStore = true;
-    useSandbox = true;
-    trustedUsers = [ "@wheel" ];
+    nixPath =[ "nixpkgs=${pkgs.path}" ];
+    settings.auto-optimise-store = true;
+    settings.sandbox = true;
+    settings.trusted-users = [ "@wheel" ];
 
     extraOptions = ''
       keep-outputs = true
