@@ -53,7 +53,6 @@ in
     pkgs.jq
     pkgs.dnsutils
     pkgs.file
-    pkgs.ag
     pkgs.ripgrep
     pkgs.cryptsetup
   ];
