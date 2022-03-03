@@ -129,21 +129,21 @@ in
         "MOZ_USE_XINPUT2"
       ];
 
-      # Matrix client
-      services.pantalaimon = {
-        enable = true;
-        settings = {
-          Default = {
-            LogLevel = "Debug";
-            SSL = true;
-          };
-          "blad.is" = {
-            Homeserver = "https://matrix.blad.is";
-            ListenAddress = "127.0.0.1";
-            ListenPort = 8008;
-          };
-        };
-      };
+      # # Matrix client
+      # services.pantalaimon = {
+      #   enable = true;
+      #   settings = {
+      #     Default = {
+      #       LogLevel = "Debug";
+      #       SSL = true;
+      #     };
+      #     "blad.is" = {
+      #       Homeserver = "https://matrix.blad.is";
+      #       ListenAddress = "127.0.0.1";
+      #       ListenPort = 8008;
+      #     };
+      #   };
+      # };
 
       services.pasystray.enable = true;
 
