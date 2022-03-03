@@ -9,6 +9,11 @@ in
   options.my.sound.enable = lib.mkEnableOption "Enables common sound settings.";
 
   config = lib.mkIf cfg.enable {
+
+    environment.systemPackages = [
+      pkgs.pamixer
+    ];
+
     hardware.bluetooth.hsphfpd.enable = true;
     security.rtkit.enable = true;
     services.pipewire = {
