@@ -16,6 +16,11 @@ in
           extraPkgs = pkgs: [
             pkgs.xdg-user-dirs
             pkgs.networkmanager
+
+            # Worms WMD
+            pkgs.wavpack
+            pkgs.orc
+            pkgs.libxml2
           ];
         };
 
