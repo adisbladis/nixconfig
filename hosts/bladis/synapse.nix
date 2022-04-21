@@ -79,155 +79,161 @@
 
   services.matrix-synapse = {
     enable = true;
-    server_name = "blad.is";
-    public_baseurl = "https://matrix.blad.is";
-    database_type = "psycopg2";
-    database_args = {
-      user = "matrix-synapse";
-      database = "matrix-synapse";
-      cp_min = 5;
-      cp_max = 10;
-    };
-    report_stats = true;
-    enable_metrics = true;
-    listeners = [
-      {
-        type = "metrics";
-        port = 9148;
-        bind_address = "127.0.0.1";
-        resources = [ ];
-        tls = false;
-      }
-      {
-        bind_address = "::1";
-        port = 8448;
-        resources = [
-          {
-            compress = false;
-            names = [
-              "client"
-            ];
-          }
-          {
-            compress = false;
-            names = [
-              "federation"
-            ];
-          }
-        ];
-        tls = false;
-        type = "http";
-        x_forwarded = true;
-      }
-    ];
 
-    servers = {
-      "matrix.org" = {
-        "ed25519:auto" = "Noi6WqcDj0QmPxCNQqgezwTlBKrfqehY1u2FyWP9uYw";
+    settings = {
+
+      server_name = "blad.is";
+      public_baseurl = "https://matrix.blad.is";
+      database_type = "psycopg2";
+      database_args = {
+        user = "matrix-synapse";
+        database = "matrix-synapse";
+        cp_min = 5;
+        cp_max = 10;
       };
-      # "blad.is" = {
-      # };
-    };
+      report_stats = true;
+      enable_metrics = true;
 
-    redaction_retention_period = 1;
-    rc_messages_per_second = "10";
-    rc_message_burst_count = "15";
-    key_refresh_interval = "1h"; # for initial setup so we can invalidate the key earlier
-    max_upload_size = "10M";
-    url_preview_enabled = false;
-    dynamic_thumbnails = true; # might be a nicer user experience?
-    allow_guest_access = false;
-    enable_registration = false; # for admin purposes
-    logConfig = ''
-      version: 1
+      listeners = [
+        {
+          type = "metrics";
+          port = 9148;
+          bind_addresses = [ "127.0.0.1" ];
+          resources = [ ];
+          tls = false;
+        }
+        {
+          bind_addresses = [ "::1" ];
+          port = 8448;
+          resources = [
+            {
+              compress = false;
+              names = [
+                "client"
+              ];
+            }
+            {
+              compress = false;
+              names = [
+                "federation"
+              ];
+            }
+          ];
+          tls = false;
+          type = "http";
+          x_forwarded = true;
+        }
+      ];
 
-      formatters:
-        journal_fmt:
-          format: '%(name)s: [%(request)s] %(message)s'
-
-      filters:
-        context:
-          (): synapse.util.logcontext.LoggingContextFilter
-          request: ""
-
-      handlers:
-        journal:
-          class: systemd.journal.JournalHandler
-          formatter: journal_fmt
-          filters: [context]
-          SYSLOG_IDENTIFIER: synapse
-
-      disable_existing_loggers: True
-
-      loggers:
-        synapse:
-          level: WARN
-        synapse.storage.SQL:
-          level: WARN
-
-      root:
-        level: WARN
-        handlers: [journal]
-    '';
-    extraConfigFiles = [
-      (pkgs.writeText "misc.yml" (builtins.toJSON ({
-        #session_lifetime = "24h"; # disabled to allow guest accounts
-        experimental_features = { spaces_enabled = true; };
-      })))
-      (pkgs.writeText "retention.yml" (builtins.toJSON ({
-        retention = {
-          enabled = true;
-          default_policy = {
-            min_lifetime = "1d";
-            max_lifetime = "36500d";
+      trusted_key_servers = [
+        {
+          server_name = "matrix.org";
+          verify_keys = {
+            "ed25519:auto" = "Noi6WqcDj0QmPxCNQqgezwTlBKrfqehY1u2FyWP9uYw";
           };
+        }
+      ];
 
-          #allowed_lifetime_min = "1d";
-          #allowed_lifetime_max = "365d";
+      redaction_retention_period = 1;
+      rc_messages_per_second = 10;
+      rc_message_burst_count = 15;
+      key_refresh_interval = "1h"; # for initial setup so we can invalidate the key earlier
+      max_upload_size = "10M";
+      url_preview_enabled = false;
+      dynamic_thumbnails = true; # might be a nicer user experience?
+      allow_guest_access = false;
+      enable_registration = false; # for admin purposes
+      logConfig = ''
+        version: 1
 
-          #purge_jobs = [
-          #  {
-          #    shorted_max_lifetime = "1d";
-          #    longest_max_lifetime = "7d";
-          #    interval = "5m";
-          #  }
-          #  {
-          #    shorted_max_lifetime = "7d";
-          #    longest_max_lifetime = "90d";
-          #    interval = "24h";
-          #  }
-          #];
-        };
-      })))
-      (pkgs.writeText "url-preview.yml" (builtins.toJSON ({
-        url_preview_enabled = true;
-        url_preview_ip_range_blacklist = [
-          "127.0.0.0/8"
-          "10.0.0.0/8"
-          "172.16.0.0/12"
-          "192.168.0.0/16"
-          "100.64.0.0/10"
-          "169.254.0.0/16"
-          "::1/128"
-          "fe80::/64"
-          "fc00::/7"
-        ];
-        url_preview_url_blacklist = [
-          {
-            username = "*";
-          }
-          { netloc = "google.com"; }
-          { netloc = "*.google.com"; }
-          {
-            netloc = "^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$";
-          }
-        ];
-        max_spider_size = "10M";
-      })))
-      (pkgs.writeText "push.yml" (builtins.toJSON ({
-        push.include_content = false;
-      })))
-    ];
+        formatters:
+          journal_fmt:
+            format: '%(name)s: [%(request)s] %(message)s'
+
+        filters:
+          context:
+            (): synapse.util.logcontext.LoggingContextFilter
+            request: ""
+
+        handlers:
+          journal:
+            class: systemd.journal.JournalHandler
+            formatter: journal_fmt
+            filters: [context]
+            SYSLOG_IDENTIFIER: synapse
+
+        disable_existing_loggers: True
+
+        loggers:
+          synapse:
+            level: WARN
+          synapse.storage.SQL:
+            level: WARN
+
+        root:
+          level: WARN
+          handlers: [journal]
+      '';
+      extraConfigFiles = [
+        (pkgs.writeText "misc.yml" (builtins.toJSON ({
+          #session_lifetime = "24h"; # disabled to allow guest accounts
+          experimental_features = { spaces_enabled = true; };
+        })))
+        (pkgs.writeText "retention.yml" (builtins.toJSON ({
+          retention = {
+            enabled = true;
+            default_policy = {
+              min_lifetime = "1d";
+              max_lifetime = "36500d";
+            };
+
+            #allowed_lifetime_min = "1d";
+            #allowed_lifetime_max = "365d";
+
+            #purge_jobs = [
+            #  {
+            #    shorted_max_lifetime = "1d";
+            #    longest_max_lifetime = "7d";
+            #    interval = "5m";
+            #  }
+            #  {
+            #    shorted_max_lifetime = "7d";
+            #    longest_max_lifetime = "90d";
+            #    interval = "24h";
+            #  }
+            #];
+          };
+        })))
+        (pkgs.writeText "url-preview.yml" (builtins.toJSON ({
+          url_preview_enabled = true;
+          url_preview_ip_range_blacklist = [
+            "127.0.0.0/8"
+            "10.0.0.0/8"
+            "172.16.0.0/12"
+            "192.168.0.0/16"
+            "100.64.0.0/10"
+            "169.254.0.0/16"
+            "::1/128"
+            "fe80::/64"
+            "fc00::/7"
+          ];
+          url_preview_url_blacklist = [
+            {
+              username = "*";
+            }
+            { netloc = "google.com"; }
+            { netloc = "*.google.com"; }
+            {
+              netloc = "^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$";
+            }
+          ];
+          max_spider_size = "10M";
+        })))
+        (pkgs.writeText "push.yml" (builtins.toJSON ({
+          push.include_content = false;
+        })))
+      ];
+    };
   };
 
   services.postgresql = {
