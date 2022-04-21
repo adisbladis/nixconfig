@@ -103,6 +103,12 @@ in
     environment.variables.MOZ_USE_XINPUT2 = "1";
 
     services.resolved.enable = true;
+    services.avahi = {
+      nssmdns = true;
+      enable = true;
+      ipv4 = true;
+      ipv6 = true;
+    };
 
     home-manager.users.adisbladis = { ... }: {
       xsession.pointerCursor = {
