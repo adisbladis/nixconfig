@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  package = pkgs.nix_2_3;
+  package = pkgs.nix;
 in {
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
@@ -16,9 +16,9 @@ in {
 
   nix = {
     package = package;
-    # daemonCPUSchedPolicy = "idle";
-    # daemonIOSchedClass = "idle";
-    # daemonIOSchedPriority = 5;
+    daemonCPUSchedPolicy = "idle";
+    daemonIOSchedClass = "idle";
+    daemonIOSchedPriority = 5;
     settings.substituters = [
       "https://nix-community.cachix.org"
     ];
@@ -33,6 +33,7 @@ in {
     extraOptions = ''
       keep-outputs = true
       keep-derivations = true
+      experimental-features = nix-command flakes
     '';
   };
 
