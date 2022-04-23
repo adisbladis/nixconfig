@@ -10,10 +10,6 @@ in {
     (import ../third_party/emacs-overlay)
   ];
 
-  environment.systemPackages = [
-    pkgs.nix-eval-jobs
-  ];
-
   nix = {
     package = package;
     daemonCPUSchedPolicy = "idle";

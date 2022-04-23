@@ -14,7 +14,6 @@ in
       pkgs.pamixer
     ];
 
-    hardware.bluetooth.hsphfpd.enable = true;
     security.rtkit.enable = true;
     services.pipewire = {
       enable = true;

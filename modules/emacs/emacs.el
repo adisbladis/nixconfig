@@ -444,3 +444,12 @@
   (add-hook 'rust-mode-hook 'eglot-ensure)
   (add-hook 'python-mode-hook 'eglot-ensure)
   )
+
+;; Tree sitter
+(use-package tree-sitter
+  :config
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-mode-hook 'tree-sitter-hl-mode))
+(use-package tree-sitter-langs
+  :config
+  (add-to-list 'tree-sitter-major-mode-language-alist '(markdown-mode . markdown)))

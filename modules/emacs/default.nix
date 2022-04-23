@@ -8,6 +8,17 @@ let
         package = pkgs.emacsNativeComp;
         config = ./emacs.el;
         alwaysEnsure = true;
+
+        override = epkgs: epkgs // {
+
+          tree-sitter-langs = epkgs.tree-sitter-langs.withPlugins(
+            p: epkgs.tree-sitter-langs.plugins ++ [
+              p.tree-sitter-markdown
+            ]
+          );
+
+        };
+
       })
     )
     { };

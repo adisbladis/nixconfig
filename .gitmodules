@@ -1,6 +1,6 @@
 [submodule "third_party/nixpkgs"]
 	path = third_party/nixpkgs
-	url = https://github.com/NixOS/nixpkgs.git
+	url = https://github.com/adisbladis/nixpkgs.git
 	branch = nixos-unstable
 [submodule "third_party/impermanence"]
 	path = third_party/impermanence
