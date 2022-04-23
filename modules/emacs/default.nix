@@ -27,6 +27,21 @@ in
 
     environment.systemPackages = [
       pkg
+
+      # Provides:
+      # vscode-html-language-server
+      # vscode-css-language-server
+      # vscode-json-language-server
+      # vscode-eslint-language-server
+      pkgs.nodePackages.vscode-langservers-extracted
+
+      pkgs.ccls
+      pkgs.nodePackages.bash-language-server
+      pkgs.nodePackages.typescript pkgs.nodePackages.typescript-language-server
+      pkgs.pyright
+      pkgs.rnix-lsp
+      pkgs.gopls
+      pkgs.rust-analyzer
     ];
   };
 

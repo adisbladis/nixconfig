@@ -308,6 +308,7 @@
 (use-package bazel)
 (use-package lua-mode)
 (use-package capnp-mode)
+(use-package typescript-mode)
 
 (defvar multiple-cursors-keymap (make-sparse-keymap))
 (use-package multiple-cursors
@@ -373,6 +374,7 @@
   :config
   (progn
     (add-hook 'js-mode-hook #'smartparens-mode)
+    (add-hook 'typescript-mode-hook #'smartparens-mode)
     (add-hook 'html-mode-hook #'smartparens-mode)
     (add-hook 'python-mode-hook #'smartparens-mode)
     (add-hook 'lua-mode-hook #'smartparens-mode)
@@ -415,3 +417,30 @@
   (progn
     (define-key envrc-mode-map (kbd "C-c e") 'envrc-command-map)
     (envrc-global-mode)))
+
+;; LSP
+(use-package eglot
+  :config
+  :config
+  (add-hook 'web-mode-hook 'eglot-ensure)
+
+  (add-hook 'c-mode-hook 'eglot-ensure)
+  (add-hook 'c++-mode-hook 'eglot-ensure)
+
+  (add-hook 'c++-mode-hook 'eglot-ensure)
+
+  (add-hook 'javascript-mode-hook 'eglot-ensure)
+  (add-hook 'js-mode-hook 'eglot-ensure)
+
+  (add-hook 'sh-mode-hook 'eglot-ensure)
+
+  (add-hook 'html-mode-hook 'eglot-ensure)
+  (add-hook 'css-mode-hook 'eglot-ensure)
+
+  (add-hook 'sh-mode-hook 'eglot-ensure)
+
+  (add-hook 'nix-mode-hook 'eglot-ensure)
+  (add-hook 'go-mode-hook 'eglot-ensure)
+  (add-hook 'rust-mode-hook 'eglot-ensure)
+  (add-hook 'python-mode-hook 'eglot-ensure)
+  )
