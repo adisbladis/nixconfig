@@ -280,6 +280,7 @@
   :config
   (progn
     (require 'ement-room-list)
+    (require 'ement-taxy)
     (defun matrix-connect ()
       (interactive)
       (ement-connect
