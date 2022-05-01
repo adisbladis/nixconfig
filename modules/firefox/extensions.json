@@ -27,6 +27,13 @@
     "url": "https://addons.mozilla.org/firefox/downloads/file/1148493/cors_everywhere-18.11.13.2043-fx.xpi",
     "sha256": "sha256:1232906e1fa62b7b376acada874ae5275ef9dd81680888667baf01aea54f884f"
   },
+  "darkreader": {
+    "pname": "darkreader",
+    "version": "4.9.48",
+    "addonId": "addon@darkreader.org",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3938065/dark_reader-4.9.48-an+fx.xpi",
+    "sha256": "sha256:c1ada25b4687d6f0ce705ce80cb98cbdab14fc65f4a5b387eac5ace1df48b203"
+  },
   "decentraleyes": {
     "pname": "decentraleyes",
     "version": "2.0.17",

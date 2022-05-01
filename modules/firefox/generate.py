@@ -18,6 +18,7 @@ EXTENSIONS = sorted([
     "togglewebsitecolors",
     "ublock-origin",
     "user-agent-switcher-revived",
+    "darkreader",
 ])
 
 
