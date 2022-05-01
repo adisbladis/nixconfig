@@ -55,6 +55,15 @@
     (scroll-bar-mode -1)
     (zerodark-setup-modeline-format)))
 
+;; Tree sitter
+(use-package tree-sitter
+  :config
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-mode-hook 'tree-sitter-hl-mode))
+(use-package tree-sitter-langs
+  :config
+  (add-to-list 'tree-sitter-major-mode-language-alist '(markdown-mode . markdown)))
+
 ;; Smooth-scroll
 (use-package smooth-scrolling
   :config
@@ -303,13 +312,14 @@
 (use-package dumb-jump)
 (use-package handlebars-mode)
 (use-package dockerfile-mode)
-(use-package deadgrep)
+(use-package deadgrep
+  :config (global-set-key (kbd "s-d") 'deadgrep))
 (use-package groovy-mode)
 (use-package cider)
 (use-package bazel)
 (use-package lua-mode)
 (use-package capnp-mode)
-(use-package typescript-mode)
+
 
 (defvar multiple-cursors-keymap (make-sparse-keymap))
 (use-package multiple-cursors
@@ -382,32 +392,55 @@
     (add-hook 'rust-mode-hook #'smartparens-mode)
     (add-hook 'ruby-mode-hook #'smartparens-mode)))
 
-(use-package ivy
+;; helm
+(use-package helm
+  :defer 2
+  :diminish helm-mode
+  :bind (("C-x C-f" . helm-find-files)
+         ("M-x" . helm-M-x)
+         ("C-x b" . helm-mini)
+         ("C-x C-b" . helm-mini)
+         ("M-y" . helm-show-kill-ring)
+         :map helm-map
+         ("<tab>" . helm-execute-persistent-action) ; Rebind TAB to expand
+         ("C-i" . helm-execute-persistent-action) ; Make TAB work in CLI
+         ("C-z" . helm-select-action)) ; List actions using C-z
   :config
   (progn
-    (use-package counsel)
-    (use-package swiper)
+    (setq helm-buffer-max-length nil) ;; Size according to longest buffer name
+    (setq helm-split-window-in-side-p t)
+    (helm-mode 1)))
 
-    (ivy-mode 1)
-    (setq ivy-use-virtual-buffers t)
-    (setq ivy-count-format "(%d/%d) ")
+(use-package helm-projectile
+  :defer 2
+  :bind (("C-x , p" . helm-projectile-switch-project)
+         ("C-x , f" . helm-projectile-find-file)
+         ("C-x , b" . projectile-ibuffer)
+         ("C-x , i" . projectile-invalidate-cache)
+         ("C-x , a" . helm-projectile-ag)
+         ("C-x , k" . projectile-kill-buffers))
+  :init
+  (setq projectile-enable-caching t)
+  :config
+  (progn
 
-    (global-set-key (kbd "C-s") 'swiper-isearch)
-    (global-set-key (kbd "C-r") 'swiper-isearch-backward)
-    (global-set-key (kbd "M-x") 'counsel-M-x)
-    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-    (global-set-key (kbd "M-y") 'counsel-yank-pop)
-    (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-    (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-    (global-set-key (kbd "<f1> l") 'counsel-find-library)
-    (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-    (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-    (global-set-key (kbd "<f2> j") 'counsel-set-variable)
-    (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
-    (global-set-key (kbd "C-c v") 'ivy-push-view)
-    (global-set-key (kbd "C-c V") 'ivy-pop-view)
+    (defun my-projectile-project-find-function (dir)
+      (let ((root (projectile-project-root dir)))
+        (and root (cons 'transient root))))
 
-    ))
+    (projectile-mode)
+
+    (with-eval-after-load 'project
+      (add-to-list 'project-find-functions 'my-projectile-project-find-function))
+  ))
+
+(use-package swiper-helm
+  :config
+  (progn
+    (global-set-key (kbd "C-s") 'swiper-helm)
+    (global-set-key (kbd "C-r") 'swiper-helm)))
+(use-package helm-rg)
+  ;; :config (global-set-key (kbd "s-r") 'helm-rg))
 
 ;; Use view mode in read-only buffers
 (setq view-read-only t)
@@ -418,6 +451,16 @@
   (progn
     (define-key envrc-mode-map (kbd "C-c e") 'envrc-command-map)
     (envrc-global-mode)))
+
+;; JS/TS editing
+(setq js-indent-level 2)
+(use-package typescript-mode
+  :config
+  (setq typescript-indent-level 2))
+(use-package js2-mode
+  :mode "\\.js\\'"
+  :config
+  (setq js2-basic-offset 2))
 
 ;; LSP
 (use-package eglot
@@ -448,12 +491,3 @@
 (use-package eldoc-box
   :config
   (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-at-point-mode t))
-
-;; Tree sitter
-(use-package tree-sitter
-  :config
-  (global-tree-sitter-mode)
-  (add-hook 'tree-sitter-mode-hook 'tree-sitter-hl-mode))
-(use-package tree-sitter-langs
-  :config
-  (add-to-list 'tree-sitter-major-mode-language-alist '(markdown-mode . markdown)))
