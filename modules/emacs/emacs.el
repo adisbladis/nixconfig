@@ -453,8 +453,15 @@
     (envrc-global-mode)))
 
 ;; JS/TS editing
+(use-package web-mode)
+
+(define-derived-mode typescriptreact-mode web-mode "TypescriptReact"
+  "A major mode for tsx.")
+
 (setq js-indent-level 2)
 (use-package typescript-mode
+  :mode (("\\.ts\\'" . typescript-mode)
+         ("\\.tsx\\'" . typescriptreact-mode))
   :config
   (setq typescript-indent-level 2))
 (use-package js2-mode
@@ -464,7 +471,10 @@
 
 ;; LSP
 (use-package eglot
-  :config
+  :hook
+  ((js-mode
+    typescript-mode
+    typescriptreact-mode) . eglot-ensure)
   :config
   (add-hook 'web-mode-hook 'eglot-ensure)
 
@@ -487,6 +497,11 @@
   (add-hook 'go-mode-hook 'eglot-ensure)
   (add-hook 'rust-mode-hook 'eglot-ensure)
   (add-hook 'python-mode-hook 'eglot-ensure)
+
+  (cl-pushnew '((js-mode typescript-mode typescriptreact-mode) . ("typescript-language-server" "--stdio"))
+              eglot-server-programs
+              :test #'equal)
+
   )
 (use-package eldoc-box
   :config
