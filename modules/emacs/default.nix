@@ -39,6 +39,8 @@ in
     environment.systemPackages = [
       pkg
 
+      pkgs.nixpkgs-fmt
+
       # Provides:
       # vscode-html-language-server
       # vscode-css-language-server
