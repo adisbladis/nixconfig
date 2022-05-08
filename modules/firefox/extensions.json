@@ -29,10 +29,10 @@
   },
   "darkreader": {
     "pname": "darkreader",
-    "version": "4.9.48",
+    "version": "4.9.50",
     "addonId": "addon@darkreader.org",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/3938065/dark_reader-4.9.48-an+fx.xpi",
-    "sha256": "sha256:c1ada25b4687d6f0ce705ce80cb98cbdab14fc65f4a5b387eac5ace1df48b203"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3943310/dark_reader-4.9.50-an+fx.xpi",
+    "sha256": "sha256:e726c87b43dc7965a07a8d88396ea966cd3ab5d9d03743d938cda34081d4e067"
   },
   "decentraleyes": {
     "pname": "decentraleyes",
