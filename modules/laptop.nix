@@ -30,5 +30,25 @@ in
     programs.light.enable = true;
 
     security.lockKernelModules = false; # No wifi with this one enabled
+
+    home-manager.users.adisbladis = { ... }: {
+
+      systemd.user.services.my-battery-monitor = {
+        Unit = {
+          Description = "My battery notifier";
+          After = [ "graphical-session-pre.target" ];
+          PartOf = [ "graphical-session.target" ];
+        };
+
+        Install = { WantedBy = [ "graphical-session.target" ]; };
+
+        Service = {
+          ExecStart = "${pkgs.callPackage ../pkgs/battery-monitor { }}";
+          Restart = "on-abort";
+        };
+      };
+
+    };
+
   };
 }
