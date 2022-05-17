@@ -111,7 +111,7 @@ in
     };
 
     home-manager.users.adisbladis = { ... }: {
-      xsession.pointerCursor = {
+      home.pointerCursor = {
         package = pkgs.vanilla-dmz;
         name = "Vanilla-DMZ-AA";
       };
