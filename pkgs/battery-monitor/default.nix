@@ -1,9 +1,21 @@
 { pkgs ? import <nixpkgs> { } }:
 let
-  pythonEnv = pkgs.python3.withPackages(ps: [
-    ps.psutil
-    ps.notify-py
-  ]);
+  pythonEnv = pkgs.poetry2nix.mkPoetryEnv {
+    projectDir = ./.;
+    overrides = pkgs.poetry2nix.overrides.withDefaults (
+      self: super: {
+
+        notify-py = super.notify-py.overridePythonAttrs (
+          old: {
+            nativeBuildInputs = old.nativeBuildInputs ++ [
+              self.poetry-core
+            ];
+          }
+        );
+
+      }
+    );
+  };
 
 in (pkgs.writeScript "battery-monitor" ''
   #!${pkgs.runtimeShell}
