@@ -31,7 +31,7 @@
 
   ];
 
-  time.timeZone = "Pacific/Fiji";
+  time.timeZone = "Asia/Hong_Kong";
 
   home-manager.users.adisbladis = { ... }: {
 
