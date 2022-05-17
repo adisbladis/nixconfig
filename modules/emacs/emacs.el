@@ -62,7 +62,9 @@
   (add-hook 'tree-sitter-mode-hook 'tree-sitter-hl-mode))
 (use-package tree-sitter-langs
   :config
-  (add-to-list 'tree-sitter-major-mode-language-alist '(markdown-mode . markdown)))
+  (add-to-list 'tree-sitter-major-mode-language-alist '(markdown-mode . markdown))
+  (add-to-list 'tree-sitter-major-mode-language-alist '(graphql-mode . graphql))
+  )
 
 ;; Smooth-scroll
 (use-package smooth-scrolling
