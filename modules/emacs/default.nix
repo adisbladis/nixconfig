@@ -12,9 +12,8 @@ let
         override = epkgs: epkgs // {
 
           tree-sitter-langs = epkgs.tree-sitter-langs.withPlugins(
-            p: epkgs.tree-sitter-langs.plugins ++ [
-              p.tree-sitter-markdown
-            ]
+            # Install all tree sitter grammars available from nixpkgs
+            grammars: builtins.filter lib.isDerivation (lib.attrValues grammars)
           );
 
         };
