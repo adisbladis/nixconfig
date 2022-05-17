@@ -321,6 +321,7 @@
 (use-package bazel)
 (use-package lua-mode)
 (use-package capnp-mode)
+(use-package graphql-mode)
 
 
 (defvar multiple-cursors-keymap (make-sparse-keymap))
@@ -455,7 +456,11 @@
     (envrc-global-mode)))
 
 ;; JS/TS editing
-(use-package web-mode)
+(use-package web-mode
+  :config
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2))
 
 (define-derived-mode typescriptreact-mode web-mode "TypescriptReact"
   "A major mode for tsx.")
