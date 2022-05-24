@@ -8,6 +8,9 @@ in {
 
   nixpkgs.overlays = [
     (import ../third_party/emacs-overlay)
+    (self: super: {
+      naersk = self.callPackage ../third_party/naersk { };
+    })
   ];
 
   nix = {
