@@ -43,7 +43,7 @@ in
         Install = { WantedBy = [ "graphical-session.target" ]; };
 
         Service = {
-          ExecStart = "${pkgs.callPackage ../pkgs/battery-monitor { }}";
+          ExecStart = "${pkgs.callPackage ../pkgs/battery-monitor { }}/bin/battery-monitor";
           Restart = "on-abort";
         };
       };

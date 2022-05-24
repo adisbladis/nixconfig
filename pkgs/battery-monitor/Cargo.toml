@@ -1,0 +1,9 @@
+[package]
+name = "battery-monitor"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+battery = "0.7.8"
+humantime = "2.1.0"
+libnotify = "1.0.3"

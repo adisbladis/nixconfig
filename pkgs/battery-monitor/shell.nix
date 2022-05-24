@@ -1,10 +1,12 @@
-let
-  pkgs = import <nixpkgs> {};
-  pkg = pkgs.callPackage ./. { };
-  inherit (pkg.passthru) pythonEnv;
+{ pkgs ? import <nixpkgs> { } }:
 
-in pkgs.mkShell {
+pkgs.mkShell {
   packages = [
-    pythonEnv
+    pkgs.rustc
+    pkgs.cargo
+  ];
+
+  buildInputs = [
+    pkgs.libnotify
   ];
 }

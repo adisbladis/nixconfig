@@ -1,27 +1,14 @@
 { pkgs ? import <nixpkgs> { } }:
+
 let
-  pythonEnv = pkgs.poetry2nix.mkPoetryEnv {
-    projectDir = ./.;
-    overrides = pkgs.poetry2nix.overrides.withDefaults (
-      self: super: {
+  inherit (pkgs) rustPlatform lib;
 
-        notify-py = super.notify-py.overridePythonAttrs (
-          old: {
-            nativeBuildInputs = old.nativeBuildInputs ++ [
-              self.poetry-core
-            ];
-          }
-        );
-
-      }
-    );
-  };
-
-in (pkgs.writeScript "battery-monitor" ''
-  #!${pkgs.runtimeShell}
-  exec ${pythonEnv.interpreter} ${./battery-monitor.py}
-'').overrideAttrs(old: {
-  passthru = {
-    inherit pythonEnv;
-  };
-})
+in rustPlatform.buildRustPackage {
+  pname = "battery-monitor";
+  version = "dev";
+  src = lib.cleanSource ./.;
+  cargoSha256 = "sha256-27w/UrLt7MKBzAD7O+oVfUxgAPcEGLZy48GyYoV5Y8g=";
+  buildInputs = [
+    pkgs.libnotify
+  ];
+}
