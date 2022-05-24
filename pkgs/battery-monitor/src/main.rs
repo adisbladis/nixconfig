@@ -2,10 +2,10 @@ extern crate battery;
 extern crate humantime;
 extern crate libnotify;
 
+use humantime::format_duration;
 use std::io;
 use std::thread;
 use std::time::Duration;
-use humantime::format_duration;
 
 // Start warning at percentage
 const PCT_MIN: i8 = 20;
@@ -14,7 +14,10 @@ const PCT_MIN: i8 = 20;
 const INTERVAL: u64 = 30;
 
 fn check(battery: &battery::Battery, pct_warned: i8) -> i8 {
-    let bat_pct = battery.state_of_charge().get::<battery::units::ratio::percent>().round() as i8;
+    let bat_pct = battery
+        .state_of_charge()
+        .get::<battery::units::ratio::percent>()
+        .round() as i8;
 
     if battery.state() != battery::State::Discharging || bat_pct > PCT_MIN {
         return 100;
@@ -27,19 +30,24 @@ fn check(battery: &battery::Battery, pct_warned: i8) -> i8 {
     let sec_to_empty = (match battery.time_to_empty() {
         None => f32::NAN,
         Some(duration) => duration.get::<battery::units::time::second>(),
-    }).round() as u64;
+    })
+    .round() as u64;
 
-    let duration_m = format!("Duration {}", format_duration(Duration::new(sec_to_empty, 0)).to_string());
-    let n = libnotify::Notification::new(&format!("Battery at {:?}%", bat_pct),
-                                         Some(duration_m.as_str()),
-                                         None);
+    let duration_m = format!(
+        "Duration {}",
+        format_duration(Duration::new(sec_to_empty, 0)).to_string()
+    );
+    let n = libnotify::Notification::new(
+        &format!("Battery at {:?}%", bat_pct),
+        Some(duration_m.as_str()),
+        None,
+    );
     n.show().unwrap();
 
     return bat_pct;
 }
 
 fn main() -> battery::Result<()> {
-
     let manager = battery::Manager::new()?;
     let mut battery = match manager.batteries()?.next() {
         Some(Ok(battery)) => battery,
@@ -64,5 +72,4 @@ fn main() -> battery::Result<()> {
 
         manager.refresh(&mut battery)?;
     }
-
 }
