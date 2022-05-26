@@ -13,23 +13,30 @@
 
   environment.systemPackages = [
     pkgs.ryzenadj
+    pkgs.mullvad-vpn
   ];
 
   services.xserver.dpi = 140;
 
-  # acpi_call makes tlp work for newer thinkpads
-  boot.kernelModules = [ "acpi_call" ];
+  boot.kernelModules = [
+    "amd-pstate"
+    "acpi_call"
+  ];
+
   boot.extraModulePackages = [ config.boot.kernelPackages.acpi_call ];
 
   boot.kernelParams = [
+    "initcall_blacklist=acpi_cpufreq_init"
+    "amd_pstate.shared_mem=1"
 
     # acpi_backlight=none allows the backlight save/load systemd service to work.
     "acpi_backlight=none"
 
     # Allow turbo boost
     "processor.ignore_ppc=1"
-
   ];
+
+  services.mullvad-vpn.enable = true;
 
   time.timeZone = "Asia/Hong_Kong";
 
