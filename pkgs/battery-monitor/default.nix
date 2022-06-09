@@ -3,14 +3,16 @@
 }:
 
 let
-  inherit (pkgs) lib;
+  craneLib = import ../third_party/crane { inherit pkgs; };
 
-in
-pkgs.naersk.buildPackage {
-  pname = "battery-monitor";
-  version = "dev";
   src = lib.cleanSource ./.;
-  # cargoSha256 = "sha256-27w/UrLt7MKBzAD7O+oVfUxgAPcEGLZy48GyYoV5Y8g=";
+
+  cargoArtifacts = craneLib.buildDepsOnly {
+    inherit src;
+  };
+
+in craneLib.buildPackage {
+  inherit cargoArtifacts src;
   buildInputs = [
     pkgs.libnotify
   ];

@@ -11,6 +11,6 @@
 [submodule "third_party/home-manager"]
 	path = third_party/home-manager
 	url = https://github.com/nix-community/home-manager.git
-[submodule "third_party/naersk"]
-	path = third_party/naersk
-	url = https://github.com/nix-community/naersk.git
+[submodule "third_party/crane"]
+	path = third_party/crane
+	url = https://github.com/ipetkov/crane.git
