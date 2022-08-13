@@ -21,7 +21,7 @@ in
 
     hardware.enableRedistributableFirmware = true;
 
-    services.tlp.enable = true;
+    services.power-profiles-daemon.enable = true;
 
     powerManagement.cpuFreqGovernor = lib.mkForce null;
 

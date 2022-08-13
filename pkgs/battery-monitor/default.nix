@@ -3,15 +3,13 @@
 }:
 
 let
-  craneLib = import ../third_party/crane { inherit pkgs; };
-
   src = lib.cleanSource ./.;
 
-  cargoArtifacts = craneLib.buildDepsOnly {
+  cargoArtifacts = pkgs.craneLib.buildDepsOnly {
     inherit src;
   };
 
-in craneLib.buildPackage {
+in pkgs.craneLib.buildPackage {
   inherit cargoArtifacts src;
   buildInputs = [
     pkgs.libnotify

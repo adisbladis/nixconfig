@@ -187,6 +187,8 @@ in
       services.picom = {
         enable = true;
         vSync = true;
+        experimentalBackends = true;
+        # backend = "glx";
       };
 
       # Needed for wifi password input
@@ -350,6 +352,7 @@ in
           pkgs.transmission-gtk
           pkgs.darktable
           pkgs.youtube-dl
+          pkgs.yt-dlp
           pkgs.yubioath-desktop
           pkgs.sshfs-fuse
           pkgs.dolphin # GUI file browser for stupid drag & drop web apps

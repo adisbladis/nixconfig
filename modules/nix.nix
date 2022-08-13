@@ -9,7 +9,7 @@ in {
   nixpkgs.overlays = [
     (import ../third_party/emacs-overlay)
     (self: super: {
-      naersk = self.callPackage ../third_party/naersk { };
+      craneLib = import ../third_party/crane { pkgs = self; };
     })
   ];
 

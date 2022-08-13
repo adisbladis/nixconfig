@@ -18,12 +18,17 @@ in
 
     programs.fuse.userAllowOther = true;
 
+
+
     environment.persistence."/persistent" = {
       directories = [
         "/var/log"
         "/var/lib/bluetooth"
         "/var/lib/systemd/coredump"
         "/etc/NetworkManager/system-connections"
+
+        "/var/lib/flatpak"
+
       ] ++ (
         map
         (x: "/home/adisbladis/${x}")
@@ -54,6 +59,20 @@ in
           ".config/pipewire/media-session.d"
           ".config/spotify"
           ".cache/spotify"
+
+          ".config/retroarch"
+
+          # Switch emu
+          ".config/yuzu"
+          ".local/share/yuzu"
+
+          # Ps3 emu
+          ".config/rpcs3"
+          ".cache/rpcs3"
+
+          ".cache/flatpak"
+          ".local/share/flatpak"
+          ".var/app"
 
           ".steam"
           ".local/share/Steam"
