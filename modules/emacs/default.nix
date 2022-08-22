@@ -5,7 +5,11 @@ let
     (
       { emacsWithPackagesFromUsePackage }:
       (emacsWithPackagesFromUsePackage {
-        package = pkgs.emacsNativeComp;
+        package = pkgs.emacsNativeComp.override {
+          toolkit = "no";
+          withGTK3 = false;
+          withXinput2 = true;
+        };
         config = ./emacs.el;
         alwaysEnsure = true;
 
