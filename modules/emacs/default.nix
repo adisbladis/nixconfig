@@ -6,7 +6,7 @@ let
       { emacsWithPackagesFromUsePackage }:
       (emacsWithPackagesFromUsePackage {
         package = pkgs.emacsNativeComp.override {
-          toolkit = "no";
+          toolkit = "lucid";
           withGTK3 = false;
           withXinput2 = true;
         };
