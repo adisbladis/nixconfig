@@ -54,6 +54,7 @@ in
     ];
 
     environment.systemPackages = [
+      (pkgs.callPackage ../pkgs/svp.nix { })
       pkgs.paperlike-go
       pkgs.alsaUtils
       pkgs.emacs-all-the-icons-fonts
