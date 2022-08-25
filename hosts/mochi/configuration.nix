@@ -38,7 +38,7 @@
 
   services.mullvad-vpn.enable = true;
 
-  time.timeZone = "Asia/Hong_Kong";
+  time.timeZone = "Pacific/Auckland";
 
   home-manager.users.adisbladis = { ... }: {
 
