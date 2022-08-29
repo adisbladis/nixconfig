@@ -11,6 +11,7 @@ in {
     (self: super: {
       craneLib = import ../third_party/crane { pkgs = self; };
     })
+    (import ../third_party/gomod2nix/overlay.nix)
   ];
 
   nix = {

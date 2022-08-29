@@ -1,0 +1,4 @@
+{ buildGoApplication }:
+buildGoApplication {
+  pwd = ./.;
+}
