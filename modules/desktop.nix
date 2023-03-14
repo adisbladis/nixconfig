@@ -15,6 +15,7 @@ in
     my.sound.enable = true;
     my.firefox.enable = true;
     my.exwm.enable = true;
+    my.voice.enable = true;
 
     programs.gnupg.agent = {
       enable = true;
@@ -125,11 +126,22 @@ in
       programs.direnv.enable = true;
       programs.direnv.nix-direnv.enable = true;
 
-      programs.git = {
+      programs.git = let
+        package = pkgs.gitAndTools.gitFull;
+      in {
         enable = true;
+        inherit package;
         userName = "adisbladis";
         userEmail = "adisbladis@gmail.com";
         signing.key = "00244EF5295026AA323A4BDB110BFAD44C6249B7";
+        extraConfig = {
+          # feature.manyFiles = true;d
+          # core.fsmonitor = let
+          #   drv = pkgs.runCommand "query-watchman" { } ''
+          #     cp -a ${package}/share/git-core/templates/hooks/fsmonitor-watchman.sample $out
+          #   '';
+          # in "${drv}";
+        };
       };
 
       manual.manpages.enable = false;
@@ -179,7 +191,7 @@ in
         hwdec-codecs=all
         volume-max=200
         no-audio-display
-        ao=pulse
+        ao=pipewire
 
         # Always use 1080p+ or 60 fps where available. Prefer VP9
         # over AVC and VP8 for high-resolution streams.
@@ -192,7 +204,6 @@ in
       services.picom = {
         enable = true;
         vSync = true;
-        experimentalBackends = true;
         # backend = "glx";
       };
 
@@ -352,13 +363,12 @@ in
           pkgs.graphviz
           pkgs.unrar
           pkgs.gopls # Go language server
-          pkgs.rls # Rust language server
+          pkgs.rust-analyzer # Rust language server
           pkgs.kcachegrind
           pkgs.transmission-gtk
           pkgs.darktable
           pkgs.youtube-dl
           pkgs.yt-dlp
-          pkgs.yubioath-desktop
           pkgs.sshfs-fuse
           pkgs.dolphin # GUI file browser for stupid drag & drop web apps
           pkgs.mpv
