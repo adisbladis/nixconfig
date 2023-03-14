@@ -142,8 +142,9 @@
       (progn
         (require 'desktop-environment)
         (desktop-environment-mode)
-        (setq desktop-environment-volume-normal-increment "1%+")
-        (setq desktop-environment-volume-normal-decrement "1%-")
+        (setq desktop-environment-volume-set-command "pamixer %s")
+        (setq desktop-environment-volume-normal-increment "-i 5")
+        (setq desktop-environment-volume-normal-decrement "-d 5")
         (setq desktop-environment-brightness-set-command "light %s")
         (setq desktop-environment-brightness-normal-decrement "-U 10")
         (setq desktop-environment-brightness-small-decrement "-U 5")
@@ -389,9 +390,13 @@
   (progn
     (add-hook 'js-mode-hook #'smartparens-mode)
     (add-hook 'typescript-mode-hook #'smartparens-mode)
+    (add-hook 'typescriptreact-mode-hook #'smartparens-mode)
     (add-hook 'html-mode-hook #'smartparens-mode)
     (add-hook 'python-mode-hook #'smartparens-mode)
+    (add-hook 'nix-mode-hook #'smartparens-mode)
     (add-hook 'lua-mode-hook #'smartparens-mode)
+    (add-hook 'talonscript-mode-hook #'smartparens-mode)
+    (add-hook 'go-mode-hook #'smartparens-mode)
     (add-hook 'rust-mode-hook #'smartparens-mode)
     (add-hook 'ruby-mode-hook #'smartparens-mode)))
 
@@ -412,6 +417,11 @@
   (progn
     (setq helm-buffer-max-length nil) ;; Size according to longest buffer name
     (setq helm-split-window-in-side-p t)
+
+    ;; Case insensitive searches always
+    (setq helm-locate-case-fold-search t)
+    (setq helm-case-fold-search t)
+
     (helm-mode 1)))
 
 (use-package helm-projectile
@@ -513,3 +523,19 @@
 (use-package eldoc-box
   :config
   (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-at-point-mode t))
+
+;; Voice control
+(use-package talonscript-mode)
+(use-package undo-fu)
+(use-package voicemacs
+  :config
+  (progn
+    (voicemacs--start-server)
+    ;; Create interactive wrappers for voicemacs use
+    (defun brightness-set (brightness)
+      (interactive "P")
+      (desktop-environment-brightness-set (format "-S %s" brightness)))
+    (defun volume-set (volume)
+      (interactive "P")
+      (desktop-environment-volume-set (format "--set-volume %s" volume)))
+    ))
