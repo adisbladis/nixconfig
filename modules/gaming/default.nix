@@ -29,8 +29,8 @@ in
       pkgs.retroarchFull
 
       # Nintendo Switch
-      pkgs.yuzu-ea
-      nsz
+      pkgs.yuzu-mainline
+      # nsz
     ];
 
   };
