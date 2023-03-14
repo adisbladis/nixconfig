@@ -3,98 +3,91 @@
     "pname": "amp2html",
     "version": "2.1.0",
     "addonId": "{569456be-2850-4f7e-b669-71e55140ee0a}",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/3546077/redirect_amp_to_html-2.1.0-an+fx.xpi",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3546077/amp2html-2.1.0.xpi",
     "sha256": "sha256:762e4032782c30d3d4805371c7730ac36255ab57f5ce5279b4849f0d4ca65790"
   },
   "browserpass-ce": {
     "pname": "browserpass-ce",
     "version": "3.7.2",
     "addonId": "browserpass@maximbaz.com",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/3711209/browserpass-3.7.2-fx.xpi",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3711209/browserpass_ce-3.7.2.xpi",
     "sha256": "sha256:b1781405b46f3274697885b53139264dca2ab56ffc4435c093102ad5ebc59297"
   },
   "cookie-quick-manager": {
     "pname": "cookie-quick-manager",
     "version": "0.5rc2",
     "addonId": "{60f82f00-9ad5-4de5-b31c-b16a47c51558}",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/3343599/cookie_quick_manager-0.5rc2-an+fx.xpi",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3343599/cookie_quick_manager-0.5rc2.xpi",
     "sha256": "sha256:b826e443438c880b3998e42e099d0e1949ff51489c788b50193b92ef80426c6e"
   },
   "cors-everywhere": {
     "pname": "cors-everywhere",
     "version": "18.11.13.2043",
     "addonId": "cors-everywhere@spenibus",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/1148493/cors_everywhere-18.11.13.2043-fx.xpi",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/1148493/cors_everywhere-18.11.13.2043.xpi",
     "sha256": "sha256:1232906e1fa62b7b376acada874ae5275ef9dd81680888667baf01aea54f884f"
   },
   "darkreader": {
     "pname": "darkreader",
-    "version": "4.9.50",
+    "version": "4.9.62",
     "addonId": "addon@darkreader.org",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/3943310/dark_reader-4.9.50-an+fx.xpi",
-    "sha256": "sha256:e726c87b43dc7965a07a8d88396ea966cd3ab5d9d03743d938cda34081d4e067"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4053589/darkreader-4.9.62.xpi",
+    "sha256": "sha256:e537a2cee45ed7c26f79ecd3ed362620e3f00d24c158532a58e163a63a3d60cc"
   },
   "decentraleyes": {
     "pname": "decentraleyes",
     "version": "2.0.17",
     "addonId": "jid1-BoFifL9Vbdl2zQ@jetpack",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/3902154/decentraleyes-2.0.17-an+fx.xpi",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3902154/decentraleyes-2.0.17.xpi",
     "sha256": "sha256:e7f16ddc458eb2bc5bea75832305895553fca53c2565b6f1d07d5d9620edaff1"
-  },
-  "https-everywhere": {
-    "pname": "https-everywhere",
-    "version": "2021.7.13",
-    "addonId": "https-everywhere@eff.org",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/3809748/https_everywhere-2021.7.13-an+fx.xpi",
-    "sha256": "sha256:e261461b5d4d3621285fce70773558184d691c614b330744dab672f032db731c"
   },
   "reddit-enhancement-suite": {
     "pname": "reddit-enhancement-suite",
-    "version": "5.22.10",
+    "version": "5.22.15",
     "addonId": "jid1-xUfzOsOFlzSOXg@jetpack",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/3902655/reddit_enhancement_suite-5.22.10-an+fx.xpi",
-    "sha256": "sha256:749ecad7db8a9411ab72ea7f5f40b468a084128f2e6ba9446fc1745a2b734045"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4047244/reddit_enhancement_suite-5.22.15.xpi",
+    "sha256": "sha256:12cc1b5ca2224780e73cb43a17603ad03e42866e9d143aa23f662d14f59a8428"
   },
   "reddit-sidebar-getter-ridder": {
     "pname": "reddit-sidebar-getter-ridder",
     "version": "1.4",
     "addonId": "{6d0dcf9c-c29f-4ec3-836d-0ad795dfd2b8}",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/533680/reddit_sidebar_hider_electric_boogaloo-1.4-an+fx-linux.xpi",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/533680/reddit_sidebar_getter_ridder-1.4.xpi",
     "sha256": "sha256:73e5a3576826bd37800862276d8b96aff343001ea5015d5a27e98a418d68784b"
   },
   "saka-key": {
     "pname": "saka-key",
     "version": "1.26.3",
     "addonId": "{46104586-98c3-407e-a349-290c9ff3594d}",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/3582006/saka_key-1.26.3-fx.xpi",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3582006/saka_key-1.26.3.xpi",
     "sha256": "sha256:9ea95fcd919100928ad5ca0dccad3700d627c28be2f2132f2e247e14009a4696"
   },
   "stylus": {
     "pname": "stylus",
     "version": "2.0",
     "addonId": "{c102b0e7-893d-444f-917c-fc530de507c9}",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/2415216/stylus-2.0-an+fx.xpi",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/2415216/stylus-2.0.xpi",
     "sha256": "sha256:d1fd535da27dfe3635a654e8450a6b05d883fa6c2cbedbeb2f488a034c4313b5"
   },
   "togglewebsitecolors": {
     "pname": "togglewebsitecolors",
     "version": "2.4.1",
     "addonId": "{d9d33933-40dc-4da1-8dc5-5b0449ce7d46}",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/3842639/toggle_website_colors_tab-2.4.1-an+fx.xpi",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3842639/togglewebsitecolors-2.4.1.xpi",
     "sha256": "sha256:1090eb6605434eb83c88b8563bacfea202f6e7c1e4c7671a9e60c47fa068fe13"
   },
   "ublock-origin": {
     "pname": "ublock-origin",
-    "version": "1.42.4",
+    "version": "1.47.4",
     "addonId": "uBlock0@raymondhill.net",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/3933192/ublock_origin-1.42.4-an+fx.xpi",
-    "sha256": "sha256:bc3c335c961269cb40dd11551788d0d8674aefcacdc8fbdf6c19845eaea339ce"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4079064/ublock_origin-1.47.4.xpi",
+    "sha256": "sha256:a35a6c8758ba74616afc09648c96d74ec2e7d27fe30f311d1db6e9a4966e7858"
   },
   "user-agent-switcher-revived": {
     "pname": "user-agent-switcher-revived",
-    "version": "0.2.9",
+    "version": "0.3.0",
     "addonId": "{75afe46a-7a50-4c6b-b866-c43a1075b071}",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/3810316/user_agent_switcher-0.2.9-an+fx.xpi",
-    "sha256": "sha256:789e2936c553be4a909a8effcc611531e8b5bad95c65e7b00e4ea9d29279a6ac"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3974328/user_agent_switcher_revived-0.3.0.xpi",
+    "sha256": "sha256:2b7902a01a62aa500a394c204cd14110b48e94e0e7ca39ce38fd365fa5101ea4"
   }
 }

@@ -9,7 +9,6 @@ EXTENSIONS = sorted([
     "cookie-quick-manager",
     "cors-everywhere",
     "decentraleyes",
-    "https-everywhere",
     "reddit-enhancement-suite",
     "reddit-sidebar-getter-ridder",
     "amp2html",

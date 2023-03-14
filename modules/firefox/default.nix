@@ -34,11 +34,12 @@ in
 
         enable = true;
 
-        extensions = map buildFirefoxXpiAddon (lib.attrValues (lib.importJSON ./extensions.json));
-
         profiles = {
           default = {
             isDefault = true;
+
+            extensions = map buildFirefoxXpiAddon (lib.attrValues (lib.importJSON ./extensions.json));
+
             settings = {
               # Extensions are managed with Nix, don't auto update anything
               "extensions.update.autoUpdateDefault" = false;
