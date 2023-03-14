@@ -26,6 +26,7 @@ in
     powerManagement.cpuFreqGovernor = lib.mkForce null;
 
     services.fwupd.enable = true;
+    services.udisks2.enable = true;  # Used by fwupd
 
     programs.light.enable = true;
 
