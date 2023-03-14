@@ -13,7 +13,6 @@
 
   environment.systemPackages = [
     pkgs.ryzenadj
-    pkgs.mullvad-vpn
   ];
 
   services.xserver.dpi = 140;
@@ -35,8 +34,6 @@
     # Allow turbo boost
     "processor.ignore_ppc=1"
   ];
-
-  services.mullvad-vpn.enable = true;
 
   time.timeZone = "Pacific/Auckland";
 
