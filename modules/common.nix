@@ -63,7 +63,7 @@ in
   services.haveged.enable = true;
 
   services.openssh.enable = true;
-  services.openssh.passwordAuthentication = false;
+  services.openssh.settings.PasswordAuthentication = false;
 
   users.users.root.initialHashedPassword = passwordHash;
   users.users.adisbladis.initialHashedPassword = passwordHash;
