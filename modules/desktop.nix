@@ -85,6 +85,8 @@ in
     networking.firewall.allowedTCPPortRanges = [
       # KDE connect
       { from = 1714; to = 1764; }
+      # Chromecast
+      { from = 32768; to = 61000; }
     ];
     networking.firewall.allowedUDPPortRanges = [
       # KDE connect
@@ -94,8 +96,10 @@ in
       8000 # http server
       24800 # synergy
       22000 # Syncthing
+      51413 # transmission
     ];
     networking.firewall.allowedUDPPorts = [
+      5353  # Chromecast discovery
       21027 # Syncthing discovery
     ];
     networking.networkmanager.enable = true;
