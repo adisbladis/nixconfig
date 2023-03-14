@@ -17,3 +17,6 @@
 [submodule "third_party/gomod2nix"]
 	path = third_party/gomod2nix
 	url = https://github.com/nix-community/gomod2nix
+[submodule "third_party/talon-nix"]
+	path = third_party/talon-nix
+	url = https://github.com/nix-community/talon-nix.git
