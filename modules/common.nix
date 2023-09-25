@@ -9,7 +9,7 @@ in
 {
   my.simpleserver.enable = true;
 
-  boot.tmpOnTmpfs = true;
+  boot.tmp.useTmpfs = true;
 
   users.extraUsers.root.openssh.authorizedKeys.keys = sshKeys;
 

@@ -12,6 +12,8 @@ in
     virtualisation.podman.enable = true;
     virtualisation.podman.dockerCompat = true;
 
+    networking.firewall.interfaces.podman0.allowedUDPPorts = [ 53 ];
+
     environment.systemPackages = [
       pkgs.podman-compose
     ];

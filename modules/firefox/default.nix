@@ -34,6 +34,12 @@ in
 
         enable = true;
 
+        package = pkgs.firefox.override {
+          extraNativeMessagingHosts = [
+            pkgs.ff2mpv
+          ];
+        };
+
         profiles = {
           default = {
             isDefault = true;
@@ -75,12 +81,14 @@ in
               "browser.tabs.opentabfor.middleclick" = false;
 
               # Enable userChrome customisations
-
               "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
 
               # DNT
               "privacy.donottrackheader.enabled" = true;
               "privacy.donottrackheader.value" = 1;
+
+              # Apparently Mozilla does crazy ads nowadays
+              "browser.vpn_promo.enabled" = false;
             };
 
             # extraConfig = ''

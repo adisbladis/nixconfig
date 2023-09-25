@@ -23,13 +23,14 @@ in
       pinentryFlavor = "qt";
     };
 
-    fonts.fonts = [
+    fonts.packages = [
       pkgs.liberation_ttf
       pkgs.inconsolata
       pkgs.dejavu_fonts
       pkgs.emacs-all-the-icons-fonts
       pkgs.powerline-fonts
       pkgs.source-code-pro
+      pkgs.libreoffice
     ];
 
     boot.supportedFilesystems = [
@@ -62,11 +63,15 @@ in
       pkgs.libva-utils
       pkgs.element-desktop
       pkgs.easyeffects
+      pkgs.nix-output-monitor
+      pkgs.dmidecode
     ];
 
     services.dbus.packages = [
       pkgs.gcr # Make pinentry for keyring work
     ];
+
+    services.udev.packages = [ pkgs.platformio-core.udev ];
 
     programs.adb.enable = true;
 
@@ -98,10 +103,12 @@ in
       24800 # synergy
       22000 # Syncthing
       51413 # transmission
+      45678 # arduino OTA
     ];
     networking.firewall.allowedUDPPorts = [
       5353  # Chromecast discovery
       21027 # Syncthing discovery
+      45678 # arduino OTA
     ];
     networking.networkmanager.enable = true;
 
@@ -374,12 +381,14 @@ in
           pkgs.mpv
           pkgs.ffmpeg
           pkgs.qemu
+          pkgs.arduino
+          pkgs.okular
         ]
       );
 
     };
 
-    users.users.adisbladis.extraGroups = [ "plugdev" "networkmanager" "adbusers" "wireshark" "video" ];
+    users.users.adisbladis.extraGroups = [ "plugdev" "networkmanager" "adbusers" "wireshark" "video" "dialout" ];
   };
 
 }

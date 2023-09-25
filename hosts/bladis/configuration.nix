@@ -6,6 +6,7 @@
     ./synapse.nix
     ./bladis.nix
     ./lovescubalife.nix
+    ./lemmy.nix
   ];
 
   environment.systemPackages = [
@@ -22,6 +23,8 @@
   services.openssh.enable = true;
 
   boot.kernelParams = [ "net.ifnames=0" ];
+
+  services.fail2ban.enable = true;
 
   networking.firewall.allowedTCPPorts = [
     22

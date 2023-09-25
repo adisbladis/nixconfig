@@ -29,24 +29,31 @@
   },
   "darkreader": {
     "pname": "darkreader",
-    "version": "4.9.62",
+    "version": "4.9.65",
     "addonId": "addon@darkreader.org",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4053589/darkreader-4.9.62.xpi",
-    "sha256": "sha256:e537a2cee45ed7c26f79ecd3ed362620e3f00d24c158532a58e163a63a3d60cc"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4151368/darkreader-4.9.65.xpi",
+    "sha256": "sha256:964d7fdeec1dc90b5238a82db699de7a2bbf54e3e2bf18569befff451f35f89a"
+  },
+  "dearrow": {
+    "pname": "dearrow",
+    "version": "1.2.18",
+    "addonId": "deArrow@ajay.app",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4169283/dearrow-1.2.18.xpi",
+    "sha256": "sha256:58c176b03c53dd12f954c51dd849c45916cba7a3655c1cfea736fc0a08e3e745"
   },
   "decentraleyes": {
     "pname": "decentraleyes",
-    "version": "2.0.17",
+    "version": "2.0.18",
     "addonId": "jid1-BoFifL9Vbdl2zQ@jetpack",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/3902154/decentraleyes-2.0.17.xpi",
-    "sha256": "sha256:e7f16ddc458eb2bc5bea75832305895553fca53c2565b6f1d07d5d9620edaff1"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4158232/decentraleyes-2.0.18.xpi",
+    "sha256": "sha256:f8f031ef91c02a1cb1a6552acd02b8f488693400656b4047d68f03ba0a1078d9"
   },
   "reddit-enhancement-suite": {
     "pname": "reddit-enhancement-suite",
-    "version": "5.22.15",
+    "version": "5.22.17",
     "addonId": "jid1-xUfzOsOFlzSOXg@jetpack",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4047244/reddit_enhancement_suite-5.22.15.xpi",
-    "sha256": "sha256:12cc1b5ca2224780e73cb43a17603ad03e42866e9d143aa23f662d14f59a8428"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4092764/reddit_enhancement_suite-5.22.17.xpi",
+    "sha256": "sha256:f49827c7684076dbf6890741dbbc31e82c180f87cb3fd745216ba2432398b1d9"
   },
   "reddit-sidebar-getter-ridder": {
     "pname": "reddit-sidebar-getter-ridder",
@@ -61,6 +68,13 @@
     "addonId": "{46104586-98c3-407e-a349-290c9ff3594d}",
     "url": "https://addons.mozilla.org/firefox/downloads/file/3582006/saka_key-1.26.3.xpi",
     "sha256": "sha256:9ea95fcd919100928ad5ca0dccad3700d627c28be2f2132f2e247e14009a4696"
+  },
+  "sponsorblock": {
+    "pname": "sponsorblock",
+    "version": "5.4.20",
+    "addonId": "sponsorBlocker@ajay.app",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4169272/sponsorblock-5.4.20.xpi",
+    "sha256": "sha256:007c3fbd5007e41c24e2c999be714e6d8c8efc3455965d6ccd500aed8849d9fb"
   },
   "stylus": {
     "pname": "stylus",
@@ -78,10 +92,10 @@
   },
   "ublock-origin": {
     "pname": "ublock-origin",
-    "version": "1.47.4",
+    "version": "1.52.0",
     "addonId": "uBlock0@raymondhill.net",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4079064/ublock_origin-1.47.4.xpi",
-    "sha256": "sha256:a35a6c8758ba74616afc09648c96d74ec2e7d27fe30f311d1db6e9a4966e7858"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4164949/ublock_origin-1.52.0.xpi",
+    "sha256": "sha256:3932506ce4df306e4da7527d93d60fe0421cf15045c2f4ea73589d9a0902266b"
   },
   "user-agent-switcher-revived": {
     "pname": "user-agent-switcher-revived",

@@ -33,12 +33,6 @@
       fsType = "zfs";
     };
 
-  fileSystems."/semi-persistent" =
-    {
-      device = "zroot/semi-persistent";
-      fsType = "zfs";
-    };
-
   fileSystems."/boot" =
     {
       device = "/dev/disk/by-uuid/FFC7-7DA8";
@@ -46,7 +40,4 @@
     };
 
   swapDevices = [ ];
-
-  # high-resolution display
-  hardware.video.hidpi.enable = lib.mkDefault true;
 }

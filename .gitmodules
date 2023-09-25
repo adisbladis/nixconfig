@@ -20,3 +20,6 @@
 [submodule "third_party/talon-nix"]
 	path = third_party/talon-nix
 	url = https://github.com/nix-community/talon-nix.git
+[submodule "third_party/nixd"]
+	path = third_party/nixd
+	url = https://github.com/nix-community/nixd.git

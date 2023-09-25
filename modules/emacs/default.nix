@@ -5,17 +5,12 @@ let
     (
       { emacsWithPackagesFromUsePackage }:
       (emacsWithPackagesFromUsePackage {
-        package = pkgs.emacs;
+        package = pkgs.emacs-unstable;
         config = ./emacs.el;
         alwaysEnsure = true;
 
-        override = epkgs: epkgs // {
-
-          tree-sitter-langs = epkgs.tree-sitter-langs.withPlugins(
-            # Install all tree sitter grammars available from nixpkgs
-            grammars: builtins.filter lib.isDerivation (lib.attrValues grammars)
-          );
-
+        override = eself: esuper: {
+          exwm = esuper.elpaDevelPackages.exwm;
         };
 
       })
@@ -51,7 +46,7 @@ in
       pkgs.nodePackages.bash-language-server
       pkgs.nodePackages.typescript pkgs.nodePackages.typescript-language-server
       pkgs.pyright
-      pkgs.rnix-lsp
+      pkgs.nil  # Nix LSP
       pkgs.gopls
       pkgs.rust-analyzer
     ];

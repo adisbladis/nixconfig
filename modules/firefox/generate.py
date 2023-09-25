@@ -18,6 +18,8 @@ EXTENSIONS = sorted([
     "ublock-origin",
     "user-agent-switcher-revived",
     "darkreader",
+    "sponsorblock",
+    "dearrow",
 ])
 
 

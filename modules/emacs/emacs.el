@@ -55,7 +55,7 @@
     (scroll-bar-mode -1)
     (zerodark-setup-modeline-format)))
 
-;; Tree sitter
+;; ;; Tree sitter
 (use-package tree-sitter
   :config
   (global-tree-sitter-mode)
@@ -102,6 +102,9 @@
     (require 'exwm-xim)
     (exwm-xim-enable)
     (push ?\C-\\ exwm-input-prefix-keys)
+
+    ;; Work around focus issues in Emacs 29+
+    (setq x-no-window-manager t)
 
     (use-package exwm-edit
       :config
@@ -292,7 +295,6 @@
   :config
   (progn
     (require 'ement-room-list)
-    (require 'ement-taxy)
     (defun matrix-connect ()
       (interactive)
       (ement-connect
@@ -323,6 +325,8 @@
 (use-package lua-mode)
 (use-package capnp-mode)
 (use-package graphql-mode)
+(use-package cmake-mode)
+(use-package meson-mode)
 
 
 (defvar multiple-cursors-keymap (make-sparse-keymap))
@@ -486,13 +490,21 @@
   :config
   (setq js2-basic-offset 2))
 
-;; LSP
+;; ;; LSP
+;; (use-package yasnippet
+;;   :config
+;;   (yas-global-mode 1))
+;; (use-package lsp-bridge
+;;   :config
+;;   (global-lsp-bridge-mode))
+
 (use-package eglot
   :hook
   ((js-mode
     typescript-mode
     typescriptreact-mode) . eglot-ensure)
   :config
+  (add-to-list 'eglot-server-programs '(nix-mode . ("nil")))
   (add-hook 'web-mode-hook 'eglot-ensure)
 
   (add-hook 'c-mode-hook 'eglot-ensure)
@@ -539,3 +551,10 @@
       (interactive "P")
       (desktop-environment-volume-set (format "--set-volume %s" volume)))
     ))
+
+
+;; Embedded dev
+(use-package platformio-mode
+  :config
+  (add-hook 'c++-mode-hook (lambda ()
+                             (platformio-conditionally-enable))))

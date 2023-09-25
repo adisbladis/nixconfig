@@ -238,14 +238,7 @@
 
   services.postgresql = {
     enable = true;
-    package = pkgs.postgresql_12;
-    initialScript = pkgs.writeText "synapse-init.sql" ''
-      CREATE USER "matrix-synapse";
-      CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
-        TEMPLATE template0
-        LC_COLLATE = "C"
-        LC_CTYPE = "C";
-    '';
+    package = pkgs.postgresql_15;
     settings =
       # From http://pgconfigurator.cybertec.at/; https://git.darmstadt.ccc.de/maralorn/nixos-config/-/blob/master/nixos/roles/matrix-synapse/postgres-tuning.nix
       {

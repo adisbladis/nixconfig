@@ -17,6 +17,8 @@
 
   services.xserver.dpi = 140;
 
+  programs.darling.enable = true;  # Run OSX binaries
+
   boot.kernelModules = [
     "amd-pstate"
     "acpi_call"
@@ -27,9 +29,6 @@
   boot.kernelParams = [
     "initcall_blacklist=acpi_cpufreq_init"
     "amd_pstate.shared_mem=1"
-
-    # acpi_backlight=none allows the backlight save/load systemd service to work.
-    "acpi_backlight=none"
 
     # Allow turbo boost
     "processor.ignore_ppc=1"
@@ -60,6 +59,7 @@
     Option "RightEdge"  "47"
     Option "VertEdgeScroll"  "1"
   '';
+  services.xserver.libinput.enable = false;
 
   hardware.cpu.amd.updateMicrocode = true;
 
@@ -69,7 +69,8 @@
   networking.hostName = "mochi";
   networking.hostId = "a5ece915";
 
-  boot.kernelPackages = pkgs.zfs.latestCompatibleLinuxPackages;
+  # boot.kernelPackages = pkgs.zfs.latestCompatibleLinuxPackages;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_4;
 
   system.stateVersion = "22.05";
 }

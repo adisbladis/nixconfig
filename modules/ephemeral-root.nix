@@ -14,11 +14,7 @@ in
 
     fileSystems."/persistent".neededForBoot = true;
 
-    fileSystems."/semi-persistent".neededForBoot = true;
-
     programs.fuse.userAllowOther = true;
-
-
 
     environment.persistence."/persistent" = {
       directories = [
@@ -60,6 +56,8 @@ in
           ".config/spotify"
           ".cache/spotify"
 
+          ".platformio"
+
           ".config/retroarch"
 
           # Switch emu
@@ -70,6 +68,9 @@ in
           ".config/rpcs3"
           ".cache/rpcs3"
 
+          # Emu storage directory
+          "Games"
+
           ".cache/flatpak"
           ".local/share/flatpak"
           ".var/app"
@@ -77,10 +78,10 @@ in
           ".steam"
           ".local/share/Steam"
 
-          # Cities: skylines
-          ".local/share/Colossal Order"
-          ".local/share/Paradox Interactive"
-          ".paradoxlauncher"
+          # # Cities: skylines
+          # ".local/share/Colossal Order"
+          # ".local/share/Paradox Interactive"
+          # ".paradoxlauncher"
         ]
       );
       files = [
