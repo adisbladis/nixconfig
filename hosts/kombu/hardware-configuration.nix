@@ -37,6 +37,23 @@
       options = [ "bind" ];
     };
 
+  fileSystems."/media" =
+    { device = lib.concatStringsSep ":" [
+        "/dev/sda"
+        "/dev/sdb"
+        "/dev/sdc"
+        "/dev/sdd"
+      ];
+      fsType = "bcachefs";
+      neededForBoot = true;
+    };
+
+  fileSystems."/unrared" =
+    { device = "/media";
+      fsType = "rar2fs";
+      options = [ "allow_other" ];
+    };
+
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

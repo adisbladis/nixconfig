@@ -55,7 +55,6 @@ in
     pkgs.file
     pkgs.ripgrep
     pkgs.cryptsetup
-    (pkgs.callPackage ../pkgs/go-nix { })
   ];
 
   networking.firewall.enable = true;

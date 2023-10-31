@@ -17,6 +17,11 @@ in
     my.exwm.enable = true;
     my.voice.enable = true;
 
+    hardware.bluetooth.enable = true;
+
+    services.fwupd.enable = true;
+    services.udisks2.enable = true;  # Used by fwupd
+
     programs.gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
@@ -124,11 +129,28 @@ in
     };
 
     home-manager.users.adisbladis = { ... }: {
+
+      # Fix tray icon for Talon and the like
+      systemd.user.services.snixembed = {
+        Unit = {
+          Description = "Start snixembed";
+          After = [ "graphical-session-pre.target" ];
+          PartOf = [ "graphical-session.target" ];
+        };
+
+        Install = { WantedBy = [ "graphical-session.target" ]; };
+
+        Service = {
+          ExecStart = lib.getExe' pkgs.snixembed "snixembed";
+          Restart = "on-abort";
+        };
+      };
+
+
       home.pointerCursor = {
         package = pkgs.vanilla-dmz;
         name = "Vanilla-DMZ-AA";
       };
-
 
       programs.direnv.enable = true;
       programs.direnv.nix-direnv.enable = true;
@@ -159,21 +181,21 @@ in
         "MOZ_USE_XINPUT2"
       ];
 
-      # Matrix client
-      services.pantalaimon = {
-        enable = true;
-        settings = {
-          Default = {
-            LogLevel = "Debug";
-            SSL = true;
-          };
-          "blad.is" = {
-            Homeserver = "https://matrix.blad.is";
-            ListenAddress = "127.0.0.1";
-            ListenPort = 8008;
-          };
-        };
-      };
+      # # Matrix client
+      # services.pantalaimon = {
+      #   enable = true;
+      #   settings = {
+      #     Default = {
+      #       LogLevel = "Debug";
+      #       SSL = true;
+      #     };
+      #     "blad.is" = {
+      #       Homeserver = "https://matrix.blad.is";
+      #       ListenAddress = "127.0.0.1";
+      #       ListenPort = 8008;
+      #     };
+      #   };
+      # };
 
       services.pasystray.enable = true;
 
@@ -372,7 +394,7 @@ in
           pkgs.gopls # Go language server
           pkgs.rust-analyzer # Rust language server
           pkgs.kcachegrind
-          pkgs.transmission-gtk
+          pkgs.transmission-qt
           pkgs.darktable
           pkgs.youtube-dl
           pkgs.yt-dlp

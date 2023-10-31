@@ -8,10 +8,10 @@
   },
   "browserpass-ce": {
     "pname": "browserpass-ce",
-    "version": "3.7.2",
+    "version": "3.8.0",
     "addonId": "browserpass@maximbaz.com",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/3711209/browserpass_ce-3.7.2.xpi",
-    "sha256": "sha256:b1781405b46f3274697885b53139264dca2ab56ffc4435c093102ad5ebc59297"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4187654/browserpass_ce-3.8.0.xpi",
+    "sha256": "sha256:5291d94443be41a80919605b0939c16cc62f9100a8b27df713b735856140a9a7"
   },
   "cookie-quick-manager": {
     "pname": "cookie-quick-manager",
@@ -29,17 +29,17 @@
   },
   "darkreader": {
     "pname": "darkreader",
-    "version": "4.9.65",
+    "version": "4.9.67",
     "addonId": "addon@darkreader.org",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4151368/darkreader-4.9.65.xpi",
-    "sha256": "sha256:964d7fdeec1dc90b5238a82db699de7a2bbf54e3e2bf18569befff451f35f89a"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4175386/darkreader-4.9.67.xpi",
+    "sha256": "sha256:128a151f04af774463448fe1cdb944f6c5095fb17991f82d9aec3c8c4513308e"
   },
   "dearrow": {
     "pname": "dearrow",
-    "version": "1.2.18",
+    "version": "1.2.24",
     "addonId": "deArrow@ajay.app",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4169283/dearrow-1.2.18.xpi",
-    "sha256": "sha256:58c176b03c53dd12f954c51dd849c45916cba7a3655c1cfea736fc0a08e3e745"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4185613/dearrow-1.2.24.xpi",
+    "sha256": "sha256:4db660b0244d0701c151c39482c8403a7da158362bc3ab59cb884739e5c6f3df"
   },
   "decentraleyes": {
     "pname": "decentraleyes",
@@ -71,10 +71,10 @@
   },
   "sponsorblock": {
     "pname": "sponsorblock",
-    "version": "5.4.20",
+    "version": "5.4.25",
     "addonId": "sponsorBlocker@ajay.app",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4169272/sponsorblock-5.4.20.xpi",
-    "sha256": "sha256:007c3fbd5007e41c24e2c999be714e6d8c8efc3455965d6ccd500aed8849d9fb"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4185110/sponsorblock-5.4.25.xpi",
+    "sha256": "sha256:7bb6d42b76acca487be8e11af23db9c3df916b40e3665446d6335d3e1c7a16f4"
   },
   "stylus": {
     "pname": "stylus",
@@ -92,10 +92,10 @@
   },
   "ublock-origin": {
     "pname": "ublock-origin",
-    "version": "1.52.0",
+    "version": "1.52.2",
     "addonId": "uBlock0@raymondhill.net",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4164949/ublock_origin-1.52.0.xpi",
-    "sha256": "sha256:3932506ce4df306e4da7527d93d60fe0421cf15045c2f4ea73589d9a0902266b"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4171020/ublock_origin-1.52.2.xpi",
+    "sha256": "sha256:e8ee3f9d597a6d42db9d73fe87c1d521de340755fd8bfdd69e41623edfe096d6"
   },
   "user-agent-switcher-revived": {
     "pname": "user-agent-switcher-revived",

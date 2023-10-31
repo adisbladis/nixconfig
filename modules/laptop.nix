@@ -11,8 +11,6 @@ in
     # A laptop is a desktop PC
     my.desktop.enable = true;
 
-    hardware.bluetooth.enable = true;
-
     environment.systemPackages = [
       pkgs.acpi
     ];
@@ -24,9 +22,6 @@ in
     services.power-profiles-daemon.enable = true;
 
     powerManagement.cpuFreqGovernor = lib.mkForce null;
-
-    services.fwupd.enable = true;
-    services.udisks2.enable = true;  # Used by fwupd
 
     programs.light.enable = true;
 

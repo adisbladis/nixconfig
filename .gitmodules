@@ -14,12 +14,6 @@
 [submodule "third_party/crane"]
 	path = third_party/crane
 	url = https://github.com/ipetkov/crane.git
-[submodule "third_party/gomod2nix"]
-	path = third_party/gomod2nix
-	url = https://github.com/nix-community/gomod2nix
 [submodule "third_party/talon-nix"]
 	path = third_party/talon-nix
 	url = https://github.com/nix-community/talon-nix.git
-[submodule "third_party/nixd"]
-	path = third_party/nixd
-	url = https://github.com/nix-community/nixd.git

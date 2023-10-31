@@ -17,6 +17,13 @@ in
     programs.fuse.userAllowOther = true;
 
     environment.persistence."/persistent" = {
+      files = [
+        "/etc/machine-id"
+        "/etc/ssh/ssh_host_ed25519_key"
+        "/etc/ssh/ssh_host_ed25519_key.pub"
+        "/etc/ssh/ssh_host_rsa_key"
+        "/etc/ssh/ssh_host_rsa_key.pub"
+      ];
       directories = [
         "/var/log"
         "/var/lib/bluetooth"
@@ -25,10 +32,11 @@ in
 
         "/var/lib/flatpak"
 
-      ] ++ (
-        map
-        (x: "/home/adisbladis/${x}")
-        [
+        "/var/lib/tailscale"
+
+      ];
+      users.adisbladis = {
+        directories = [
           "Downloads"
           "Music"
           "Documents"
@@ -37,16 +45,15 @@ in
           "sauce"
           "Videos"
           "Pictures"
-          ".gnupg"
+          { directory = ".gnupg"; mode = "0700"; }
           ".mozilla"
-          ".ssh"
+          { directory = ".ssh"; mode = "0700"; }
           ".emacs.d"
           ".aws"
           ".local/share/containers"
           ".local/share/fish"
-          ".local/share/keyrings"
+          { directory = ".local/share/keyrings"; mode = "0700"; }
           ".local/share/direnv"
-          ".cache/lorri"
           ".cache/nix"
           ".local/share/pantalaimon"
           ".password-store"
@@ -55,6 +62,7 @@ in
           ".config/pipewire/media-session.d"
           ".config/spotify"
           ".cache/spotify"
+          ".config/sunshine"
 
           ".platformio"
 
@@ -82,15 +90,8 @@ in
           # ".local/share/Colossal Order"
           # ".local/share/Paradox Interactive"
           # ".paradoxlauncher"
-        ]
-      );
-      files = [
-        "/etc/machine-id"
-        "/etc/ssh/ssh_host_ed25519_key"
-        "/etc/ssh/ssh_host_ed25519_key.pub"
-        "/etc/ssh/ssh_host_rsa_key"
-        "/etc/ssh/ssh_host_rsa_key.pub"
-      ];
+        ];
+      };
     };
 
   };

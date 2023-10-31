@@ -37,6 +37,29 @@ in
         48010
       ];
     };
+    home-manager.users.adisbladis = { ... }: {
+      # Run game streaming server
+      systemd.user.services.sunshine = {
+        Unit = {
+          Description = "Start sunshine";
+          After = [ "graphical-session-pre.target" ];
+          PartOf = [ "graphical-session.target" ];
+        };
+
+        Install = { WantedBy = [ "graphical-session.target" ]; };
+
+        Service = {
+          ExecStart = lib.getExe' pkgs.sunshine "sunshine";
+          Restart = "on-abort";
+        };
+      };
+    };
+
+    programs.steam = {
+      enable = true;
+      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    };
 
     # I install steam through flatpak to avoid binary incompatibilities
     xdg.portal.enable = true;
@@ -53,8 +76,11 @@ in
       # Ps3
       pkgs.rpcs3
 
-      # NES/SNES/N64/...
-      pkgs.retroarchFull
+      # # NES/SNES/N64/...
+      # pkgs.retroarchFull
+
+      # Game streaming
+      pkgs.sunshine
 
       # Nintendo Switch
       pkgs.yuzu-mainline
