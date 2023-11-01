@@ -1,9 +1,5 @@
 let
-  pkgs = import ./third_party/nixpkgs {
-    overlays = [
-      (import ./third_party/emacs-overlay)
-    ];
-  };
+  pkgs = import ./third_party/nixpkgs { };
   inherit (pkgs) lib;
 
   nixPath = lib.concatStringsSep ":" (lib.mapAttrsToList (n: v: "${n}=${v}") {

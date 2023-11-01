@@ -6,10 +6,6 @@ in
 {
   options.my.ephemeral-root.enable = lib.mkEnableOption "Enables common ephemeral root persistent mappings.";
 
-  imports = [
-    ../third_party/impermanence/nixos.nix
-  ];
-
   config = lib.mkIf cfg.enable {
 
     fileSystems."/persistent".neededForBoot = true;

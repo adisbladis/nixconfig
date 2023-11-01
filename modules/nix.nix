@@ -6,13 +6,6 @@ in {
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
 
-  nixpkgs.overlays = [
-    (import ../third_party/emacs-overlay)
-    (self: super: {
-      craneLib = import ../third_party/crane { pkgs = self; };
-    })
-  ];
-
   nix = {
     package = package;
     daemonCPUSchedPolicy = "idle";
