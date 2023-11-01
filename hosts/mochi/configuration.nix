@@ -69,8 +69,7 @@
   networking.hostName = "mochi";
   networking.hostId = "a5ece915";
 
-  # boot.kernelPackages = pkgs.zfs.latestCompatibleLinuxPackages;
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_4;
+  boot.kernelPackages = pkgs.zfs.latestCompatibleLinuxPackages;
 
   system.stateVersion = "22.05";
 }

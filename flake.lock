@@ -100,6 +100,26 @@
     "nix-github-actions": {
       "inputs": {
         "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1698726133,
+        "narHash": "sha256-4N66p/aAedOeXmba2071fugNpCf95XJoQKk4qCholkc=",
+        "owner": "nix-community",
+        "repo": "nix-github-actions",
+        "rev": "0c5d3494deb1c40e24fdb27fe5c907171f84efa5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-github-actions",
+        "type": "github"
+      }
+    },
+    "nix-github-actions_2": {
+      "inputs": {
+        "nixpkgs": [
           "talon-nix",
           "nixpkgs"
         ]
@@ -140,6 +160,7 @@
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
+        "nix-github-actions": "nix-github-actions",
         "nixpkgs": "nixpkgs",
         "talon-nix": "talon-nix"
       }
@@ -161,7 +182,7 @@
     },
     "talon-nix": {
       "inputs": {
-        "nix-github-actions": "nix-github-actions",
+        "nix-github-actions": "nix-github-actions_2",
         "nixpkgs": [
           "nixpkgs"
         ]

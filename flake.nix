@@ -18,6 +18,9 @@
   inputs.crane.url = "github:ipetkov/crane";
   inputs.crane.inputs.nixpkgs.follows = "nixpkgs";
 
+  inputs.nix-github-actions.url = "github:nix-community/nix-github-actions";
+  inputs.nix-github-actions.inputs.nixpkgs.follows = "nixpkgs";
+
   outputs =
     { self
     , nixpkgs
@@ -26,11 +29,13 @@
     , talon-nix
     , emacs-overlay
     , crane
+    , nix-github-actions
     }:
     let
       inherit (nixpkgs) lib;
     in
     {
+      githubActions = nix-github-actions.lib.mkGithubMatrix { inherit (self) checks; };
 
       nixosConfigurations =
         let
@@ -57,12 +62,15 @@
         in
         lib.mapAttrs
           (host: _: lib.nixosSystem {
-            system = "x86-64-linux";
+            system = "x86_64-linux";
             modules = modules ++ [
               ./hosts/${host}/configuration.nix
             ];
           })
           hosts;
+
+      # Add all systems as flake checks
+      checks.x86_64-linux = lib.mapAttrs' (name: config: lib.nameValuePair "nixos-${name}" config.config.system.build.toplevel) self.nixosConfigurations;
 
       devShells.x86_64-linux.default =
         let
