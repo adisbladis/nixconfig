@@ -18,45 +18,59 @@
   inputs.crane.url = "github:ipetkov/crane";
   inputs.crane.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = {
-    self,
-    nixpkgs,
-    impermanence,
-    home-manager,
-    talon-nix,
-    emacs-overlay,
-    crane,
-  }: let
-    inherit (nixpkgs) lib;
-  in {
+  outputs =
+    { self
+    , nixpkgs
+    , impermanence
+    , home-manager
+    , talon-nix
+    , emacs-overlay
+    , crane
+    }:
+    let
+      inherit (nixpkgs) lib;
+    in
+    {
 
-    nixosConfigurations = let
-      modules = [
-        impermanence.nixosModule
-        home-manager.nixosModule
-        talon-nix.nixosModules.talon
-        ({ ... }: {
-          nixpkgs.overlays = [
-            emacs-overlay.overlay
-            (final: prev: {
-              craneLib = crane.lib.${final.system};
+      nixosConfigurations =
+        let
+          modules = [
+            impermanence.nixosModule
+            home-manager.nixosModule
+            talon-nix.nixosModules.talon
+            ({ ... }: {
+              nixpkgs.overlays = [
+                emacs-overlay.overlay
+                (final: prev: {
+                  craneLib = crane.lib.${final.system};
+                })
+              ];
             })
           ];
-        })
-      ];
 
-      hosts = (
-        lib.filterAttrs
-        (host: type: type == "directory" && builtins.pathExists (./hosts + "/${host}/configuration.nix"))
-        (builtins.readDir ./hosts)
-      );
+          hosts = (
+            lib.filterAttrs
+              (host: type: type == "directory" && builtins.pathExists (./hosts + "/${host}/configuration.nix"))
+              (builtins.readDir ./hosts)
+          );
 
-    in lib.mapAttrs (host: _: lib.nixosSystem {
-      system = "x86-64-linux";
-      modules = modules ++ [
-        ./hosts/${host}/configuration.nix
-      ];
-    }) hosts;
+        in
+        lib.mapAttrs
+          (host: _: lib.nixosSystem {
+            system = "x86-64-linux";
+            modules = modules ++ [
+              ./hosts/${host}/configuration.nix
+            ];
+          })
+          hosts;
 
-  };
+      devShells.x86_64-linux.default =
+        let
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        in
+        pkgs.mkShell {
+          packages = [ pkgs.nixos-rebuild ];
+        };
+
+    };
 }
