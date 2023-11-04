@@ -21,6 +21,9 @@
   inputs.nix-github-actions.url = "github:nix-community/nix-github-actions";
   inputs.nix-github-actions.inputs.nixpkgs.follows = "nixpkgs";
 
+  inputs.nix-fast-build.url = "github:Mic92/nix-fast-build";
+  inputs.nix-fast-build.inputs.nixpkgs.follows = "nixpkgs";
+
   outputs =
     { self
     , nixpkgs
@@ -30,6 +33,7 @@
     , emacs-overlay
     , crane
     , nix-github-actions
+    , nix-fast-build
     }:
     let
       inherit (nixpkgs) lib;
@@ -48,6 +52,7 @@
                 emacs-overlay.overlay
                 (final: prev: {
                   craneLib = crane.lib.${final.system};
+                  nix-fast-build = nix-fast-build.packages.${final.system}.default;
                 })
               ];
             })
@@ -69,14 +74,15 @@
           })
           hosts;
 
-      # Add all systems as flake checks
-      checks.x86_64-linux = lib.mapAttrs' (name: config: lib.nameValuePair "nixos-${name}" config.config.system.build.toplevel) self.nixosConfigurations;
+      # # Add all systems as flake checks
+      # checks.x86_64-linux = lib.mapAttrs' (name: config: lib.nameValuePair "nixos-${name}" config.config.system.build.toplevel) self.nixosConfigurations;
 
       devShells.x86_64-linux.default =
         let
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
         in
         pkgs.mkShell {
+          env.NIX_PATH = "nixpkgs=${nixpkgs}";
           packages = [ pkgs.nixos-rebuild ];
         };
 

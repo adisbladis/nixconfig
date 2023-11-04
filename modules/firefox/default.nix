@@ -35,7 +35,7 @@ in
         enable = true;
 
         package = pkgs.firefox.override {
-          extraNativeMessagingHosts = [
+          nativeMessagingHosts = [
             pkgs.ff2mpv
           ];
         };

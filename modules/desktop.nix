@@ -66,10 +66,10 @@ in
       pkgs.alsaUtils
       pkgs.emacs-all-the-icons-fonts
       pkgs.libva-utils
-      pkgs.element-desktop
       pkgs.easyeffects
       pkgs.nix-output-monitor
       pkgs.dmidecode
+      pkgs.nix-fast-build
     ];
 
     services.dbus.packages = [
