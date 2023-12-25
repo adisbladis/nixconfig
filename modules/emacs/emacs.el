@@ -558,3 +558,52 @@
   :config
   (add-hook 'c++-mode-hook (lambda ()
                              (platformio-conditionally-enable))))
+
+
+;; (use-package fontaine
+;;   :custom
+;;   (fontaine-presets
+;;    '((t :default-family "Monospace"
+;;         :default-weight regular
+;;         :default-height 100
+;;         :fixed-pitch-height 1.0
+;;         :fixed-pitch-serif-height 1.0
+;;         :variable-pitch-family "Sans"
+;;         :variable-pitch-height 1.0
+;;         :bold-weight bold
+;;         :italic-slant italic
+;;         :line-spacing nil
+;;         :fixed-pitch-family nil
+;;         :fixed-pitch-weight nil
+;;         :fixed-pitch-serif-family nil
+;;         :fixed-pitch-serif-weight nil
+;;         :variable-pitch-weight nil
+;;         :bold-family nil
+;;         :italic-family nil)
+;;      (regular :default-height 100)
+;;      (large :default-weight semilight
+;;             :default-height 140
+;;             :bold-weight extrabold)
+
+;;      ;; (fantasque-sans-mono :default-family "Fantasque Sans Mono"
+;;      ;;                      :default-height 105)
+
+;;      ;; (iosevka-comfy :default-family "Iosevka Comfy Motion")
+;;      ;; (iosevka-comfy-wide :default-family "Iosevka Comfy Wide Motion")
+
+;;      (monaspace-argon :default-family "Monaspace Argon Var"
+;;                       :default-height 100)
+;;      (monaspace-argon-semi-bold :inherit monaspace-argon
+;;                                 :default-weight semibold)
+;;      (monaspace-neon :default-family "Monaspace Neon Var"
+;;                      :default-height 100)
+;;      (monaspace-neon-regular :inherit monaspace-neon
+;;                              :default-weight regular)
+;;      (monaspace-neon-normal :inherit monaspace-neon
+;;                             :default-weight normal)
+;;      (monaspace-neon-semi-bold :inherit monaspace-neon
+;;                                :default-weight semibold)
+;;      (monaspace-xenon :default-family "Monaspace Xenon Var"
+;;                       :default-height 100)
+;;      (monaspace-xenon-semi-bold :inherit monaspace-xenon
+;;                                 :default-weight semibold))))

@@ -5,7 +5,6 @@ let
 
 in
 {
-
   options.my.desktop.enable = lib.mkEnableOption "Enable common desktop options.";
 
   config = lib.mkIf cfg.enable {
@@ -36,6 +35,7 @@ in
       pkgs.powerline-fonts
       pkgs.source-code-pro
       pkgs.libreoffice
+      pkgs.nerdfonts
     ];
 
     boot.supportedFilesystems = [

@@ -13,8 +13,6 @@
 
   services.xserver.dpi = 140;
 
-  programs.darling.enable = true;  # Run OSX binaries
-
   time.timeZone = "Pacific/Auckland";
 
   # Overclock EPYC
@@ -64,7 +62,7 @@
   networking.hostName = "kombu";
 
   boot.supportedFilesystems = [ "bcachefs" ];
-  boot.kernelPackages = lib.mkOverride 0 pkgs.linuxPackages_testing_bcachefs;
+  boot.kernelPackages = pkgs.linuxPackages_testing;
 
   services.jellyfin = {
     enable = true;

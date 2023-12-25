@@ -1,5 +1,10 @@
 { pkgs, lib, config, ... }:
 {
+  services.heisenbridge = {
+    enable = true;
+    homeserver = "http://[::1]:8448";
+    owner = "@adis:blad.is";
+  };
 
   services.nginx = {
     enable = true;
@@ -81,6 +86,10 @@
     enable = true;
 
     settings = {
+
+      app_service_config_files = [
+        "/var/lib/heisenbridge/registration.yml"
+      ];
 
       server_name = "blad.is";
       public_baseurl = "https://matrix.blad.is";

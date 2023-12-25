@@ -29,10 +29,10 @@
   },
   "darkreader": {
     "pname": "darkreader",
-    "version": "4.9.67",
+    "version": "4.9.73",
     "addonId": "addon@darkreader.org",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4175386/darkreader-4.9.67.xpi",
-    "sha256": "sha256:128a151f04af774463448fe1cdb944f6c5095fb17991f82d9aec3c8c4513308e"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4205543/darkreader-4.9.73.xpi",
+    "sha256": "sha256:7c399ff32561886bb80dad0cafaf8f629792b0b71ff1efcf12667e05a2b38f1a"
   },
   "dearrow": {
     "pname": "dearrow",
@@ -71,10 +71,10 @@
   },
   "sponsorblock": {
     "pname": "sponsorblock",
-    "version": "5.4.25",
+    "version": "5.4.29",
     "addonId": "sponsorBlocker@ajay.app",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4185110/sponsorblock-5.4.25.xpi",
-    "sha256": "sha256:7bb6d42b76acca487be8e11af23db9c3df916b40e3665446d6335d3e1c7a16f4"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4202411/sponsorblock-5.4.29.xpi",
+    "sha256": "sha256:ed7a9cf1cc9037294c7b9fdd8033b1d5fd900d59b3dc9b210e54ee7aee807128"
   },
   "stylus": {
     "pname": "stylus",
@@ -92,10 +92,10 @@
   },
   "ublock-origin": {
     "pname": "ublock-origin",
-    "version": "1.53.0",
+    "version": "1.54.0",
     "addonId": "uBlock0@raymondhill.net",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4188488/ublock_origin-1.53.0.xpi",
-    "sha256": "sha256:5403474101f753b5d38c09135e40d82a115afcd01310d78133a4af363462194b"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4198829/ublock_origin-1.54.0.xpi",
+    "sha256": "sha256:9797160908191710ff0858536ba6dc29ecad9923c30b2ad6d3e5e371d759e44d"
   },
   "user-agent-switcher-revived": {
     "pname": "user-agent-switcher-revived",
