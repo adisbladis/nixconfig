@@ -327,6 +327,7 @@
 (use-package graphql-mode)
 (use-package cmake-mode)
 (use-package meson-mode)
+(use-package dts-mode)  ;; Device tree
 
 
 (defvar multiple-cursors-keymap (make-sparse-keymap))
@@ -490,10 +491,10 @@
   :config
   (setq js2-basic-offset 2))
 
-;; ;; LSP
-;; (use-package yasnippet
-;;   :config
-;;   (yas-global-mode 1))
+;; LSP
+(use-package yasnippet
+  :config
+  (yas-global-mode 1))
 ;; (use-package lsp-bridge
 ;;   :config
 ;;   (global-lsp-bridge-mode))
@@ -536,6 +537,14 @@
   :config
   (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-at-point-mode t))
 
+;; (use-package lsp-bridge
+;;   :init
+;;   (global-lsp-bridge-mode)
+;;   :config
+;;   (setq lsp-bridge-nix-lsp-server "nil")
+;;   (setq lsp-bridge-c-lsp-server "ccls")
+;;   )
+
 ;; Voice control
 (use-package talonscript-mode)
 (use-package undo-fu)
@@ -558,7 +567,6 @@
   :config
   (add-hook 'c++-mode-hook (lambda ()
                              (platformio-conditionally-enable))))
-
 
 ;; (use-package fontaine
 ;;   :custom
@@ -607,3 +615,5 @@
 ;;                       :default-height 100)
 ;;      (monaspace-xenon-semi-bold :inherit monaspace-xenon
 ;;                                 :default-weight semibold))))
+
+(use-package scad-mode)

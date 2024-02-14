@@ -11,6 +11,18 @@ let
 
         override = eself: esuper: {
           exwm = esuper.elpaDevelPackages.exwm;
+
+          copilot = eself.trivialBuild {
+            pname = "emacs-copilot";
+            version = "0.0.0";
+            src = pkgs.fetchFromGitHub {
+              owner = "jart";
+              repo = "emacs-copilot";
+              rev = "0cbf06cfd91cc8707a5c7d39b2b4358d8bea5d69";
+              hash = "sha256-w+sK7F/TLdl+u+OcaXMR6FBQAKn0I9dCyhRxU+CihiI=";
+            };
+          };
+
         };
 
       })
@@ -45,8 +57,21 @@ in
       pkgs.ccls
       pkgs.nodePackages.bash-language-server
       pkgs.nodePackages.typescript pkgs.nodePackages.typescript-language-server
+
+      # Python
       pkgs.pyright
-      pkgs.nil  # Nix LSP
+      pkgs.ruff
+      pkgs.ruff-lsp
+
+      # Nix LSP
+      pkgs.nil
+      pkgs.nixd
+
+      pkgs.openscad-lsp
+      pkgs.openscad
+
+      pkgs.texlab
+      pkgs.yaml-language-server
       pkgs.gopls
       pkgs.rust-analyzer
     ];
